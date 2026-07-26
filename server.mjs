@@ -341,7 +341,7 @@ function serveStatic(req, res) {
   });
 }
 
-const server = http.createServer(async (req, res) => {
+export async function handleSousRequest(req, res) {
   try {
     if (req.method === "GET" && req.url === "/api/health") {
       return json(res, 200, { ok: Boolean(OPENAI_API_KEY) });
@@ -359,10 +359,4 @@ const server = http.createServer(async (req, res) => {
       requestId: error.requestId || null,
     });
   }
-});
-
-server.listen(PORT, "127.0.0.1", () => {
-  console.log(`SOUS workbench running at http://127.0.0.1:${PORT}`);
-  console.log(`OpenAI configured: ${Boolean(OPENAI_API_KEY)}`);
-  console.log(`Text model: ${TEXT_MODEL}; Image model: ${IMAGE_MODEL}`);
-});
+}

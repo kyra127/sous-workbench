@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 
 const projectDir = path.dirname(fileURLToPath(import.meta.url));
 const publicPort = Number(process.env.PORT || 8124);
-const upstreamPort = publicPort + 1;
 const allowedOrigins = new Set(
   String(process.env.ALLOWED_ORIGINS || "")
     .split(",")
@@ -14,8 +13,7 @@ const allowedOrigins = new Set(
 );
 const requestBuckets = new Map();
 
-process.env.PORT = String(upstreamPort);
-await import("./server.mjs");
+const { handleSousRequest } = await import("./server.mjs");
 
 const securityHeaders = {
   "X-Content-Type-Options": "nosniff",
@@ -75,52 +73,27 @@ function sendFile(res, fileName, contentType) {
   res.end(bytes);
 }
 
-function proxy(req, res, transformHtml = false) {
-  const upstream = http.request(
-    {
-      hostname: "127.0.0.1",
-      port: upstreamPort,
-      path: req.url,
-      method: req.method,
-      headers: { ...req.headers, host: `127.0.0.1:${upstreamPort}` },
-    },
-    (upstreamRes) => {
-      const isHtml =
-        transformHtml &&
-        String(upstreamRes.headers["content-type"] || "").includes("text/html");
-      if (!isHtml) {
-        res.writeHead(upstreamRes.statusCode || 502, {
-          ...upstreamRes.headers,
-          ...securityHeaders,
-        });
-        upstreamRes.pipe(res);
-        return;
-      }
-      const chunks = [];
-      upstreamRes.on("data", (chunk) => chunks.push(chunk));
-      upstreamRes.on("end", () => {
-        const html = Buffer.concat(chunks)
-          .toString("utf8")
-          .replace(
-            "</head>",
-            '<link rel="stylesheet" href="/workbench.css"><link rel="stylesheet" href="/workbench-v5.css"><link rel="stylesheet" href="/workbench-v8-multigroup.css"><link rel="stylesheet" href="/v26-final.css"><link rel="stylesheet" href="/v27-final.css?v=27.3"><link rel="stylesheet" href="/v28-final.css?v=28.1"><link rel="stylesheet" href="/v29-consistency.css?v=29.2"><link rel="stylesheet" href="/v30-entry.css?v=30.8"></head>',
-          )
-          .replace(
-            "</body>",
-            '<script src="/workbench.js"></script><script src="/workbench-v2.js"></script><script src="/workbench-v4.js"></script><script src="/workbench-v6-pre.js"></script><script src="/workbench-v6.js"></script><script src="/workbench-v6-fixes.js"></script><script src="/workbench-v7.js?v=7.1"></script><script src="/workbench-v7-fixes.js"></script><script src="/workbench-v8-multigroup.js"></script><script src="/workbench-v9-feedback.js"></script><script src="/v26-final.js"></script><script type="module" src="/v27-final.js?v=27.3"></script><script type="module" src="/v28-final.js?v=28.1"></script><script type="module" src="/v29-consistency.js?v=29.2"></script><script src="/v30-entry.js?v=30.8"></script></body>',
-          );
-        res.writeHead(upstreamRes.statusCode || 200, {
-          ...upstreamRes.headers,
-          ...securityHeaders,
-          "content-length": Buffer.byteLength(html),
-          "cache-control": "no-cache",
-        });
-        res.end(html);
-      });
-    },
-  );
-  upstream.on("error", () => json(res, 502, { error: "SOUS upstream unavailable" }));
-  req.pipe(upstream);
+function injectWorkbench(html) {
+  return html
+    .replace(
+      "</head>",
+      '<link rel="stylesheet" href="/workbench.css"><link rel="stylesheet" href="/workbench-v5.css"><link rel="stylesheet" href="/workbench-v8-multigroup.css"><link rel="stylesheet" href="/v26-final.css"><link rel="stylesheet" href="/v27-final.css?v=27.3"><link rel="stylesheet" href="/v28-final.css?v=28.1"><link rel="stylesheet" href="/v29-consistency.css?v=29.2"><link rel="stylesheet" href="/v30-entry.css?v=30.8"></head>',
+    )
+    .replace(
+      "</body>",
+      '<script src="/workbench.js"></script><script src="/workbench-v2.js"></script><script src="/workbench-v4.js"></script><script src="/workbench-v6-pre.js"></script><script src="/workbench-v6.js"></script><script src="/workbench-v6-fixes.js"></script><script src="/workbench-v7.js?v=7.1"></script><script src="/workbench-v7-fixes.js"></script><script src="/workbench-v8-multigroup.js"></script><script src="/workbench-v9-feedback.js"></script><script src="/v26-final.js"></script><script type="module" src="/v27-final.js?v=27.3"></script><script type="module" src="/v28-final.js?v=28.1"></script><script type="module" src="/v29-consistency.js?v=29.2"></script><script src="/v30-entry.js?v=30.8"></script></body>',
+    );
+}
+
+function sendIndex(res) {
+  const html = injectWorkbench(fs.readFileSync(path.join(projectDir, "index.html"), "utf8"));
+  res.writeHead(200, {
+    ...securityHeaders,
+    "Content-Type": "text/html; charset=utf-8",
+    "Content-Length": Buffer.byteLength(html),
+    "Cache-Control": "no-cache",
+  });
+  res.end(html);
 }
 
 const assetRoutes = new Map([
@@ -151,22 +124,30 @@ const assetRoutes = new Map([
 ]);
 
 const workbench = http.createServer((req, res) => {
+  for (const [key, value] of Object.entries(securityHeaders)) {
+    res.setHeader(key, value);
+  }
   const pathname = new URL(req.url, "http://localhost").pathname;
   if (req.method === "GET" && pathname === "/favicon.ico") {
-    res.writeHead(204, securityHeaders);
+    res.writeHead(204);
     return res.end();
   }
   if (req.method === "GET" && assetRoutes.has(pathname)) {
     const [fileName, contentType] = assetRoutes.get(pathname);
     return sendFile(res, fileName, contentType);
   }
+  if (req.method === "GET" && (pathname === "/" || pathname === "/index.html")) {
+    return sendIndex(res);
+  }
   if (req.method === "POST" && pathname.startsWith("/api/")) {
     if (!sameOrigin(req)) return json(res, 403, { error: "Origin not allowed" });
-    if (!withinRateLimit(req)) return json(res, 429, { error: "Too many AI requests. Please retry later." });
+    if (!withinRateLimit(req)) {
+      return json(res, 429, { error: "Too many AI requests. Please retry later." });
+    }
   }
-  proxy(req, res, req.method === "GET");
+  return handleSousRequest(req, res);
 });
 
 workbench.listen(publicPort, "0.0.0.0", () => {
-  console.log(`SOUS public workbench at http://0.0.0.0:${publicPort}`);
+  console.log(`SOUS running at http://0.0.0.0:${publicPort}`);
 });
