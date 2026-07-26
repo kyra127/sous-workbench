@@ -621,19 +621,26 @@ function copyText(t){
 }
 
 /* ---------- AI ---------- */
-async function callAI(userPrompt, images, task = "text"){
-  const response = await fetch("/api/ai", {
+async function callAI(userPrompt, images){
+  let content = userPrompt;
+  if(images && images.length){
+    content = [
+      ...images.map(img=>({ type:"image", source:{ type:"base64", media_type: img.type, data: img.data } })),
+      { type:"text", text: userPrompt }
+    ];
+  }
+  const resp = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      prompt: userPrompt,
-      images: (images || []).map(({data, type}) => ({data, type})),
-      task
+      model: "claude-sonnet-4-6",
+      max_tokens: 1000,
+      messages: [{ role: "user", content }]
     })
   });
-  const data = await response.json().catch(() => ({}));
-  if(!response.ok) throw new Error(data.error || "AI 服务暂不可用");
-  return data.text;
+  if(!resp.ok) throw new Error("API " + resp.status);
+  const data = await resp.json();
+  return (data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
 }
 function todayContext(){
   const d = new Date();

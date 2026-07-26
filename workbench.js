@@ -81,7 +81,7 @@ async function refreshAiStatus() {
     pill.classList.remove("checking", "offline");
     if (!health.ok) throw new Error("OpenAI API 尚未配置");
     text.textContent = "AI 已配置";
-    pill.title = "AI 服务可用";
+    pill.title = `${health.textModel} · ${health.imageModel}`;
   } catch (error) {
     pill.classList.remove("checking");
     pill.classList.add("offline");

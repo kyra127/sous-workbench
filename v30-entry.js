@@ -120,12 +120,7 @@
       }
 
       error.hidden = true;
-      const existingProfile = readProfile();
-      const previous = existingProfile || {};
-      if (!existingProfile) {
-        localStorage.setItem("sous:menu", "{}");
-        if (typeof menu !== "undefined") menu = {};
-      }
+      const previous = readProfile() || {};
       writeProfile({
         ...previous,
         businessName,

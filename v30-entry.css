@@ -419,4 +419,5 @@ header.top .logo {
   .v30-entry-submit { min-height: 47px; margin-top: 1px; border-radius: 14px; font-size: 15px; }
   .v30-entry-note { font-size: 10.5px; line-height: 1.35; }
 }
-.v30-entry[hidden] { display: none !important; }
+
+

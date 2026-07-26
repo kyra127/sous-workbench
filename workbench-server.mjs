@@ -77,7 +77,7 @@ function injectWorkbench(html) {
   return html
     .replace(
       "</head>",
-      '<link rel="stylesheet" href="/workbench.css"><link rel="stylesheet" href="/workbench-v5.css"><link rel="stylesheet" href="/workbench-v8-multigroup.css"><link rel="stylesheet" href="/v26-final.css"><link rel="stylesheet" href="/v27-final.css?v=27.3"><link rel="stylesheet" href="/v28-final.css?v=28.1"><link rel="stylesheet" href="/v29-consistency.css?v=29.2"><link rel="stylesheet" href="/v30-entry.css?v=30.8"></head>',
+      '<link rel="stylesheet" href="/workbench.css"><link rel="stylesheet" href="/workbench-v5.css"><link rel="stylesheet" href="/workbench-v8-multigroup.css"><link rel="stylesheet" href="/v26-final.css"><link rel="stylesheet" href="/v27-final.css"><link rel="stylesheet" href="/v27-final.css?v=27.3"><link rel="stylesheet" href="/v28-final.css?v=28.1"><link rel="stylesheet" href="/v29-consistency.css?v=29.2"><link rel="stylesheet" href="/v30-entry.css?v=30.8"></head>',
     )
     .replace(
       "</body>",
