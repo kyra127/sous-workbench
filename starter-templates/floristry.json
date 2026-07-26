@@ -1,0 +1,170 @@
+﻿{
+    "id":  "floristry",
+    "name":  "鲜花花艺",
+    "description":  "预填花礼商品、常用材料和布置交付方式。",
+    "catalogItems":  [
+                         {
+                             "id":  "floristry-korean-bouquet",
+                             "name":  "韩式花束",
+                             "unit":  "束",
+                             "materials":  [
+                                               {
+                                                   "materialId":  "floristry-rose",
+                                                   "amount":  9,
+                                                   "unit":  "枝"
+                                               },
+                                               {
+                                                   "materialId":  "floristry-babys-breath",
+                                                   "amount":  3,
+                                                   "unit":  "枝"
+                                               },
+                                               {
+                                                   "materialId":  "floristry-paper",
+                                                   "amount":  3,
+                                                   "unit":  "张"
+                                               },
+                                               {
+                                                   "materialId":  "floristry-ribbon",
+                                                   "amount":  1.2,
+                                                   "unit":  "m"
+                                               }
+                                           ]
+                         },
+                         {
+                             "id":  "floristry-table-flower",
+                             "name":  "桌花",
+                             "unit":  "组",
+                             "materials":  [
+                                               {
+                                                   "materialId":  "floristry-rose",
+                                                   "amount":  7,
+                                                   "unit":  "枝"
+                                               },
+                                               {
+                                                   "materialId":  "floristry-eucalyptus",
+                                                   "amount":  5,
+                                                   "unit":  "枝"
+                                               },
+                                               {
+                                                   "materialId":  "floristry-ribbon",
+                                                   "amount":  0.5,
+                                                   "unit":  "m"
+                                               }
+                                           ]
+                         },
+                         {
+                             "id":  "floristry-flower-box",
+                             "name":  "花盒",
+                             "unit":  "盒",
+                             "materials":  [
+                                               {
+                                                   "materialId":  "floristry-rose",
+                                                   "amount":  12,
+                                                   "unit":  "枝"
+                                               },
+                                               {
+                                                   "materialId":  "floristry-babys-breath",
+                                                   "amount":  4,
+                                                   "unit":  "枝"
+                                               },
+                                               {
+                                                   "materialId":  "floristry-ribbon",
+                                                   "amount":  1,
+                                                   "unit":  "m"
+                                               }
+                                           ]
+                         },
+                         {
+                             "id":  "floristry-mini-bouquet",
+                             "name":  "迷你花束",
+                             "unit":  "束",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "floristry-vase",
+                             "name":  "瓶花",
+                             "unit":  "组",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "floristry-opening",
+                             "name":  "开业花篮",
+                             "unit":  "个",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "floristry-bridal",
+                             "name":  "新娘手捧花",
+                             "unit":  "束",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "floristry-corsage",
+                             "name":  "胸花",
+                             "unit":  "个",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "floristry-preserved",
+                             "name":  "永生花礼盒",
+                             "unit":  "盒",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "floristry-venue",
+                             "name":  "场地花艺布置",
+                             "unit":  "场",
+                             "materials":  [
+
+                                           ]
+                         }
+                     ],
+    "materials":  [
+                      {
+                          "id":  "floristry-rose",
+                          "name":  "玫瑰",
+                          "unit":  "枝"
+                      },
+                      {
+                          "id":  "floristry-babys-breath",
+                          "name":  "满天星",
+                          "unit":  "枝"
+                      },
+                      {
+                          "id":  "floristry-eucalyptus",
+                          "name":  "尤加利叶",
+                          "unit":  "枝"
+                      },
+                      {
+                          "id":  "floristry-paper",
+                          "name":  "包装纸",
+                          "unit":  "张"
+                      },
+                      {
+                          "id":  "floristry-ribbon",
+                          "name":  "丝带",
+                          "unit":  "m"
+                      }
+                  ],
+    "fulfillmentMethods":  [
+                               "自取",
+                               "配送",
+                               "上门布置"
+                           ],
+    "sampleMessages":  [
+                           "周六需要一束韩式花束，奶油白色系，下午配送。",
+                           "想订两组桌花，下周五上门布置。"
+                       ]
+}

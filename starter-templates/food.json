@@ -1,0 +1,160 @@
+﻿{
+    "id":  "food",
+    "name":  "餐食料理",
+    "description":  "预填日常餐食、基础材料和常见交付方式。",
+    "catalogItems":  [
+                         {
+                             "id":  "food-bento",
+                             "name":  "每日便当",
+                             "unit":  "份",
+                             "materials":  [
+                                               {
+                                                   "materialId":  "food-rice",
+                                                   "amount":  180,
+                                                   "unit":  "g"
+                                               },
+                                               {
+                                                   "materialId":  "food-chicken",
+                                                   "amount":  120,
+                                                   "unit":  "g"
+                                               },
+                                               {
+                                                   "materialId":  "food-seasoning",
+                                                   "amount":  12,
+                                                   "unit":  "g"
+                                               }
+                                           ]
+                         },
+                         {
+                             "id":  "food-salad",
+                             "name":  "轻食沙拉",
+                             "unit":  "份",
+                             "materials":  [
+                                               {
+                                                   "materialId":  "food-chicken",
+                                                   "amount":  100,
+                                                   "unit":  "g"
+                                               },
+                                               {
+                                                   "materialId":  "food-lettuce",
+                                                   "amount":  120,
+                                                   "unit":  "g"
+                                               },
+                                               {
+                                                   "materialId":  "food-tomato",
+                                                   "amount":  80,
+                                                   "unit":  "g"
+                                               },
+                                               {
+                                                   "materialId":  "food-seasoning",
+                                                   "amount":  10,
+                                                   "unit":  "g"
+                                               }
+                                           ]
+                         },
+                         {
+                             "id":  "food-dessert",
+                             "name":  "当日甜品",
+                             "unit":  "份",
+                             "materials":  [
+                                               {
+                                                   "materialId":  "food-seasoning",
+                                                   "amount":  8,
+                                                   "unit":  "g"
+                                               }
+                                           ]
+                         },
+                         {
+                             "id":  "food-family-set",
+                             "name":  "家庭套餐",
+                             "unit":  "套",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "food-soup",
+                             "name":  "每日例汤",
+                             "unit":  "份",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "food-breakfast",
+                             "name":  "早餐盒",
+                             "unit":  "份",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "food-party-platter",
+                             "name":  "聚会拼盘",
+                             "unit":  "盘",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "food-private-dish",
+                             "name":  "私房菜",
+                             "unit":  "份",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "food-low-cal",
+                             "name":  "低卡餐",
+                             "unit":  "份",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "food-catering",
+                             "name":  "活动餐食套餐",
+                             "unit":  "套",
+                             "materials":  [
+
+                                           ]
+                         }
+                     ],
+    "materials":  [
+                      {
+                          "id":  "food-rice",
+                          "name":  "米饭",
+                          "unit":  "g"
+                      },
+                      {
+                          "id":  "food-chicken",
+                          "name":  "鸡胸肉",
+                          "unit":  "g"
+                      },
+                      {
+                          "id":  "food-lettuce",
+                          "name":  "生菜",
+                          "unit":  "g"
+                      },
+                      {
+                          "id":  "food-tomato",
+                          "name":  "番茄",
+                          "unit":  "g"
+                      },
+                      {
+                          "id":  "food-seasoning",
+                          "name":  "调味料",
+                          "unit":  "g"
+                      }
+                  ],
+    "fulfillmentMethods":  [
+                               "自取",
+                               "配送",
+                               "上门"
+                           ],
+    "sampleMessages":  [
+                           "明天中午要三份每日便当，配送到办公室。",
+                           "两份轻食沙拉，今天下午自取。"
+                       ]
+}

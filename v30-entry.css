@@ -1,0 +1,422 @@
+:root {
+  --v30-blue: #0f62fe;
+  --v30-blue-deep: #0043ce;
+  --v30-blue-soft: #edf4ff;
+  --v30-ink: #172033;
+  --v30-muted: #667085;
+  --v30-line: #dfe5ee;
+  --v30-surface: #ffffff;
+}
+
+/* First-use identity screen: intentionally simple, local-only, no password. */
+.v30-entry {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background:
+    radial-gradient(circle at 18% 5%, rgba(255, 255, 255, .2), transparent 25%),
+    linear-gradient(145deg, #1769ff 0%, #0f62fe 55%, #0043ce 100%);
+  color: var(--v30-ink);
+}
+
+
+
+body.v30-entry-open > .app {
+  display: none !important;
+}
+
+.v30-entry-brand {
+  width: min(100% - 40px, 440px);
+  min-height: 26svh;
+  margin: 0 auto;
+  padding: max(28px, env(safe-area-inset-top)) 2px 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.v30-entry-logo {
+  font-size: 28px;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.v30-entry-step {
+  padding-top: 8px;
+  color: rgba(255, 255, 255, .8);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.v30-entry-sheet {
+  width: min(100%, 520px);
+  min-height: 74svh;
+  margin: 0 auto;
+  padding: 28px max(22px, env(safe-area-inset-left)) calc(32px + env(safe-area-inset-bottom));
+  border-radius: 32px 32px 0 0;
+  background: var(--v30-surface);
+  box-shadow: 0 -18px 50px rgba(0, 35, 102, .14);
+}
+
+.v30-entry-handle {
+  width: 42px;
+  height: 4px;
+  margin: 0 auto 30px;
+  border-radius: 99px;
+  background: #d8dde6;
+}
+
+.v30-entry-copy {
+  margin: 0 0 30px;
+  text-align: center;
+}
+
+.v30-entry-copy h1 {
+  margin: 0;
+  color: var(--v30-ink);
+  font-size: clamp(30px, 8vw, 40px);
+  font-weight: 820;
+  letter-spacing: -.04em;
+  line-height: 1.16;
+}
+
+.v30-entry-copy p {
+  margin: 10px auto 0;
+  max-width: 320px;
+  color: var(--v30-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.v30-entry-form {
+  width: 100%;
+  display: grid;
+  gap: 18px;
+}
+
+.v30-entry-field {
+  display: grid;
+  gap: 8px;
+}
+
+.v30-entry-field label {
+  color: var(--v30-ink);
+  font-size: 13px;
+  font-weight: 720;
+  line-height: 1.35;
+}
+
+.v30-entry-field input {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 16px;
+  border: 1px solid var(--v30-line);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--v30-ink);
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+.v30-entry-field input::placeholder {
+  color: #a1aaba;
+}
+
+.v30-entry-field input:focus-visible {
+  border-color: var(--v30-blue);
+  box-shadow: 0 0 0 4px rgba(15, 98, 254, .14);
+}
+
+.v30-entry-field input[aria-invalid="true"] {
+  border-color: #d92d20;
+}
+
+.v30-entry-error {
+  margin: -6px 0 0;
+  color: #b42318;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.v30-entry-submit {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--v30-blue), var(--v30-blue-deep));
+  box-shadow: 0 12px 26px rgba(15, 98, 254, .22);
+  color: #fff;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 760;
+  cursor: pointer;
+}
+
+.v30-entry-submit:focus-visible {
+  outline: 3px solid rgba(15, 98, 254, .28);
+  outline-offset: 3px;
+}
+
+.v30-entry-note {
+  margin: 0;
+  color: var(--v30-muted);
+  font-size: 11.5px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+/* Keep More in a normal flow and place the industry switch after AI Content Assistant. */
+#page-more.on {
+  min-height: 0 !important;
+  display: block !important;
+}
+
+#page-more > .v27-business-entry.v29-business-entry.v30-industry-entry {
+  margin: 12px 0 26px !important;
+}
+
+/* Compact home shortcuts sit directly below Today's Pending. */
+.v30-home-quick-tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 12px 0 22px;
+}
+
+.v30-home-quick-tool {
+  min-width: 0;
+  min-height: 58px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 10px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--v30-line);
+  border-radius: 16px;
+  background: var(--v30-surface);
+  color: var(--v30-ink);
+  box-shadow: 0 8px 20px rgba(23, 32, 51, 0.06);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.v30-home-quick-icon {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--v30-blue-soft);
+  color: var(--v30-blue);
+}
+
+.v30-home-quick-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.v30-home-quick-copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.v30-home-quick-copy b,
+.v30-home-quick-copy small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v30-home-quick-copy b {
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.v30-home-quick-copy small {
+  color: var(--v30-muted);
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+
+.v30-home-quick-arrow {
+  color: #98a2b3;
+  font-size: 18px;
+}
+
+.v30-home-quick-tool:focus-visible {
+  outline: 3px solid rgba(15, 98, 254, 0.25);
+  outline-offset: 2px;
+}
+
+/* Screenshot remove controls: touchable, contained, and consistent on phones. */
+#imgThumbs > span {
+  position: relative !important;
+  display: inline-grid !important;
+  width: 64px !important;
+  height: 64px !important;
+  place-items: center !important;
+}
+
+#imgThumbs > span > img {
+  width: 56px !important;
+  height: 56px !important;
+  display: block !important;
+}
+
+#imgThumbs > span > button {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 2px solid #fff !important;
+  border-radius: 50% !important;
+  background: #344054 !important;
+  color: #fff !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  box-shadow: 0 4px 10px rgba(17, 24, 39, .2) !important;
+  transform: none !important;
+  touch-action: manipulation;
+}
+
+#imgThumbs > span > button:focus-visible {
+  outline: 3px solid rgba(15, 98, 254, .35) !important;
+  outline-offset: 2px !important;
+}
+
+@media (min-width: 700px) {
+  .v30-entry {
+    display: grid;
+    align-content: center;
+    padding: 36px 0;
+  }
+
+  .v30-entry-brand {
+    min-height: auto;
+    padding: 0 2px 22px;
+  }
+
+  .v30-entry-sheet {
+    min-height: auto;
+    border-radius: 32px;
+    padding: 26px 42px 38px;
+  }
+}
+
+@media (max-width: 430px) {
+  .v30-entry-brand {
+    min-height: 23svh;
+  }
+
+  .v30-entry-sheet {
+    min-height: 77svh;
+    padding-top: 22px;
+  }
+
+  #page-more > .v27-business-entry.v29-business-entry.v30-industry-entry {
+    margin: 10px 0 96px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v30-entry-field input,
+  .v30-entry-submit {
+    transition: none;
+  }
+}
+
+/* Brand usage: full emphasis on first-use, compact mark in everyday headers. */
+.v30-entry-emblem {
+  width: 104px;
+  height: 104px;
+  margin: -4px auto 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e6edfa;
+  border-radius: 28px;
+  background: #f6f9ff;
+  box-shadow: 0 12px 30px rgba(15, 98, 254, .12);
+}
+
+.v30-entry-emblem img {
+  width: 78px;
+  height: 78px;
+  display: block;
+  object-fit: contain;
+}
+
+header.top .logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.v30-brand-mark {
+  width: 30px;
+  height: 30px;
+  display: block;
+  flex: 0 0 30px;
+  object-fit: contain;
+}
+
+@media (max-width: 430px) {
+  .v30-entry-emblem {
+    width: 92px;
+    height: 92px;
+    margin-bottom: 18px;
+    border-radius: 24px;
+  }
+
+  .v30-entry-emblem img {
+    width: 68px;
+    height: 68px;
+  }
+
+  .v30-brand-mark {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+}
+#page-more:not(.on) { display: none !important; }
+
+
+@media (max-width: 430px) {
+  .v30-entry { height: 100dvh; overflow: hidden; display: grid; grid-template-rows: 84px minmax(0, 1fr); }
+  .v30-entry-brand { width: calc(100% - 48px); min-height: 0; height: 84px; padding: max(20px, env(safe-area-inset-top)) 0 8px; align-items: flex-start; }
+  .v30-entry-logo { font-size: 25px; }
+  .v30-entry-sheet { width: 100%; height: 100%; min-height: 0; overflow: hidden; padding: 12px 24px calc(12px + env(safe-area-inset-bottom)); border-radius: 28px 28px 0 0; }
+  .v30-entry-handle { width: 38px; height: 4px; margin-bottom: 9px; }
+  .v30-entry-emblem { width: 62px; height: 62px; margin: 0 auto 7px; border-radius: 17px; }
+  .v30-entry-emblem img { width: 47px; height: 47px; }
+  .v30-entry-copy { margin-bottom: 11px; }
+  .v30-entry-copy h1 { font-size: 28px; line-height: 1.12; }
+  .v30-entry-copy p { margin-top: 5px; font-size: 12px; line-height: 1.4; }
+  .v30-entry-form { gap: 8px; }
+  .v30-entry-field { gap: 4px; }
+  .v30-entry-field label { font-size: 12px; }
+  .v30-entry-field input { min-height: 46px; padding: 0 14px; border-radius: 12px; font-size: 15px; }
+  .v30-entry-submit { min-height: 47px; margin-top: 1px; border-radius: 14px; font-size: 15px; }
+  .v30-entry-note { font-size: 10.5px; line-height: 1.35; }
+}
+.v30-entry[hidden] { display: none !important; }

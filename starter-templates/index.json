@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "templates": [
+    "bakery.json",
+    "floristry.json",
+    "food.json",
+    "handmade.json"
+  ]
+}

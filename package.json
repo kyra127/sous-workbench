@@ -1,0 +1,19 @@
+{
+  "name": "sous-workbench",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first AI operations workbench for small businesses.",
+  "type": "module",
+  "scripts": {
+    "start": "node workbench-server.mjs",
+    "check": "node --check server.mjs && node --check workbench-server.mjs && node scripts/check-runtime.mjs",
+    "test": "npm run check",
+    "test:acceptance": "node v30-entry-acceptance.cjs && node v8-product-logic-acceptance.cjs && node v8-multigroup-acceptance.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "^1.55.0"
+  }
+}

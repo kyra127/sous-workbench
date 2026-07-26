@@ -1,0 +1,166 @@
+:root {
+  --v29-blue: #0f62fe;
+  --v29-blue-soft: #edf4ff;
+  --v29-ink: #172033;
+  --v29-muted: #667085;
+  --v29-line: #dfe5ee;
+  --v29-surface: #ffffff;
+}
+
+/* One settings affordance across every business and page. */
+.account-settings {
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  border: 1px solid var(--v29-line) !important;
+  border-radius: 50% !important;
+  background: var(--v29-surface) !important;
+  box-shadow: 0 8px 22px rgba(17, 24, 39, .06) !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+.account-settings > *:not(img) { display: none !important; }
+.account-settings img {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* The industry action is secondary and lives at the end of the tools page. */
+#page-more > .v27-business-entry.v29-business-entry {
+  order: 99 !important;
+  margin: clamp(180px, 28vh, 300px) 2px 18px !important;
+  padding: 12px 0 0 !important;
+  border-top: 1px solid var(--v29-line) !important;
+}
+#page-more > .v27-business-entry.v29-business-entry > button {
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 0 2px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--v29-ink) !important;
+  text-align: left !important;
+}
+#page-more > .v29-business-entry b {
+  font-size: 12.5px !important;
+  line-height: 1.35 !important;
+}
+#page-more > .v29-business-entry span {
+  color: var(--v29-muted) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+}
+
+/* A single workspace component, regardless of active industry. */
+#page-settings .workspace-card.v29-workspace-card {
+  display: grid !important;
+  gap: 12px !important;
+  padding: 18px !important;
+  border: 1px solid var(--v29-line) !important;
+  border-radius: 16px !important;
+  background: var(--v29-surface) !important;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, .05) !important;
+}
+.v29-workspace-current {
+  display: grid !important;
+  gap: 3px !important;
+}
+.v29-workspace-current > span {
+  color: var(--v29-muted) !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+.v29-workspace-current > b {
+  color: var(--v29-ink) !important;
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+.v29-workspace-current > small {
+  color: var(--v29-muted) !important;
+  font-size: 11.5px !important;
+  line-height: 1.45 !important;
+}
+.v29-workspace-list {
+  display: grid !important;
+  gap: 7px !important;
+}
+.v29-workspace-list > button {
+  width: 100% !important;
+  min-height: 54px !important;
+  padding: 9px 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  border: 1px solid var(--v29-line) !important;
+  border-radius: 11px !important;
+  background: var(--v29-surface) !important;
+  color: var(--v29-ink) !important;
+  text-align: left !important;
+}
+.v29-workspace-list > button[aria-current="true"] {
+  border-color: #8bb4ff !important;
+  background: var(--v29-blue-soft) !important;
+}
+.v29-workspace-list > button > span {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: 2px !important;
+}
+.v29-workspace-list b {
+  overflow: hidden !important;
+  color: var(--v29-ink) !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.v29-workspace-list small {
+  color: var(--v29-muted) !important;
+  font-size: 10.5px !important;
+  line-height: 1.4 !important;
+}
+.v29-workspace-list em {
+  flex: 0 0 auto !important;
+  color: var(--v29-blue) !important;
+  font-size: 11px !important;
+  font-style: normal !important;
+  font-weight: 650 !important;
+}
+.v29-workspace-add {
+  width: 100% !important;
+  min-height: 44px !important;
+  border: 1px solid var(--v29-line) !important;
+  border-radius: 11px !important;
+  background: var(--v29-surface) !important;
+  color: var(--v29-ink) !important;
+  font: inherit !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+.v29-workspace-help {
+  margin: 0 !important;
+  color: var(--v29-muted) !important;
+  font-size: 10.5px !important;
+  line-height: 1.5 !important;
+}
+
+@media (max-width: 430px) {
+  #page-settings .workspace-card.v29-workspace-card { padding: 16px !important; }
+  #page-more > .v27-business-entry.v29-business-entry {
+    margin-top: clamp(150px, 24vh, 230px) !important;
+  }
+}

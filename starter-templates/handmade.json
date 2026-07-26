@@ -1,0 +1,159 @@
+﻿{
+    "id":  "handmade",
+    "name":  "手作产品",
+    "description":  "预填常见手作商品、制作材料和自取配送方式。",
+    "catalogItems":  [
+                         {
+                             "id":  "handmade-soap",
+                             "name":  "手工皂",
+                             "unit":  "块",
+                             "materials":  [
+                                               {
+                                                   "materialId":  "handmade-soap-base",
+                                                   "amount":  100,
+                                                   "unit":  "g"
+                                               },
+                                               {
+                                                   "materialId":  "handmade-fragrance",
+                                                   "amount":  3,
+                                                   "unit":  "ml"
+                                               },
+                                               {
+                                                   "materialId":  "handmade-packaging",
+                                                   "amount":  1,
+                                                   "unit":  "份"
+                                               }
+                                           ]
+                         },
+                         {
+                             "id":  "handmade-candle",
+                             "name":  "香薰蜡烛",
+                             "unit":  "个",
+                             "materials":  [
+                                               {
+                                                   "materialId":  "handmade-wax",
+                                                   "amount":  180,
+                                                   "unit":  "g"
+                                               },
+                                               {
+                                                   "materialId":  "handmade-fragrance",
+                                                   "amount":  8,
+                                                   "unit":  "ml"
+                                               },
+                                               {
+                                                   "materialId":  "handmade-packaging",
+                                                   "amount":  1,
+                                                   "unit":  "份"
+                                               }
+                                           ]
+                         },
+                         {
+                             "id":  "handmade-jewelry",
+                             "name":  "手作饰品",
+                             "unit":  "件",
+                             "materials":  [
+                                               {
+                                                   "materialId":  "handmade-accessories",
+                                                   "amount":  1,
+                                                   "unit":  "套"
+                                               },
+                                               {
+                                                   "materialId":  "handmade-packaging",
+                                                   "amount":  1,
+                                                   "unit":  "份"
+                                               }
+                                           ]
+                         },
+                         {
+                             "id":  "handmade-clay",
+                             "name":  "黏土饰品",
+                             "unit":  "件",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "handmade-knit",
+                             "name":  "针织手作",
+                             "unit":  "件",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "handmade-gift-box",
+                             "name":  "定制礼盒",
+                             "unit":  "盒",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "handmade-resin",
+                             "name":  "树脂摆件",
+                             "unit":  "件",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "handmade-leather",
+                             "name":  "皮具小物",
+                             "unit":  "件",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "handmade-diffuser",
+                             "name":  "香薰扩香",
+                             "unit":  "瓶",
+                             "materials":  [
+
+                                           ]
+                         },
+                         {
+                             "id":  "handmade-phone-charm",
+                             "name":  "手机挂件",
+                             "unit":  "条",
+                             "materials":  [
+
+                                           ]
+                         }
+                     ],
+    "materials":  [
+                      {
+                          "id":  "handmade-soap-base",
+                          "name":  "皂基",
+                          "unit":  "g"
+                      },
+                      {
+                          "id":  "handmade-wax",
+                          "name":  "蜡材",
+                          "unit":  "g"
+                      },
+                      {
+                          "id":  "handmade-fragrance",
+                          "name":  "香精",
+                          "unit":  "ml"
+                      },
+                      {
+                          "id":  "handmade-accessories",
+                          "name":  "饰品配件",
+                          "unit":  "套"
+                      },
+                      {
+                          "id":  "handmade-packaging",
+                          "name":  "包装材料",
+                          "unit":  "份"
+                      }
+                  ],
+    "fulfillmentMethods":  [
+                               "自取",
+                               "配送"
+                           ],
+    "sampleMessages":  [
+                           "想订三块手工皂，下周一配送。",
+                           "需要两个香薰蜡烛，其中一个是礼物包装。"
+                       ]
+}
