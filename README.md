@@ -49,6 +49,8 @@ npm run test:acceptance
 
 ## Deployment
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/kyra127/sous-workbench)
+
 GitHub Pages and a direct Vercel Functions migration are not supported by this
 version because SOUS requires a server-side OpenAI proxy and accepts screenshot
 payloads larger than common serverless limits.
