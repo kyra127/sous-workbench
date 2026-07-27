@@ -38,6 +38,16 @@ const assert = (condition, message) => { if (!condition) throw new Error(message
   await page.locator("#v30Entry").waitFor({ state: "visible" });
   assert(!(await page.locator('[data-v7-step="0"]').evaluate((node) => node.classList.contains("on"))), "back incorrectly opened legacy business info");
   assert(errors.length === 0, `page errors: ${errors.join(" | ")}`);
+  const partial = await browser.newPage({ viewport: { width: 393, height: 852 } });
+  await partial.goto("http://127.0.0.1:8136/", { waitUntil: "domcontentloaded" });
+  await partial.evaluate(() => {
+    localStorage.clear();
+    localStorage.setItem("sous:business-profile:v1", JSON.stringify({ businessName: "Partial Shop", email: "partial@example.com" }));
+  });
+  await partial.reload({ waitUntil: "domcontentloaded" });
+  await partial.locator("#v30Entry").waitFor({ state: "visible" });
+  assert(!(await partial.locator("#sousSetup").isVisible()), "partial onboarding exposed setup instead of registration");
+  await partial.close();
   await browser.close();
   console.log("v30 entry acceptance passed");
 })().catch((error) => { console.error(error); process.exit(1); });

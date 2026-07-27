@@ -19,7 +19,7 @@ const assert = (value, message) => {
     localStorage.clear();
     localStorage.setItem(
       "sous:business-profile:v1",
-      JSON.stringify({ businessName: "测试店铺", email: "owner@example.com" }),
+      JSON.stringify({ businessName: "测试店铺", email: "owner@example.com", onboardingCompleted: true }),
     );
     localStorage.setItem("sous:v7-setup-complete", "true");
   });

@@ -2058,6 +2058,7 @@ if (originalWeeklyMenu) {
     }
 
     const profile = {
+      ...oldProfile,
       email: oldProfile.email || "",
       businessName: oldProfile.businessName || oldProfile.storeName || "",
       channels: Array.isArray(oldProfile.channels) ? oldProfile.channels : [],
@@ -5396,7 +5397,7 @@ ${extra ? `补充要求：${extra}` : ""}
     const params = new URLSearchParams(window.location.search);
     const profile = readProfile();
     const forcePreview = params.get(FORCE_PARAM) === "1";
-    const needsEntry = forcePreview || !profile?.businessName || !profile?.email;
+    const needsEntry = forcePreview || profile?.onboardingCompleted !== true;
     if (!needsEntry || document.getElementById("v30Entry")) return;
 
     document.body.insertAdjacentHTML("beforeend", markup(forcePreview ? profile || {} : {}));

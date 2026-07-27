@@ -5,7 +5,7 @@ import zlib from "node:zlib";
 import { fileURLToPath } from "node:url";
 
 const projectDir = path.dirname(fileURLToPath(import.meta.url));
-const buildVersion = "20260727-v31.38";
+const buildVersion = "20260727-v31.40";
 const cleanResetKey = "sous:clean-release";
 const publicPort = Number(process.env.PORT || 8124);
 const allowedOrigins = new Set(

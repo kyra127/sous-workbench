@@ -225,6 +225,7 @@
     }
 
     const profile = {
+      ...oldProfile,
       email: oldProfile.email || "",
       businessName: oldProfile.businessName || oldProfile.storeName || "",
       channels: Array.isArray(oldProfile.channels) ? oldProfile.channels : [],
