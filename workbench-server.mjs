@@ -68,7 +68,7 @@ function sendFile(res, fileName, contentType) {
     ...securityHeaders,
     "Content-Type": contentType,
     "Content-Length": bytes.length,
-    "Cache-Control": "public, max-age=300",
+    "Cache-Control": "no-cache",
   });
   res.end(bytes);
 }
@@ -77,11 +77,11 @@ function injectWorkbench(html) {
   return html
     .replace(
       "</head>",
-      '<link rel="stylesheet" href="/workbench.css"><link rel="stylesheet" href="/workbench-v5.css"><link rel="stylesheet" href="/workbench-v8-multigroup.css"><link rel="stylesheet" href="/v26-final.css"><link rel="stylesheet" href="/v27-final.css"><link rel="stylesheet" href="/v27-final.css?v=27.3"><link rel="stylesheet" href="/v28-final.css?v=28.1"><link rel="stylesheet" href="/v29-consistency.css?v=29.2"><link rel="stylesheet" href="/v30-entry.css?v=30.8"></head>',
+      '<link rel="stylesheet" href="/workbench.css?v=20260727-v30.8.1"><link rel="stylesheet" href="/workbench-v5.css?v=20260727-v30.8.1"><link rel="stylesheet" href="/workbench-v8-multigroup.css?v=20260727-v30.8.1"><link rel="stylesheet" href="/v26-final.css?v=20260727-v30.8.1"><link rel="stylesheet" href="/v27-final.css?v=20260727-v30.8.1"><link rel="stylesheet" href="/v28-final.css?v=20260727-v30.8.1"><link rel="stylesheet" href="/v29-consistency.css?v=20260727-v30.8.1"><link rel="stylesheet" href="/v30-entry.css?v=20260727-v30.8.1"></head>',
     )
     .replace(
       "</body>",
-      '<script src="/workbench.js"></script><script src="/workbench-v2.js"></script><script src="/workbench-v4.js"></script><script src="/workbench-v6-pre.js"></script><script src="/workbench-v6.js"></script><script src="/workbench-v6-fixes.js"></script><script src="/workbench-v7.js?v=7.1"></script><script src="/workbench-v7-fixes.js"></script><script src="/workbench-v8-multigroup.js"></script><script src="/workbench-v9-feedback.js"></script><script src="/v26-final.js"></script><script type="module" src="/v27-final.js?v=27.3"></script><script type="module" src="/v28-final.js?v=28.1"></script><script type="module" src="/v29-consistency.js?v=29.2"></script><script src="/v30-entry.js?v=30.8"></script></body>',
+      '<script src="/workbench.js?v=20260727-v30.8.1"></script><script src="/workbench-v2.js?v=20260727-v30.8.1"></script><script src="/workbench-v4.js?v=20260727-v30.8.1"></script><script src="/workbench-v6-pre.js?v=20260727-v30.8.1"></script><script src="/workbench-v6.js?v=20260727-v30.8.1"></script><script src="/workbench-v6-fixes.js?v=20260727-v30.8.1"></script><script src="/workbench-v7.js?v=20260727-v30.8.1"></script><script src="/workbench-v7-fixes.js?v=20260727-v30.8.1"></script><script src="/workbench-v8-multigroup.js?v=20260727-v30.8.1"></script><script src="/workbench-v9-feedback.js?v=20260727-v30.8.1"></script><script src="/v26-final.js?v=20260727-v30.8.1"></script><script type="module" src="/v27-final.js?v=20260727-v30.8.1"></script><script type="module" src="/v28-final.js?v=20260727-v30.8.1"></script><script type="module" src="/v29-consistency.js?v=20260727-v30.8.1"></script><script src="/v30-entry.js?v=20260727-v30.8.1"></script></body>',
     );
 }
 
@@ -114,6 +114,7 @@ const assetRoutes = new Map([
   ["/v26-final.css", ["v26-final.css", "text/css; charset=utf-8"]],
   ["/v27-final.js", ["v27-final.js", "text/javascript; charset=utf-8"]],
   ["/v27-final.css", ["v27-final.css", "text/css; charset=utf-8"]],
+  ["/v27-settings.svg", ["v27-settings.svg", "image/svg+xml"]],
   ["/v28-final.js", ["v28-final.js", "text/javascript; charset=utf-8"]],
   ["/v28-final.css", ["v28-final.css", "text/css; charset=utf-8"]],
   ["/v29-consistency.js", ["v29-consistency.js", "text/javascript; charset=utf-8"]],
