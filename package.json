@@ -11,7 +11,7 @@
     "check": "npm run build:runtime && npm run build:styles && node --check server.mjs && node --check workbench-server.mjs && node scripts/check-runtime.mjs",
     "build": "npm run check",
     "test": "npm run check",
-    "test:acceptance": "node v30-entry-acceptance.cjs && node v8-product-logic-acceptance.cjs && node v8-multigroup-acceptance.cjs"
+    "test:acceptance": "node v30-entry-acceptance.cjs && node v8-product-logic-acceptance.cjs && node v8-multigroup-acceptance.cjs && node duplicate-guard-acceptance.cjs"
   },
   "engines": {
     "node": ">=20"
@@ -20,5 +20,3 @@
     "playwright": "^1.55.0"
   }
 }
-
-

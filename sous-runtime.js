@@ -64,7 +64,10 @@
   }
 })();
 
-/* ===== workbench.js ===== */
+/* ===== baseline-runtime.js ===== */
+/* SOUS frozen v31.36 baseline. Do not append patches here. */
+
+/* ===== frozen baseline: workbench.js ===== */
 /* Runtime enhancements: secure OpenAI proxy, durable storage, GPT Image 2,
    live service status, and keyboard/accessibility fixes. */
 
@@ -294,7 +297,7 @@ if (originalWeeklyMenu) {
   await refreshAiStatus();
 })();
 
-/* ===== workbench-v2.js ===== */
+/* ===== frozen baseline: workbench-v2.js ===== */
 (() => {
   const units = ["g", "kg", "ml", "L", "个", "份", "根", "枝", "束", "颗", "张", "块", "盒", "套", "cm", "m", "卷", "包", "瓶", "罐"];
   let inventory = {};
@@ -903,7 +906,7 @@ if (originalWeeklyMenu) {
   })();
 })();
 
-/* ===== workbench-v4.js ===== */
+/* ===== frozen baseline: workbench-v4.js ===== */
 (() => {
   "use strict";
 
@@ -1000,7 +1003,7 @@ if (originalWeeklyMenu) {
 
 })();
 
-/* ===== workbench-v6-pre.js ===== */
+/* ===== frozen baseline: workbench-v6-pre.js ===== */
 (() => {
   const NativeMutationObserver = window.MutationObserver;
   class DeferredSetupObserver {
@@ -1019,7 +1022,7 @@ if (originalWeeklyMenu) {
   }
 })();
 
-/* ===== workbench-v6.js ===== */
+/* ===== frozen baseline: workbench-v6.js ===== */
 (() => {
   "use strict";
 
@@ -1865,7 +1868,7 @@ if (originalWeeklyMenu) {
   else init();
 })();
 
-/* ===== workbench-v6-fixes.js ===== */
+/* ===== frozen baseline: workbench-v6-fixes.js ===== */
 (() => {
   function installFirstWorkspaceGuard() {
     const shell = document.getElementById("sousSetup");
@@ -1894,7 +1897,7 @@ if (originalWeeklyMenu) {
   else init();
 })();
 
-/* ===== workbench-v7.js ===== */
+/* ===== frozen baseline: workbench-v7.js ===== */
 (() => {
   "use strict";
 
@@ -3206,7 +3209,7 @@ ${message}`;
   }
 })();
 
-/* ===== workbench-v7-fixes.js ===== */
+/* ===== frozen baseline: workbench-v7-fixes.js ===== */
 (() => {
   const COMPLETE_KEY = "sous:v7-setup-complete";
   const PROFILE_KEY = "sous:business-profile:v1";
@@ -3321,7 +3324,7 @@ ${message}`;
   window.SOUSRuntime?.registerSync("v7-setup-hydration", hydrateSetup) || hydrateSetup();
 })();
 
-/* ===== workbench-v8-multigroup.js ===== */
+/* ===== frozen baseline: workbench-v8-multigroup.js ===== */
 (() => {
   "use strict";
 
@@ -3958,7 +3961,7 @@ ${message}`;
   };
 })();
 
-/* ===== workbench-v9-feedback.js ===== */
+/* ===== frozen baseline: workbench-v9-feedback.js ===== */
 (function installFeedbackCompletion() {
   "use strict";
   const esc = (value) => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
@@ -4121,7 +4124,7 @@ ${message}`;
   }, 1500);
 })();
 
-/* ===== v26-final.js ===== */
+/* ===== frozen baseline: v26-final.js ===== */
 (() => {
   "use strict";
 
@@ -4504,7 +4507,7 @@ ${extra ? `补充要求：${extra}` : ""}
   window.addEventListener("beforeunload", () => captureWorkspace());
 })();
 
-/* ===== v27-final.js ===== */
+/* ===== frozen baseline: v27-final.js ===== */
 (() => {
   "use strict";
 
@@ -4747,7 +4750,7 @@ ${extra ? `补充要求：${extra}` : ""}
   window.SOUSRuntime?.registerSync("v27-workspaces", sync) || sync();
 })();
 
-/* ===== v28-final.js ===== */
+/* ===== frozen baseline: v28-final.js ===== */
 (() => {
   "use strict";
 
@@ -4918,7 +4921,7 @@ ${extra ? `补充要求：${extra}` : ""}
   window.SOUSRuntime?.registerSync("v28-consistency", sync) || sync();
 })();
 
-/* ===== v29-consistency.js ===== */
+/* ===== frozen baseline: v29-consistency.js ===== */
 (() => {
   "use strict";
 
@@ -5207,7 +5210,7 @@ ${extra ? `补充要求：${extra}` : ""}
   window.SOUSRuntime?.registerSync("v29-workspaces", sync) || sync();
 })();
 
-/* ===== v30-entry.js ===== */
+/* ===== frozen baseline: v30-entry.js ===== */
 (() => {
   "use strict";
 
@@ -5489,761 +5492,542 @@ ${extra ? `补充要求：${extra}` : ""}
   }
 })();
 
-/* ===== v31-annotations.js ===== */
+/* ===== release-controller.js ===== */
+/* SOUS release controller.
+ * This is the only post-baseline behavior layer. Keep all release fixes here.
+ */
 (() => {
   "use strict";
 
-  const labels = {
-    home: "\u9996\u9875",
-    intake: "\u5f55\u5355",
-    orders: "\u8ba2\u5355",
-    prep: "\u5907\u8d27",
-    more: "\u7ecf\u8425\u5de5\u5177",
-    menu: "\u5546\u54c1\u7ba1\u7406",
-    content: "AI \u5185\u5bb9\u52a9\u624b"
-  };
-
-  const currentPage = () => document.querySelector(".page.on")?.id?.replace(/^page-/, "") || "home";
-
-  const refreshEmptyOrder = () => {
-    const empty = document.querySelector("#orderList .empty");
-    if (!empty || empty.dataset.v31Ready === "true") return;
-    empty.dataset.v31Ready = "true";
-    empty.innerHTML = `<div class="empty-icon">Order</div><b>\u8fd8\u6ca1\u6709\u8ba2\u5355</b><span>\u5f55\u5165\u5ba2\u6237\u6d88\u606f\uff0c\u6838\u5bf9\u540e\u5373\u53ef\u521b\u5efa\u7b2c\u4e00\u7b14\u8ba2\u5355\u3002</span><button class="btn primary small" onclick="go('intake')">\u5f00\u59cb\u5f55\u5355</button>`;
-  };
-
-  const updateSettingsBack = () => {
-    const back = document.querySelector("#page-settings .back-chip");
-    if (!back) return;
-    const origin = window.__settingsReturnPage && window.__settingsReturnPage !== "settings" ? window.__settingsReturnPage : "more";
-    const text = "← 返回";
-    if (back.textContent !== text) back.textContent = text;
-    back.setAttribute("aria-label", text);
-    back.dataset.v29Ready = "true";
-    back.dataset.v31Ready = "true";
-    back.onclick = null;
-    if (!back.dataset.v31Bound) {
-      back.dataset.v31Bound = "true";
-      back.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        const destination = window.__settingsReturnPage && window.__settingsReturnPage !== "settings" ? window.__settingsReturnPage : "more";
-        window.go?.(destination);
-      }, true);
-    }
-  };
-
-  const normalizeSettingsButton = () => {
-    document.querySelectorAll("header.top .account-settings").forEach((old) => {
-      if (old.dataset.v31Ready === "true") return;
-      const button = old.cloneNode(true);
-      button.dataset.v29Ready = "true";
-      button.dataset.v31Ready = "true";
-      button.setAttribute("aria-label", "\u6253\u5f00\u8bbe\u7f6e");
-      button.setAttribute("title", "\u8bbe\u7f6e");
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        const origin = currentPage();
-        if (origin === "settings") return;
-        window.__settingsReturnPage = origin;
-        sessionStorage.setItem("sous:settings-return-page", origin);
-        window.go?.("settings");
-        requestAnimationFrame(updateSettingsBack);
-      }, true);
-      old.replaceWith(button);
-    });
-  };
-
-  const simplifySettings = () => {
-    const page = document.getElementById("page-settings");
-    if (!page) return;
-    const savedOrigin = sessionStorage.getItem("sous:settings-return-page");
-    if (!window.__settingsReturnPage && savedOrigin) window.__settingsReturnPage = savedOrigin;
-    const subtitle = page.querySelector(".pg-sub");
-    if (subtitle && subtitle.textContent !== "\u7ba1\u7406\u4e1a\u52a1\u7a7a\u95f4\u4e0e\u672c\u673a\u6570\u636e\u3002") subtitle.textContent = "\u7ba1\u7406\u4e1a\u52a1\u7a7a\u95f4\u4e0e\u672c\u673a\u6570\u636e\u3002";
-    const delivery = page.querySelector("#prefDelivery");
-    if (delivery) {
-      delivery.disabled = true;
-      delivery.closest(".card")?.classList.add("v31-removed-default");
-    }
-    const moved = page.querySelector("#movedSettings");
-    const label = moved?.querySelector(":scope > .section-label");
-    if (label && label.textContent !== "\u6570\u636e\u4e0e\u8bb0\u5f55") label.textContent = "\u6570\u636e\u4e0e\u8bb0\u5f55";
-    updateSettingsBack();
-  };
-
-  const ensureOtherTemplate = () => {
-    const grid = document.getElementById("v7TemplateGrid");
-    if (!grid || grid.querySelector("[data-v31-other]")) return;
-    const selected = !grid.querySelector(".v7-template.on");
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `v7-template v31-other-template${selected ? " on" : ""}`;
-    button.dataset.v7Template = "blank";
-    button.dataset.v31Other = "true";
-    button.innerHTML = `<b>\u5176\u4ed6\u884c\u4e1a</b><small>\u81ea\u5b9a\u4e49\u5546\u54c1\u76ee\u5f55</small>`;
-    grid.append(button);
-    if (selected) {
-      const next = document.querySelector("[data-v7-preview]");
-      if (next) next.textContent = "\u4f7f\u7528\u5176\u4ed6\u884c\u4e1a";
-    }
-  };
-
-  const normalizeSetup = () => {
-    const shell = document.getElementById("sousSetup");
-    if (!shell) return;
-    ensureOtherTemplate();
-    const industryOn = shell.querySelector('[data-v7-step="1"].on');
-    shell.classList.toggle("v31-industry-step", Boolean(industryOn));
-  };
-
-  const normalizeDialog = () => {
-    const dialog = document.getElementById("v6Dialog");
-    if (!dialog) return;
-    const kicker = dialog.querySelector(".v6-dialog-kicker");
-    const cancel = dialog.querySelector("[data-dialog-cancel]");
-    const confirm = dialog.querySelector("[data-dialog-confirm]");
-    if (kicker) kicker.textContent = "\u8bf7\u786e\u8ba4";
-    if (cancel) cancel.textContent = "\u53d6\u6d88";
-    if (confirm && !confirm.textContent.trim()) confirm.textContent = "\u786e\u8ba4";
-  };
-  const WORKSPACE_INDEX = "sous:workspaces:v1";
-  const ACTIVE_WORKSPACE = "sous:active-workspace:v1";
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const readJson = (key, fallback = null) => { try { return JSON.parse(localStorage.getItem(key) || "null") ?? fallback; } catch { return fallback; } };
+  const writeJson = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+  const ACTIVE_KEY = "sous:active-workspace:v1";
+  const INDEX_KEY = "sous:workspaces:v1";
   const PROFILE_KEY = "sous:business-profile:v1";
-  const WORKSPACE_DATA_KEYS = ["orders", "menu", "editLog", "customers", "parseCountWeek", "prefs", "materials", "inventory", "starterTemplateHistory"];
+  const DATA_KEYS = ["orders", "menu", "editLog", "customers", "parseCountWeek", "prefs", "materials", "inventory", "starterTemplateHistory"];
+  const PAGE_LABELS = { home: "首页", intake: "录单", orders: "订单", prep: "备货", more: "更多" };
+  const INDUSTRY_LABELS = { bakery: "烘焙甜品", floristry: "鲜花花艺", food: "餐食料理", handmade: "手作产品", blank: "其他行业" };
+  const currentPage = () => $(".page.on")?.id?.replace(/^page-/, "") || "home";
+  const activeWorkspace = () => localStorage.getItem(ACTIVE_KEY) || "primary";
+  const normalize = (value) => String(value || "").normalize("NFKC").toLowerCase().replace(/[\s，,。.!！?？:：;；"“”'‘’()（）\[\]【】]/g, "");
+  const escapeHtml = (value) => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
-  const readStoredJson = (key, fallback) => {
-    try { return JSON.parse(localStorage.getItem(key) || "null") ?? fallback; }
-    catch { return fallback; }
-  };
-  const writeStoredJson = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-
-  const renameWorkspace = (id) => {
-    const list = readStoredJson(WORKSPACE_INDEX, []);
-    const item = list.find((entry) => entry.id === id);
-    if (!item) return;
-    const nextName = window.prompt("业务名称", item.name || "未命名业务")?.trim();
-    if (!nextName || nextName === item.name) return;
-
-    writeStoredJson(WORKSPACE_INDEX, list.map((entry) => entry.id === id ? { ...entry, name: nextName, updatedAt: new Date().toISOString() } : entry));
-    const snapshotKey = `sous:workspace:${id}`;
-    const snapshot = readStoredJson(snapshotKey, {});
-    snapshot.profile = { ...(snapshot.profile || {}), businessName: nextName };
-    snapshot.savedAt = new Date().toISOString();
-    writeStoredJson(snapshotKey, snapshot);
-
-    if ((localStorage.getItem(ACTIVE_WORKSPACE) || "primary") === id) {
-      const currentProfile = readStoredJson(PROFILE_KEY, {});
-      writeStoredJson(PROFILE_KEY, { ...currentProfile, businessName: nextName });
-    }
-    document.querySelector("#page-settings .workspace-card")?.removeAttribute("data-v29-signature");
-    window.toast?.("业务名称已更新");
-  };
-  const deleteWorkspace = (id) => {
-    const list = readStoredJson(WORKSPACE_INDEX, []);
-    if (list.length <= 1) {
-      window.toast?.("至少保留一个业务");
+  function enforceRegistrationGate() {
+    const entry = $("#v30Entry");
+    const setup = $("#sousSetup");
+    const app = $(".app");
+    const registrationOpen = Boolean(entry && !entry.hidden);
+    document.body.classList.toggle("v30-entry-open", registrationOpen);
+    if (registrationOpen) {
+      if (setup) {
+        setup.hidden = true;
+        setup.setAttribute("inert", "");
+        setup.setAttribute("aria-hidden", "true");
+      }
+      if (app) {
+        app.setAttribute("inert", "");
+        app.setAttribute("aria-hidden", "true");
+      }
       return;
     }
+    setup?.removeAttribute("inert");
+    setup?.removeAttribute("aria-hidden");
+    app?.removeAttribute("inert");
+    app?.removeAttribute("aria-hidden");
+  }
+
+  function ensureDialogRoot() {
+    let root = $("#sousReleaseDialog");
+    if (root) return root;
+    document.body.insertAdjacentHTML("beforeend", `<div id="sousReleaseDialog" class="sous-release-dialog-backdrop" hidden><section class="sous-release-dialog" role="alertdialog" aria-modal="true" aria-labelledby="sousReleaseDialogTitle"><p class="sous-release-dialog-kicker">请确认</p><h2 id="sousReleaseDialogTitle"></h2><p id="sousReleaseDialogBody"></p><label class="sous-release-dialog-field" hidden><span>业务名称</span><input id="sousReleaseDialogInput" autocomplete="off"></label><div class="sous-release-dialog-summary" id="sousReleaseDialogSummary" hidden></div><div class="sous-release-dialog-actions"><button type="button" class="btn ghost" data-dialog-cancel>取消</button><button type="button" class="btn primary" data-dialog-confirm>确认</button></div></section></div>`);
+    return $("#sousReleaseDialog");
+  }
+
+  function releaseDialog({ title, body = "", value = null, summary = "", confirmText = "确认", danger = false }) {
+    const root = ensureDialogRoot();
+    const field = $(".sous-release-dialog-field", root);
+    const input = $("#sousReleaseDialogInput", root);
+    const confirm = $("[data-dialog-confirm]", root);
+    $("#sousReleaseDialogTitle", root).textContent = title;
+    $("#sousReleaseDialogBody", root).textContent = body;
+    field.hidden = value === null;
+    input.value = value ?? "";
+    const summaryNode = $("#sousReleaseDialogSummary", root);
+    summaryNode.hidden = !summary;
+    summaryNode.textContent = summary;
+    confirm.textContent = confirmText;
+    confirm.classList.toggle("danger", danger);
+    root.hidden = false;
+    const previous = document.activeElement;
+    requestAnimationFrame(() => (value === null ? confirm : input).focus());
+    return new Promise((resolve) => {
+      const finish = (result) => {
+        root.hidden = true;
+        root.removeEventListener("click", click);
+        root.removeEventListener("keydown", keydown);
+        previous?.focus?.();
+        resolve(result);
+      };
+      const click = (event) => {
+        if (event.target === root || event.target.closest("[data-dialog-cancel]")) finish(null);
+        if (event.target.closest("[data-dialog-confirm]")) finish(value === null ? true : input.value.trim());
+      };
+      const keydown = (event) => {
+        if (event.key === "Escape") finish(null);
+        if (event.key === "Enter" && (value !== null || event.target === confirm)) finish(value === null ? true : input.value.trim());
+      };
+      root.addEventListener("click", click);
+      root.addEventListener("keydown", keydown);
+    });
+  }
+
+  function syncNavigation() {
+    $$("nav.tabs [data-page]").forEach((button) => {
+      const page = button.dataset.page;
+      const label = PAGE_LABELS[page] || button.textContent.trim();
+      button.setAttribute("aria-label", label);
+      button.setAttribute("title", label);
+      if (button.classList.contains("on")) button.setAttribute("aria-current", "page");
+      else button.removeAttribute("aria-current");
+    });
+  }
+
+  function syncSetup() {
+    const shell = $("#sousSetup");
+    if (!shell) return;
+    const grid = $("#v7TemplateGrid", shell);
+    if (grid) {
+      const blanks = $$('[data-v7-template="blank"]', grid);
+      blanks.slice(1).forEach((node) => node.remove());
+      if (!blanks.length) grid.insertAdjacentHTML("beforeend", `<button type="button" class="v7-template v31-other-template" data-v7-template="blank"><b>其他行业</b><small>自定义商品目录</small></button>`);
+      $$("[data-v7-template]", grid).forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.classList.contains("on")));
+        button.classList.toggle("v31-other-template", button.dataset.v7Template === "blank");
+      });
+    }
+    const stepOne = $('[data-v7-step="1"].on', shell);
+    const stepTwo = $('[data-v7-step="2"].on', shell);
+    shell.classList.toggle("v31-industry-step", Boolean(stepOne));
+    const label = $("#v7StepLabel", shell);
+    if (label) label.textContent = stepTwo ? "2 / 2 · 选择商品" : "1 / 2 · 选择行业";
+    $$(".setup-progress span", shell).forEach((segment, index) => segment.classList.toggle("on", stepTwo ? index < 2 : index === 0));
+    const heading = $(".v7-manual-product .v7-preview-heading span", shell);
+    if (heading) heading.innerHTML = `<b>添加您的商品</b><small>输入商品名称和销售单位，加入自己的目录</small>`;
+  }
+
+  function repairActiveWorkspaceMetadata() {
+    const profile = readJson(PROFILE_KEY, {});
+    const id = activeWorkspace();
+    const list = readJson(INDEX_KEY, []);
+    if (!list.length) return;
+    let changed = false;
+    const next = list.map((item) => {
+      if (item.id !== id) return item;
+      const industry = profile.starterTemplateId || item.industry || "blank";
+      const name = profile.businessName || item.name;
+      if (industry === item.industry && name === item.name) return item;
+      changed = true;
+      return { ...item, industry, name, updatedAt: new Date().toISOString() };
+    });
+    if (changed) writeJson(INDEX_KEY, next);
+    const key = `sous:workspace:${id}`;
+    const snapshot = readJson(key, null);
+    if (snapshot && profile.starterTemplateId && snapshot.profile?.starterTemplateId !== profile.starterTemplateId) {
+      snapshot.profile = { ...(snapshot.profile || {}), ...profile };
+      snapshot.savedAt = new Date().toISOString();
+      writeJson(key, snapshot);
+    }
+  }
+
+  function syncWorkspaceCard() {
+    repairActiveWorkspaceMetadata();
+    const card = $("#page-settings .v29-workspace-card");
+    if (!card) return;
+    const businessButtons = $$('[data-v29-workspace]', card);
+    businessButtons.forEach((button) => {
+      let row = button.closest(".v31-workspace-row");
+      if (!row) {
+        row = document.createElement("div");
+        row.className = "v31-workspace-row";
+        button.before(row);
+        row.append(button);
+      }
+      if (!$('[data-workspace-rename]', row)) row.insertAdjacentHTML("beforeend", `<button type="button" class="v31-workspace-rename" data-workspace-rename="${escapeHtml(button.dataset.v29Workspace)}">重命名</button>`);
+      const oldDelete = $('[data-workspace-delete]', row);
+      if (businessButtons.length <= 1) oldDelete?.remove();
+      else if (!oldDelete) row.insertAdjacentHTML("beforeend", `<button type="button" class="v31-workspace-delete" data-workspace-delete="${escapeHtml(button.dataset.v29Workspace)}">删除</button>`);
+    });
+    card.classList.toggle("v31-single-workspace", businessButtons.length <= 1);
+    const add = $(".v29-workspace-add", card);
+    if (add) {
+      const limited = businessButtons.length >= 2;
+      add.disabled = limited;
+      add.setAttribute("aria-disabled", String(limited));
+      add.textContent = limited ? "已达到 2 个业务上限" : "＋ 添加另一个业务";
+    }
+    const help = $(".v29-workspace-help", card);
+    if (help) help.textContent = businessButtons.length >= 2 ? "删除一个业务后可以继续添加。" : "每个业务的数据独立保存。";
+  }
+
+  function syncSettings() {
+    const page = $("#page-settings");
+    if (!page) return;
+    const subtitle = $(".pg-sub", page);
+    if (subtitle) subtitle.textContent = "管理业务空间与本机数据。";
+    const prefDelivery = $("#prefDelivery", page);
+    prefDelivery?.closest(".card")?.classList.add("v31-removed-default");
+    const back = $(".back-chip", page);
+    if (back) { back.textContent = "← 返回"; back.setAttribute("aria-label", "返回"); }
+    syncWorkspaceCard();
+    ensureDataControls();
+  }
+
+  function ensureDataControls() {
+    const exportButton = $("#page-settings [onclick='exportData()']");
+    const card = exportButton?.closest(".card");
+    if (!card || $("[data-sous-import]", card)) return;
+    exportButton.removeAttribute("onclick");
+    exportButton.dataset.sousExport = "true";
+    exportButton.textContent = "导出数据";
+    exportButton.insertAdjacentHTML("afterend", `<button type="button" class="btn ghost" data-sous-import>导入并恢复</button><input type="file" data-sous-import-file accept="application/json,.json" hidden>`);
+  }
+
+  function syncPricingState() {
+    const catalog = window.menu ?? (typeof menu !== "undefined" ? menu : {});
+    const configured = Object.values(catalog || {}).some((product) => Number(product?.price) > 0);
+    ["statRevenue", "statProfit"].forEach((id) => {
+      const value = document.getElementById(id);
+      const cell = value?.closest(".mini");
+      if (!value || !cell) return;
+      cell.classList.toggle("price-unconfigured", !configured);
+      const currency = value.previousElementSibling;
+      if (!configured) {
+        value.textContent = "未设置";
+        if (currency) currency.hidden = true;
+        cell.setAttribute("aria-label", `${cell.querySelector(".l")?.textContent || "金额"} 尚未配置商品价格`);
+      } else {
+        if (currency) currency.hidden = false;
+        cell.removeAttribute("aria-label");
+      }
+    });
+  }
+  function syncEmptyAndPrep() {
+    const empty = $("#orderList .empty");
+    if (empty && !empty.dataset.releaseReady) {
+      empty.dataset.releaseReady = "true";
+      empty.innerHTML = `<div class="empty-icon" aria-hidden="true">订单</div><b>还没有订单</b><span>录入客户消息，核对后创建第一笔订单。</span><button class="btn primary small" onclick="go('intake')">开始录单</button>`;
+    }
+    const prepButton = $("#page-prep .prep-ai-assist button, #page-prep [onclick*='generatePrep']");
+    const hasOrders = Array.isArray(window.orders ?? (typeof orders !== "undefined" ? orders : [])) && (window.orders ?? orders).length > 0;
+    if (prepButton) {
+      prepButton.disabled = !hasOrders;
+      prepButton.setAttribute("aria-disabled", String(!hasOrders));
+      prepButton.title = hasOrders ? "" : "有待处理订单后可生成";
+    }
+  }
+
+  function syncOrderCopy() {
+    $$(".order-list-state .chip").forEach((chip) => { chip.setAttribute("aria-disabled", "true"); chip.tabIndex = -1; });
+    $$(".order-list-missing").forEach((node) => {
+      const clean = node.textContent.replace(/[：:、，,；;]/g, " ").replace(/\s+/g, " ").trim();
+      if (node.textContent !== clean) node.textContent = clean;
+    });
+  }
+
+  function syncContentDensity() {
+    const content = $("#content-text");
+    if (!content || $("details.sous-content-advanced", content)) return;
+    const styleBox = $("#contentStyleBox", content);
+    if (styleBox) styleBox.classList.add("sous-content-style-row");
+    const candidates = $$(".field, .form-field, label", content).filter((node) => /内容用途|想写什么|内容主题/.test(node.textContent));
+    if (candidates.length) {
+      const details = document.createElement("details");
+      details.className = "sous-content-advanced";
+      details.innerHTML = `<summary>更多内容设置</summary><div class="sous-content-advanced-body"></div>`;
+      candidates[0].before(details);
+      candidates.forEach((node) => $(".sous-content-advanced-body", details).append(node));
+    }
+  }
+
+  function syncAll() {
+    enforceRegistrationGate();
+    syncNavigation();
+    syncSetup();
+    syncSettings();
+    syncEmptyAndPrep();
+    syncPricingState();
+    syncOrderCopy();
+    syncContentDensity();
+  }
+
+  async function renameWorkspace(id) {
+    const list = readJson(INDEX_KEY, []);
     const item = list.find((entry) => entry.id === id);
     if (!item) return;
-    const isCurrent = (localStorage.getItem(ACTIVE_WORKSPACE) || "primary") === id;
-    const snapshot = isCurrent
-      ? { orders: readStoredJson("sous:orders", []), menu: readStoredJson("sous:menu", {}) }
-      : readStoredJson(`sous:workspace:${id}`, {});
+    const name = await releaseDialog({ title: "重命名业务", body: "使用容易识别的名称，避免连续出现“新业务”。", value: item.name || "" });
+    if (!name || name === item.name) return;
+    writeJson(INDEX_KEY, list.map((entry) => entry.id === id ? { ...entry, name, updatedAt: new Date().toISOString() } : entry));
+    const key = `sous:workspace:${id}`;
+    const snapshot = readJson(key, {});
+    snapshot.profile = { ...(snapshot.profile || {}), businessName: name };
+    snapshot.savedAt = new Date().toISOString();
+    writeJson(key, snapshot);
+    if (activeWorkspace() === id) writeJson(PROFILE_KEY, { ...readJson(PROFILE_KEY, {}), businessName: name });
+    $("#page-settings .v29-workspace-card")?.removeAttribute("data-v29-signature");
+    window.toast?.("业务名称已更新");
+    window.SOUSRuntime?.requestSync();
+  }
+
+  async function deleteWorkspace(id) {
+    const list = readJson(INDEX_KEY, []);
+    if (list.length <= 1) return;
+    const item = list.find((entry) => entry.id === id);
+    if (!item) return;
+    const current = activeWorkspace() === id;
+    const snapshot = current ? { orders: readJson("sous:orders", []), menu: readJson("sous:menu", {}) } : readJson(`sous:workspace:${id}`, {});
     const orderCount = Array.isArray(snapshot.orders) ? snapshot.orders.length : 0;
     const productCount = snapshot.menu && typeof snapshot.menu === "object" ? Object.keys(snapshot.menu).length : 0;
-    if (!window.confirm(`删除业务“${item.name || "未命名业务"}”？\n包含 ${orderCount} 笔订单、${productCount} 个商品。删除后无法恢复。`)) return;
-
+    const approved = await releaseDialog({ title: `删除“${item.name}”？`, body: "此操作无法撤销。", summary: `${orderCount} 笔订单 · ${productCount} 个商品`, confirmText: "确认删除", danger: true });
+    if (!approved) return;
     const remaining = list.filter((entry) => entry.id !== id);
     localStorage.removeItem(`sous:workspace:${id}`);
-    writeStoredJson(WORKSPACE_INDEX, remaining);
-
-    if ((localStorage.getItem(ACTIVE_WORKSPACE) || "primary") === id) {
+    writeJson(INDEX_KEY, remaining);
+    if (current) {
       const nextId = remaining[0]?.id;
-      const next = readStoredJson(`sous:workspace:${nextId}`, null);
+      const next = readJson(`sous:workspace:${nextId}`, null);
       if (nextId && next) {
-        localStorage.setItem(ACTIVE_WORKSPACE, nextId);
-        writeStoredJson(PROFILE_KEY, next.profile || {});
-        WORKSPACE_DATA_KEYS.forEach((key) => {
-          if (next[key] == null) localStorage.removeItem(`sous:${key}`);
-          else writeStoredJson(`sous:${key}`, next[key]);
-        });
+        localStorage.setItem(ACTIVE_KEY, nextId);
+        writeJson(PROFILE_KEY, next.profile || {});
+        DATA_KEYS.forEach((key) => next[key] == null ? localStorage.removeItem(`sous:${key}`) : writeJson(`sous:${key}`, next[key]));
         location.reload();
         return;
       }
     }
-    document.querySelector("#page-settings .workspace-card")?.removeAttribute("data-v29-signature");
-    window.toast?.("业务已删除");
-  };
+    $("#page-settings .v29-workspace-card")?.removeAttribute("data-v29-signature");
+    window.SOUSRuntime?.requestSync();
+  }
 
-  const enhanceWorkspaceCard = () => {
-    const card = document.querySelector("#page-settings .v29-workspace-card");
-    if (!card) return;
-    const buttons = [...card.querySelectorAll("[data-v29-workspace]")];
-    buttons.forEach((button) => {
-      if (button.parentElement?.classList.contains("v31-workspace-row")) return;
-      const row = document.createElement("div");
-      row.className = "v31-workspace-row";
-      button.before(row);
-      row.append(button);
-      const rename = document.createElement("button");
-      rename.type = "button";
-      rename.className = "v31-workspace-rename";
-      rename.dataset.workspaceRename = button.dataset.v29Workspace;
-      rename.textContent = "重命名";
-      rename.setAttribute("aria-label", `重命名业务 ${button.querySelector("b")?.textContent || ""}`);
-      row.append(rename);
-      const remove = document.createElement("button");
-      remove.type = "button";
-      remove.className = "v31-workspace-delete";
-      remove.dataset.workspaceDelete = button.dataset.v29Workspace;
-      remove.textContent = "删除";
-      remove.setAttribute("aria-label", `删除业务 ${button.querySelector("b")?.textContent || ""}`);
-      row.append(remove);
-    });
-
-    const add = card.querySelector(".v29-workspace-add");
-    if (add) {
-      const atLimit = buttons.length >= 2;
-      add.disabled = atLimit;
-      add.textContent = atLimit ? "最多可保留 2 个业务" : "＋ 添加另一个业务";
-      add.setAttribute("aria-disabled", String(atLimit));
+  async function exportAllData() {
+    const approved = await releaseDialog({ title: "导出本机数据？", body: "导出文件包含顾客姓名、地址、订单和聊天解析结果。请妥善保管。", confirmText: "继续导出" });
+    if (!approved) return;
+    const storage = {};
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("sous:")) storage[key] = localStorage.getItem(key);
     }
-    const help = card.querySelector(".v29-workspace-help");
-    if (help) help.textContent = buttons.length >= 2 ? "已达到上限；删除一个业务后可再次添加。" : "每个业务的数据独立保存。";
-  };
+    const payload = { schema: "sous-backup-v1", exportedAt: new Date().toISOString(), storage };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `sous-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    window.toast?.("数据已导出");
+  }
 
-  const normalizeBackLabels = () => {
-    document.querySelectorAll(".back-chip, [data-v7-close-settings]").forEach((button) => {
-      if (button.textContent.trim() !== "← 返回") button.textContent = "← 返回";
-      button.setAttribute("aria-label", "返回");
-    });
-  };
-  const initialize = () => {
-    normalizeSettingsButton();
-    normalizeDialog();
-    simplifySettings();
-    normalizeSetup();
-    refreshEmptyOrder();
-    enhanceWorkspaceCard();
-    normalizeBackLabels();
-    document.addEventListener("click", (event) => {
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-      const workspaceRename = target.closest("[data-workspace-rename]");
-      if (workspaceRename) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        renameWorkspace(workspaceRename.dataset.workspaceRename);
-        return;
-      }
-      const workspaceDelete = target.closest("[data-workspace-delete]");
-      if (workspaceDelete) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        deleteWorkspace(workspaceDelete.dataset.workspaceDelete);
-        return;
-      }
-      if (target.closest(".account-settings")) {
-        requestAnimationFrame(() => {
-          simplifySettings();
-          updateSettingsBack();
-        });
-      }
-      window.setTimeout(() => {
-        refreshEmptyOrder();
-        enhanceWorkspaceCard();
-        normalizeBackLabels();
-      }, 0);
-      if (target.closest("[data-v7-template], [data-v7-preview], [data-v7-back-template], [data-v9-open-templates], [data-manage-templates], [data-v27-new-workspace], [data-v29-new-workspace]")) {
-        window.setTimeout(normalizeSetup, 0);
-      }
-    });
-    window.SOUSRuntime?.registerSync("v31-annotations", () => {
-      enhanceWorkspaceCard();
-      normalizeBackLabels();
-    });
-  };
-
-  window.addEventListener("load", initialize);
-})();
-
-
-
-
-
-
-
-(() => {
-  "use strict";
-
-  const syncOnboardingPolish = () => {
-    const shell = document.getElementById("sousSetup");
-    if (!shell || shell.hidden) return;
-    const industry = shell.querySelector('[data-v7-step="1"].on');
-    const products = shell.querySelector('[data-v7-step="2"].on');
-    const label = shell.querySelector("#v7StepLabel");
-
-    if (industry) {
-      if (label) label.textContent = "1 / 2 · 选择行业";
-      const grid = shell.querySelector("#v7TemplateGrid");
-      if (grid && !grid.querySelector('[data-v7-template="blank"]')) {
-        const other = document.createElement("button");
-        other.type = "button";
-        other.className = `v7-template v31-other-template${grid.querySelector(".v7-template.on") ? "" : " on"}`;
-        other.dataset.v7Template = "blank";
-        other.innerHTML = "<b>其他行业</b><small>自定义商品目录</small>";
-        grid.append(other);
-      }
-    }
-
-    if (products) {
-      if (label) label.textContent = "2 / 2 · 选择商品";
-      const heading = shell.querySelector(".v7-manual-product .v7-preview-heading span");
-      if (heading) heading.innerHTML = "<b>添加您的商品</b><small>输入商品名称和销售单位，加入自己的目录</small>";
-    }
-  };
-
-  const start = () => {
-    const shell = document.getElementById("sousSetup");
-    if (!shell) return;
-    const observer = new MutationObserver(() => requestAnimationFrame(syncOnboardingPolish));
-    observer.observe(shell, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "hidden"] });
-    shell.addEventListener("click", () => requestAnimationFrame(syncOnboardingPolish));
-    syncOnboardingPolish();
-  };
-
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
-  else start();
-})();
-(() => {
-  "use strict";
-  document.addEventListener("click", (event) => {
-    const target = event.target instanceof Element ? event.target : null;
-    if (!target) return;
-
-    if (target.closest("header.top .account-settings")) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      const origin = document.querySelector(".page.on")?.id?.replace(/^page-/, "") || "home";
-      if (origin === "settings") return;
-      window.__settingsReturnPage = origin;
-      sessionStorage.setItem("sous:settings-return-page", origin);
-      window.go?.("settings");
-      return;
-    }
-
-    if (target.closest("#page-settings .back-chip")) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      const destination = window.__settingsReturnPage || sessionStorage.getItem("sous:settings-return-page") || "more";
-      window.go?.(destination === "settings" ? "more" : destination);
-    }
-  }, true);
-})();
-(() => {
-  "use strict";
-  const syncWorkspaceCount = () => {
-    const card = document.querySelector("#page-settings .v29-workspace-card");
-    if (!card) return;
-    const count = card.querySelectorAll("[data-v29-workspace]").length;
-    card.classList.toggle("v31-single-workspace", count <= 1);
-  };
-  const observer = new MutationObserver(syncWorkspaceCount);
-  const start = () => {
-    const card = document.querySelector("#page-settings .v29-workspace-card");
-    if (card) observer.observe(card, { childList: true, subtree: true });
-    syncWorkspaceCount();
-  };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
-  else start();
-  window.addEventListener("load", syncWorkspaceCount);
-})();
-
-/* ===== v32-duplicate-guard.js ===== */
-(() => {
-  "use strict";
-
-  const normalize = (value) => String(value || "").normalize("NFKC").toLowerCase().replace(/[：:、，,；;。.!！?？'"“”‘’（）()【】[\]\s]+/g, "").trim();
-  const displayText = (value, fallback = "未填写") => String(value || "").trim() || fallback;
+  async function importAllData(file) {
+    let payload;
+    try { payload = JSON.parse(await file.text()); } catch { window.toast?.("无法读取这个备份文件"); return; }
+    if (payload?.schema !== "sous-backup-v1" || !payload.storage || typeof payload.storage !== "object") { window.toast?.("这不是有效的 SOUS 备份文件"); return; }
+    const approved = await releaseDialog({ title: "恢复备份数据？", body: "当前本机的 SOUS 数据将被备份文件替换。", summary: `备份时间 ${new Date(payload.exportedAt || 0).toLocaleString()}`, confirmText: "确认恢复", danger: true });
+    if (!approved) return;
+    [...Array(localStorage.length)].map((_, index) => localStorage.key(index)).filter((key) => key?.startsWith("sous:")).forEach((key) => localStorage.removeItem(key));
+    Object.entries(payload.storage).forEach(([key, value]) => { if (key.startsWith("sous:") && typeof value === "string") localStorage.setItem(key, value); });
+    location.reload();
+  }
 
   function fingerprint(data) {
-    const value = String(data || "");
-    let first = 0x811c9dc5;
-    let second = 0x9e3779b9;
-    for (let index = 0; index < value.length; index += 1) {
-      const code = value.charCodeAt(index);
-      first ^= code;
-      first = Math.imul(first, 0x01000193);
-      second ^= code + index;
-      second = Math.imul(second, 0x85ebca6b);
-    }
-    return `${(first >>> 0).toString(36)}${(second >>> 0).toString(36)}-${value.length.toString(36)}`;
+    const value = String(data || ""); let a = 0x811c9dc5; let b = 0x9e3779b9;
+    for (let i = 0; i < value.length; i += 1) { const code = value.charCodeAt(i); a = Math.imul(a ^ code, 0x01000193); b = Math.imul(b ^ code ^ i, 0x85ebca6b); }
+    return `${(a >>> 0).toString(36)}${(b >>> 0).toString(36)}-${value.length.toString(36)}`;
   }
-
   window.sousImageFingerprint = fingerprint;
 
-  function itemTokens(value) {
-    return new Set(String(value || "").split(/[；;，,\n]+/).map(normalize).filter(Boolean));
+  async function visualHash(data) {
+    if (!data) return "";
+    const image = new Image();
+    image.src = data;
+    try { await image.decode(); } catch { return ""; }
+    const canvas = document.createElement("canvas"); canvas.width = 16; canvas.height = 16;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    context.drawImage(image, 0, 0, 16, 16);
+    const pixels = context.getImageData(0, 0, 16, 16).data;
+    const gray = []; for (let i = 0; i < pixels.length; i += 4) gray.push(Math.round(pixels[i] * .299 + pixels[i + 1] * .587 + pixels[i + 2] * .114));
+    const average = gray.reduce((sum, value) => sum + value, 0) / gray.length;
+    const variance = gray.reduce((sum, value) => sum + ((value - average) ** 2), 0) / gray.length;
+    if (Math.sqrt(variance) < 4) return "";
+    let bits = ""; gray.forEach((value) => { bits += value >= average ? "1" : "0"; });
+    let hex = ""; for (let i = 0; i < bits.length; i += 4) hex += parseInt(bits.slice(i, i + 4), 2).toString(16);
+    return hex;
+  }
+  const validVisualHash = (value) => typeof value === "string" && value.length === 64 && new Set(value).size >= 4;
+  const hamming = (left, right) => { if (!left || !right || left.length !== right.length) return Infinity; let count = 0; for (let i = 0; i < left.length; i += 1) { let value = parseInt(left[i], 16) ^ parseInt(right[i], 16); while (value) { count += value & 1; value >>= 1; } } return count; };
+
+  async function pendingSources() {
+    const images = Array.isArray(window.pendingImages ?? (typeof pendingImages !== "undefined" ? pendingImages : [])) ? (window.pendingImages ?? pendingImages) : [];
+    await Promise.all(images.map(async (image) => { image.fingerprint ||= fingerprint(image.data); image.visualHash ||= await visualHash(image.data); }));
+    return images.map((image) => ({ id: image.id, fingerprint: image.fingerprint, visualHash: image.visualHash, type: image.type, url: image.url, groupId: image.groupId }));
   }
 
-  function setSimilarity(left, right) {
-    if (!left.size || !right.size) return 0;
-    let intersection = 0;
-    left.forEach((value) => { if (right.has(value)) intersection += 1; });
-    return intersection / new Set([...left, ...right]).size;
+  function allLocalOrders() {
+    const result = [];
+    const seen = new Set();
+    const active = Array.isArray(window.orders ?? (typeof orders !== "undefined" ? orders : [])) ? (window.orders ?? orders) : [];
+    active.forEach((order) => { seen.add(`${activeWorkspace()}:${order.id}`); result.push({ ...order, __workspaceId: activeWorkspace() }); });
+    const index = readJson(INDEX_KEY, []);
+    index.forEach((workspace) => {
+      const snapshot = readJson(`sous:workspace:${workspace.id}`, null);
+      (snapshot?.orders || []).forEach((order) => { const key = `${workspace.id}:${order.id}`; if (!seen.has(key)) result.push({ ...order, __workspaceId: workspace.id, __workspaceName: workspace.name }); });
+    });
+    return result;
   }
 
-  function sourceFingerprints(value) {
-    return new Set((value?.sourceImages || []).map((image) => image?.fingerprint).filter(Boolean));
-  }
-
-  function exactSourceMatch(candidate, order) {
-    const incoming = sourceFingerprints(candidate);
-    const existing = sourceFingerprints(order);
-    if (!incoming.size || !existing.size) return false;
-    return [...incoming].some((value) => existing.has(value));
-  }
-
-  function candidateFromDraft() {
-    const read = (key) => document.getElementById(`f-${key}`)?.value?.trim() || "";
-    return {
-      customer: read("customer"),
-      items: read("items"),
-      date: read("delivery"),
-      method: read("method"),
-      address: read("address"),
-      note: read("customer_note"),
-      rawMsg: currentParse?.rawMsg || "",
-      sourceImages: currentParse?.sourceImages || [],
-      editingOrderId: currentParse?.editingOrderId || null,
-    };
-  }
-
-  function candidateFromParse(parse = currentParse) {
-    const data = parse?.data || {};
-    const items = Array.isArray(data.items)
-      ? data.items.map((item) => `${item?.product || item?.name || "未填写商品"} ×${item?.qty || item?.quantity || 1}`).join("；")
-      : data.items || "";
-    return {
-      customer: data.customer || "",
-      items,
-      date: [data.delivery_date, data.delivery_time].filter(Boolean).join(" "),
-      method: data.method || "",
-      address: data.address || "",
-      note: data.customer_note || "",
-      rawMsg: parse?.rawMsg || "",
-      sourceImages: parse?.sourceImages || [],
-      editingOrderId: parse?.editingOrderId || null,
-    };
-  }
-
-  function compare(candidate, order) {
+  const tokenSet = (value) => new Set(String(value || "").split(/[，,；;\n]+/).map(normalize).filter(Boolean));
+  const similarity = (a, b) => { if (!a.size || !b.size) return 0; let common = 0; a.forEach((value) => b.has(value) && common++); return common / new Set([...a, ...b]).size; };
+  function compareDuplicate(candidate, order) {
     if (!order || candidate.editingOrderId === order.id) return null;
-    const exactSource = exactSourceMatch(candidate, order);
-    const reasons = [];
-    let score = exactSource ? 1 : 0;
-
-    if (!exactSource) {
-      const customerMatch = normalize(candidate.customer) && normalize(candidate.customer) === normalize(order.customer);
-      const itemsScore = setSimilarity(itemTokens(candidate.items), itemTokens(order.items));
-      const incomingDate = normalize(candidate.date).replaceAll("t", "");
-      const existingDate = normalize(order.date).replaceAll("t", "");
-      const dateMatch = incomingDate && incomingDate === existingDate;
-      const dateConflict = incomingDate && existingDate && incomingDate !== existingDate;
-      const methodMatch = normalize(candidate.method) && normalize(candidate.method) === normalize(order.method);
-      const addressMatch = normalize(candidate.address) && normalize(candidate.address) === normalize(order.address);
-      const rawMatch = normalize(candidate.rawMsg) && normalize(candidate.rawMsg) === normalize(order.rawMsg);
-
-      if (customerMatch) { score += 0.25; reasons.push("同一顾客"); }
-      if (itemsScore >= 0.5) { score += itemsScore * 0.35; reasons.push(itemsScore === 1 ? "商品与数量相同" : "商品高度相似"); }
-      if (dateMatch) { score += 0.18; reasons.push("交付时间相同"); }
-      if (methodMatch) { score += 0.08; reasons.push("取货方式相同"); }
-      if (addressMatch) { score += 0.08; reasons.push("地址相同"); }
-      if (rawMatch) { score += 0.06; reasons.push("聊天内容相同"); }
-      if (dateConflict) score -= 0.3;
-      if (!dateConflict && customerMatch && itemsScore >= 0.9 && (!incomingDate || !existingDate)) {
-        score = Math.max(score, 0.78);
-        reasons.push("交付信息不足，需确认是否重复");
-      }
-    } else {
-      reasons.push("使用了相同截图");
+    const incoming = candidate.sourceImages || [];
+    const existing = order.sourceImages || [];
+    const sameActiveBatch = Boolean(window.sousConversationGroups?.state?.queue?.length && candidate.conversationGroupId && order.conversationGroupId && candidate.conversationGroupId !== order.conversationGroupId);
+    const exact = !sameActiveBatch && incoming.some((a) => existing.some((b) => a.fingerprint && a.fingerprint === b.fingerprint));
+    const visual = !sameActiveBatch && incoming.some((a) => existing.some((b) => validVisualHash(a.visualHash) && validVisualHash(b.visualHash) && hamming(a.visualHash, b.visualHash) <= 18));
+    let score = exact ? 1 : visual ? .96 : 0; const reasons = [];
+    if (exact) reasons.push("相同截图"); else if (visual) reasons.push("截图画面高度相似");
+    if (!exact && !visual) {
+      const sameCustomer = normalize(candidate.customer) && normalize(candidate.customer) === normalize(order.customer);
+      const itemScore = similarity(tokenSet(candidate.items), tokenSet(order.items));
+      const sameDate = normalize(candidate.date) && normalize(candidate.date) === normalize(order.date);
+      const dateConflict = normalize(candidate.date) && normalize(order.date) && normalize(candidate.date) !== normalize(order.date);
+      if (sameCustomer) { score += .28; reasons.push("同一顾客"); }
+      if (itemScore >= .5) { score += itemScore * .42; reasons.push(itemScore === 1 ? "商品数量相同" : "商品高度相似"); }
+      if (sameDate) { score += .2; reasons.push("交付时间相同"); }
+      if (!dateConflict && sameCustomer && itemScore >= .9 && (!candidate.date || !order.date)) score = Math.max(score, .8);
+      if (dateConflict) score -= .32;
     }
-
-    score = Math.max(0, Math.min(1, score));
-    if (score < 0.72) return null;
-    return { order, score, level: exactSource || score >= 0.92 ? "exact" : "possible", reasons };
+    if (score < .72) return null;
+    return { order, score: Math.min(1, score), reasons };
   }
+  function findDuplicate(candidate) { return allLocalOrders().map((order) => compareDuplicate(candidate, order)).filter(Boolean).sort((a, b) => b.score - a.score)[0] || null; }
 
-  function findMatch(candidate, list = orders) {
-    return (Array.isArray(list) ? list : []).map((order) => compare(candidate, order)).filter(Boolean).sort((left, right) => right.score - left.score)[0] || null;
-  }
-
-  function ensureDialog() {
-    let root = document.getElementById("duplicateOrderDialog");
-    if (root) return root;
-    document.body.insertAdjacentHTML("beforeend", `
-      <div class="duplicate-dialog-backdrop" id="duplicateOrderDialog" hidden>
-        <section class="duplicate-dialog" role="dialog" aria-modal="true" aria-labelledby="duplicateDialogTitle">
-          <div class="duplicate-dialog-heading">
-            <span>重复订单检查</span>
-            <h2 id="duplicateDialogTitle">这笔订单可能已经存在</h2>
-            <p id="duplicateDialogReason"></p>
-          </div>
-          <div class="duplicate-compare">
-            <article><small>已有订单</small><strong id="duplicateExistingCustomer"></strong><span id="duplicateExistingItems"></span><em id="duplicateExistingDelivery"></em></article>
-            <article><small>本次识别</small><strong id="duplicateIncomingCustomer"></strong><span id="duplicateIncomingItems"></span><em id="duplicateIncomingDelivery"></em></article>
-          </div>
-          <p class="duplicate-dialog-note">SOUS 不会自动删除或合并订单，请选择处理方式。</p>
-          <div class="duplicate-dialog-actions">
-            <button type="button" class="btn ghost" data-duplicate-cancel>返回修改</button>
-            <button type="button" class="btn ghost" data-duplicate-view>查看原订单</button>
-            <button type="button" class="btn ghost" data-duplicate-merge>合并为更新</button>
-            <button type="button" class="btn primary" data-duplicate-create>仍然创建</button>
-          </div>
-        </section>
-      </div>`);
-    return document.getElementById("duplicateOrderDialog");
-  }
-
-  function showDuplicateDialog(match, candidate, options = {}) {
-    const root = ensureDialog();
-    const order = match.order;
-    const isEarlyCheck = options.phase === "preparse" || options.phase === "predisplay";
-    root.querySelector("#duplicateDialogTitle").textContent = isEarlyCheck ? "检测到可能重复的订单" : "这笔订单可能已经存在";
-    root.querySelector("#duplicateDialogReason").textContent = `${Math.round(match.score * 100)}% 相似 · ${match.reasons.join(" · ")}`;
-    root.querySelector("#duplicateExistingCustomer").textContent = displayText(order.customer, "未填写顾客");
-    root.querySelector("#duplicateExistingItems").textContent = displayText(order.items, "未填写商品");
-    root.querySelector("#duplicateExistingDelivery").textContent = [order.date, order.method].filter(Boolean).join(" ") || "交付信息未填写";
-    root.querySelector("#duplicateIncomingCustomer").textContent = displayText(candidate.customer, "未填写顾客");
-    root.querySelector("#duplicateIncomingItems").textContent = displayText(candidate.items, "未填写商品");
-    root.querySelector("#duplicateIncomingDelivery").textContent = [candidate.date, candidate.method].filter(Boolean).join(" ") || "交付信息未填写";
-    root.querySelector(".duplicate-dialog-note").textContent = isEarlyCheck
-      ? "SOUS 已暂停生成新草稿，请先选择如何处理。"
-      : "SOUS 不会自动删除或合并订单，请选择处理方式。";
-    root.querySelector("[data-duplicate-cancel]").textContent = isEarlyCheck ? "取消本次" : "返回修改";
-    root.querySelector("[data-duplicate-merge]").textContent = isEarlyCheck ? "作为更新继续" : "合并为更新";
-    root.querySelector("[data-duplicate-create]").textContent = isEarlyCheck ? "仍然继续" : "仍然创建";
+  async function duplicateDialog(match, candidate, phase) {
+    let root = $("#duplicateOrderDialog");
+    if (!root) {
+      document.body.insertAdjacentHTML("beforeend", `<div class="duplicate-dialog-backdrop" id="duplicateOrderDialog" hidden><section class="duplicate-dialog" role="alertdialog" aria-modal="true" aria-labelledby="duplicateDialogTitle"><div class="duplicate-dialog-heading"><span>重复订单检查</span><h2 id="duplicateDialogTitle">可能已录过这笔订单</h2><p id="duplicateDialogReason"></p></div><div class="duplicate-compare"><article><small>已有订单</small><strong id="duplicateExistingCustomer"></strong><span id="duplicateExistingItems"></span><em id="duplicateExistingDelivery"></em></article><article><small>本次上传</small><strong id="duplicateIncomingCustomer"></strong><span id="duplicateIncomingItems"></span><em id="duplicateIncomingDelivery"></em></article></div><p class="duplicate-dialog-note">已暂停生成新草稿，请先选择处理方式。</p><div class="duplicate-dialog-actions"><button type="button" class="btn ghost" data-duplicate-cancel>取消本次</button><button type="button" class="btn ghost" data-duplicate-view>查看原订单</button><button type="button" class="btn ghost" data-duplicate-merge>作为更新继续</button><button type="button" class="btn primary" data-duplicate-create>仍然继续</button></div></section></div>`);
+      root = $("#duplicateOrderDialog");
+    }
+    $("#duplicateDialogReason", root).textContent = `${Math.round(match.score * 100)}% 相似 · ${match.reasons.join(" · ")}`;
+    $("#duplicateExistingCustomer", root).textContent = match.order.customer || "未填写顾客";
+    $("#duplicateExistingItems", root).textContent = match.order.items || "未填写商品";
+    $("#duplicateExistingDelivery", root).textContent = [match.order.date, match.order.method].filter(Boolean).join(" ") || "交付信息未填写";
+    $("#duplicateIncomingCustomer", root).textContent = candidate.customer || (phase === "preparse" ? "相似截图" : "未填写顾客");
+    $("#duplicateIncomingItems", root).textContent = candidate.items || (phase === "preparse" ? "尚未进行 AI 识别" : "未填写商品");
+    $("#duplicateIncomingDelivery", root).textContent = [candidate.date, candidate.method].filter(Boolean).join(" ") || "交付信息未填写";
+    const external = match.order.__workspaceId && match.order.__workspaceId !== activeWorkspace();
+    $("[data-duplicate-merge]", root).hidden = external;
     root.hidden = false;
-    requestAnimationFrame(() => root.querySelector("[data-duplicate-merge]")?.focus());
-
+    requestAnimationFrame(() => $("[data-duplicate-view]", root)?.focus());
     return new Promise((resolve) => {
-      const finish = (value) => { root.hidden = true; root.removeEventListener("click", onClick); resolve(value); };
-      const onClick = (event) => {
-        const target = event.target instanceof Element ? event.target : null;
-        if (!target) return;
-        if (target === root || target.closest("[data-duplicate-cancel]")) finish("cancel");
-        else if (target.closest("[data-duplicate-view]")) finish("view");
-        else if (target.closest("[data-duplicate-merge]")) finish("merge");
-        else if (target.closest("[data-duplicate-create]")) finish("create");
-      };
-      root.addEventListener("click", onClick);
+      const click = (event) => { const action = event.target.closest("[data-duplicate-cancel]") ? "cancel" : event.target.closest("[data-duplicate-view]") ? "view" : event.target.closest("[data-duplicate-merge]") ? "merge" : event.target.closest("[data-duplicate-create]") ? "create" : null; if (!action && event.target !== root) return; root.hidden = true; root.removeEventListener("click", click); resolve(action || "cancel"); };
+      root.addEventListener("click", click);
     });
   }
 
-  async function guardSave(baseSave) {
-    if (!currentParse || currentParse.editingOrderId || currentParse.duplicateApproved) return baseSave();
-    const candidate = candidateFromDraft();
-    const match = findMatch(candidate);
-    if (!match) return baseSave();
-    const action = await showDuplicateDialog(match, candidate);
-    if (action === "cancel") return;
-    if (action === "view") { window.go?.("orders"); return; }
-    if (action === "merge") currentParse.editingOrderId = match.order.id;
-    return baseSave();
-  }
-
-  function installSaveGuards() {
-    if (confirmOrder?.sousDuplicateGuard === true) return;
-    const baseConfirmOrder = confirmOrder;
-    const guardedConfirm = function duplicateAwareConfirmOrder() { return guardSave(baseConfirmOrder); };
-    guardedConfirm.sousDuplicateGuard = true;
-    confirmOrder = guardedConfirm;
-
-    const baseSaveNeedsConfirmation = window.saveNeedsConfirmation;
-    const guardedPending = function duplicateAwareSavePending() { return guardSave(baseSaveNeedsConfirmation); };
-    guardedPending.sousDuplicateGuard = true;
-    window.saveNeedsConfirmation = guardedPending;
-  }
-  setTimeout(installSaveGuards, 1500);
-
-  let exactBypassOnce = false;
-  let pendingExactDecision = null;
-
-  function pendingSourceImages() {
-    return (Array.isArray(pendingImages) ? pendingImages : []).map((image) => ({
-      id: image.id,
-      fingerprint: image.fingerprint || fingerprint(image.data),
-      type: image.type,
-      url: image.url,
-      groupId: image.groupId,
-    }));
-  }
-
-  function findExactSourceOrder(images = pendingSourceImages()) {
-    const candidate = { sourceImages: images };
-    return (Array.isArray(orders) ? orders : [])
-      .map((order) => compare(candidate, order))
-      .find((result) => result?.level === "exact") || null;
-  }
-
-  async function interceptExactScreenshot(event) {
-    const button = event.target instanceof Element ? event.target.closest("#parseBtn") : null;
-    if (!button || currentParse || !pendingImages?.length) return;
-    if (exactBypassOnce) {
-      exactBypassOnce = false;
-      return;
+  function viewMatchedOrder(order) {
+    if (order.__workspaceId && order.__workspaceId !== activeWorkspace()) {
+      const snapshot = readJson(`sous:workspace:${order.__workspaceId}`, null);
+      if (snapshot) { localStorage.setItem(ACTIVE_KEY, order.__workspaceId); writeJson(PROFILE_KEY, snapshot.profile || {}); DATA_KEYS.forEach((key) => snapshot[key] == null ? localStorage.removeItem(`sous:${key}`) : writeJson(`sous:${key}`, snapshot[key])); location.reload(); return; }
     }
-    const match = findExactSourceOrder();
-    if (!match) return;
+    window.go?.("orders");
+  }
+
+  let bypassPreparse = false;
+  async function interceptPreparse(event) {
+    const button = event.target.closest?.("#parseBtn");
+    const images = window.pendingImages ?? (typeof pendingImages !== "undefined" ? pendingImages : []);
+    if (!button || !images?.length || (typeof currentParse !== "undefined" && currentParse)) return;
+    if (bypassPreparse) { bypassPreparse = false; return; }
     event.preventDefault();
     event.stopImmediatePropagation();
-    const candidate = {
-      customer: "相同截图",
-      items: "检测到与已有订单使用相同截图",
-      date: "",
-      method: "",
-      sourceImages: pendingSourceImages(),
-    };
-    const action = await showDuplicateDialog(match, candidate, { phase: "preparse" });
-    if (action === "cancel") return;
-    if (action === "view") {
-      window.go?.("orders");
+    const sources = await pendingSources();
+    const match = findDuplicate({ sourceImages: sources });
+    if (!match) {
+      bypassPreparse = true;
+      button.click();
       return;
     }
-    pendingExactDecision = {
-      action,
-      orderId: match.order.id,
-      fingerprints: [...sourceFingerprints(candidate)],
-    };
-    exactBypassOnce = true;
+    const action = await duplicateDialog(match, { sourceImages: sources }, "preparse");
+    if (action === "view") return viewMatchedOrder(match.order);
+    if (action === "cancel") return;
+    window.__sousDuplicateDecision = { action, orderId: match.order.id, fingerprints: sources.map((source) => source.fingerprint) };
+    bypassPreparse = true;
     button.click();
   }
 
-  document.addEventListener("click", interceptExactScreenshot, true);
-
-  function parseUsesPendingDecision(parse) {
-    if (!pendingExactDecision) return false;
-    const fingerprints = sourceFingerprints(parse);
-    return pendingExactDecision.fingerprints.some((value) => fingerprints.has(value));
+  function candidateFromParse(parse) {
+    const data = parse?.data || {};
+    return { customer: data.customer || "", items: Array.isArray(data.items) ? data.items.map((item) => `${item.product || item.name || "商品"} ×${item.qty || item.quantity || 1}`).join("；") : data.items || "", date: [data.delivery_date, data.delivery_time].filter(Boolean).join(" "), method: data.method || "", sourceImages: parse?.sourceImages || [], editingOrderId: parse?.editingOrderId || null, conversationGroupId: parse?.conversationGroupId || null };
   }
 
-  function removeParseFromQueue(parse) {
-    const batch = window.sousConversationGroups?.state;
-    if (!batch?.queue?.length) return false;
-    const index = batch.queue.findIndex((entry) => entry.parse === parse);
-    if (index < 0) return false;
-    batch.queue.splice(index, 1);
-    const nextIndex = batch.queue.findIndex((entry) => entry.status === "ready");
-    if (nextIndex >= 0) {
-      batch.activeIndex = nextIndex;
-      currentParse = batch.queue[nextIndex].parse;
-      renderParseResult();
-    } else {
-      batch.queue = [];
-      batch.activeIndex = -1;
-      currentParse = null;
-      document.getElementById("parseArea").innerHTML = "";
-      document.getElementById("page-intake")?.classList.remove("has-active-review");
-      window.updateParseBtn?.();
+  function installDuplicateGuards() {
+    if (typeof renderParseResult === "function" && !renderParseResult.releaseGuard) {
+      const baseRender = renderParseResult;
+      renderParseResult = function guardedRender() {
+        const parse = typeof currentParse !== "undefined" ? currentParse : null;
+        if (!parse) return;
+        const pending = window.pendingImages ?? (typeof pendingImages !== "undefined" ? pendingImages : []);
+        if (parse.sourceImages?.length) parse.sourceImages.forEach((source) => { const image = pending?.find((item) => item.id === source.id); if (image) { source.fingerprint ||= image.fingerprint; source.visualHash ||= image.visualHash; } });
+        const decision = window.__sousDuplicateDecision;
+        if (decision && parse.sourceImages?.some((source) => decision.fingerprints.includes(source.fingerprint))) { delete window.__sousDuplicateDecision; if (decision.action === "merge") parse.editingOrderId = decision.orderId; else parse.duplicateApproved = true; return baseRender(); }
+        if (parse.duplicateReviewed || parse.editingOrderId || parse.duplicateApproved) return baseRender();
+        const match = findDuplicate(candidateFromParse(parse));
+        if (!match) { parse.duplicateReviewed = true; return baseRender(); }
+        if (parse.duplicateCheckPending) return;
+        parse.duplicateCheckPending = true;
+        duplicateDialog(match, candidateFromParse(parse), "predisplay").then((action) => { delete parse.duplicateCheckPending; if (action === "view") return viewMatchedOrder(match.order); if (action === "cancel") { currentParse = null; const area = $("#parseArea"); if (area) area.innerHTML = ""; return; } if (action === "merge") parse.editingOrderId = match.order.id; else parse.duplicateApproved = true; parse.duplicateReviewed = true; if (currentParse === parse) baseRender(); });
+      };
+      renderParseResult.releaseGuard = true;
     }
-    return true;
-  }
-
-  function discardIncomingParse(parse) {
-    if (removeParseFromQueue(parse)) return;
-    if (currentParse === parse) currentParse = null;
-    const area = document.getElementById("parseArea");
-    if (area) area.innerHTML = "";
-    document.getElementById("page-intake")?.classList.remove("has-active-review");
-    window.updateParseBtn?.();
-  }
-
-  function installRenderGuard() {
-    if (renderParseResult?.sousDuplicateGuard === true) return;
-    const renderParsedDraft = renderParseResult;
-    const guardedRender = function duplicateAwareRenderParseResult() {
-      const parse = currentParse;
-      if (!parse) return;
-      if (!parse.sourceImages?.length && pendingImages?.length) parse.sourceImages = pendingSourceImages();
-
-      if (parseUsesPendingDecision(parse)) {
-        const decision = pendingExactDecision;
-        pendingExactDecision = null;
-        if (decision.action === "merge") parse.editingOrderId = decision.orderId;
-        if (decision.action === "create") parse.duplicateApproved = true;
-        parse.duplicateReviewed = true;
-        return renderParsedDraft();
-      }
-
-      if (parse.editingOrderId || parse.duplicateApproved || parse.duplicateReviewed) return renderParsedDraft();
-      if (parse.duplicateCheckPending) return;
-      const candidate = candidateFromParse(parse);
-      const match = findMatch(candidate);
-      if (!match) {
-        parse.duplicateReviewed = true;
-        return renderParsedDraft();
-      }
-
-      parse.duplicateCheckPending = true;
-      showDuplicateDialog(match, candidate, { phase: "predisplay" }).then((action) => {
-        delete parse.duplicateCheckPending;
-        if (action === "cancel") {
-          discardIncomingParse(parse);
-          return;
-        }
-        if (action === "view") {
-          discardIncomingParse(parse);
-          window.go?.("orders");
-          return;
-        }
-        if (action === "merge") parse.editingOrderId = match.order.id;
-        if (action === "create") parse.duplicateApproved = true;
-        parse.duplicateReviewed = true;
-        if (currentParse === parse) renderParsedDraft();
-      });
+    const guardSave = (base) => async function guardedSave() {
+      const parse = typeof currentParse !== "undefined" ? currentParse : null;
+      if (!parse || parse.editingOrderId || parse.duplicateApproved) return base();
+      const read = (key) => $(`#f-${key}`)?.value?.trim() || "";
+      const candidate = { customer: read("customer"), items: read("items"), date: read("delivery"), method: read("method"), sourceImages: parse.sourceImages || [], conversationGroupId: parse.conversationGroupId || null };
+      const match = findDuplicate(candidate);
+      if (!match) return base();
+      const action = await duplicateDialog(match, candidate, "save");
+      if (action === "view") return viewMatchedOrder(match.order);
+      if (action === "cancel") return;
+      if (action === "merge") parse.editingOrderId = match.order.id; else parse.duplicateApproved = true;
+      return base();
     };
-    guardedRender.sousDuplicateGuard = true;
-    renderParseResult = guardedRender;
+    if (typeof confirmOrder === "function" && !confirmOrder.releaseGuard) { const guarded = guardSave(confirmOrder); guarded.releaseGuard = true; confirmOrder = guarded; }
+    if (typeof window.saveNeedsConfirmation === "function" && !window.saveNeedsConfirmation.releaseGuard) { const guarded = guardSave(window.saveNeedsConfirmation); guarded.releaseGuard = true; window.saveNeedsConfirmation = guarded; }
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", installRenderGuard, { once: true });
-  else installRenderGuard();
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+    if (target.closest("#parseBtn")) { interceptPreparse(event); return; }
+    if (target.closest(".order-list-state .chip")) { event.preventDefault(); event.stopImmediatePropagation(); return; }
+    if (target.closest("header.top .account-settings")) { event.preventDefault(); event.stopImmediatePropagation(); const origin = currentPage(); if (origin !== "settings") { window.__settingsReturnPage = origin; sessionStorage.setItem("sous:settings-return-page", origin); window.go?.("settings"); } return; }
+    if (target.closest("#page-settings .back-chip")) { event.preventDefault(); event.stopImmediatePropagation(); const destination = window.__settingsReturnPage || sessionStorage.getItem("sous:settings-return-page") || "more"; window.go?.(destination === "settings" ? "more" : destination); return; }
+    const rename = target.closest("[data-workspace-rename]"); if (rename) { event.preventDefault(); renameWorkspace(rename.dataset.workspaceRename); return; }
+    const remove = target.closest("[data-workspace-delete]"); if (remove) { event.preventDefault(); deleteWorkspace(remove.dataset.workspaceDelete); return; }
+    if (target.closest("[data-sous-export]")) { event.preventDefault(); exportAllData(); return; }
+    if (target.closest("[data-sous-import]")) { event.preventDefault(); $("[data-sous-import-file]")?.click(); return; }
+    window.SOUSRuntime?.requestSync();
+  }, true);
 
-  function blockStatusInteraction(event) {
-    const chip = event.target instanceof Element ? event.target.closest(".order-list-state .chip") : null;
-    if (!chip) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-  }
-  document.addEventListener("click", blockStatusInteraction, true);
+  document.addEventListener("change", (event) => {
+    if (event.target.matches?.("[data-sous-import-file]") && event.target.files?.[0]) importAllData(event.target.files[0]);
+  });
 
-  function normalizeMissingCopy(root = document) {
-    const nodes = [
-      ...(root.matches?.(".order-list-missing") ? [root] : []),
-      ...(root.querySelectorAll?.(".order-list-missing") || []),
-    ];
-    nodes.forEach((node) => {
-      const next = node.textContent.replace(/[\uFF1A:\u3001\uFF0C,\uFF1B;]+/g, " ").replace(/\s+/g, " ").trim();
-      if (node.textContent !== next) node.textContent = next;
-    });
-  }
-
-  const observer = new MutationObserver((records) => records.forEach((record) => record.addedNodes.forEach((node) => {
-    if (node.nodeType === Node.ELEMENT_NODE) normalizeMissingCopy(node);
-  })));
-  const start = () => { normalizeMissingCopy(); observer.observe(document.body, { childList: true, subtree: true }); };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
-  else start();
-
-  window.sousDuplicateGuard = {
-    fingerprint,
-    compare,
-    findMatch,
-    findExactSourceOrder,
-    candidateFromDraft,
-    candidateFromParse,
-  };
+  installDuplicateGuards();
+  const registrationObserver = new MutationObserver(enforceRegistrationGate);
+  if (document.documentElement) registrationObserver.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["hidden"] });
+  window.SOUSRuntime?.registerSync("release-controller", syncAll);
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", syncAll, { once: true }); else syncAll();
+  window.sousDuplicateGuard = { fingerprint, visualHash, compare: compareDuplicate, findMatch: findDuplicate };
 })();

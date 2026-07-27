@@ -1,51 +1,32 @@
-const { chromium } = require("playwright");
-
+﻿const { chromium } = require("playwright");
 const APP = "http://127.0.0.1:8136/?firstUse=1";
 const chrome = "C:/Program Files/Google/Chrome/Application/chrome.exe";
-const assert = (condition, message) => {
-  if (!condition) throw new Error(message);
-};
-
+const assert = (condition, message) => { if (!condition) throw new Error(message); };
 (async () => {
   const browser = await chromium.launch({ headless: true, executablePath: chrome });
   const page = await browser.newPage({ viewport: { width: 393, height: 852 } });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-
   await page.goto(APP, { waitUntil: "domcontentloaded" });
   await page.evaluate(() => localStorage.clear());
   await page.reload({ waitUntil: "domcontentloaded" });
-
   await page.locator("#v30Entry").waitFor({ state: "visible" });
-  assert(await page.locator("#v30Entry").isVisible(), "first-use entry missing");
   await page.locator("#v30EntryForm").evaluate((form) => form.requestSubmit());
   assert(await page.locator("#v30EntryError").isVisible(), "empty form validation missing");
-
   await page.locator("#v30BusinessName").fill("测试工作室");
   await page.locator("#v30Email").fill("invalid-email");
   await page.locator("#v30EntryForm").evaluate((form) => form.requestSubmit());
-  assert(
-    (await page.locator("#v30EntryError").textContent()).includes("有效的邮箱"),
-    "email validation missing",
-  );
-
+  assert((await page.locator("#v30EntryError").textContent()).includes("有效的邮箱"), "email validation missing");
   await page.locator("#v30Email").fill("owner@example.com");
   await page.locator("#v30EntryForm").evaluate((form) => form.requestSubmit());
-  await page.waitForFunction(
-    () => document.querySelector('[data-v7-step="1"]')?.classList.contains("on"),
-  );
-
-  const profile = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("sous:business-profile:v1") || "null"),
-  );
+  await page.waitForFunction(() => document.querySelector('[data-v7-step="1"]')?.classList.contains("on"));
+  const profile = await page.evaluate(() => JSON.parse(localStorage.getItem("sous:business-profile:v1") || "null"));
   assert(profile?.businessName === "测试工作室", "business profile not persisted");
   assert(profile?.email === "owner@example.com", "email not persisted");
-  assert((await page.locator("[data-v7-template]").count()) === 4, "industry choices missing");
+  assert((await page.locator("[data-v7-template]").count()) === 5, "expected exactly five industry choices");
+  assert((await page.locator('[data-v7-template="blank"]').count()) === 1, "other industry duplicated");
+  assert((await page.locator(".setup-progress span.on").count()) === 1, "step one progress state incorrect");
   assert(errors.length === 0, `page errors: ${errors.join(" | ")}`);
-
   await browser.close();
   console.log("v30 entry acceptance passed");
-})().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+})().catch((error) => { console.error(error); process.exit(1); });

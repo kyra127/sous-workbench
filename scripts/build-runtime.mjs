@@ -1,27 +1,12 @@
-import fs from "node:fs";
+﻿import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sources = [
   "runtime-core.js",
-  "workbench.js",
-  "workbench-v2.js",
-  "workbench-v4.js",
-  "workbench-v6-pre.js",
-  "workbench-v6.js",
-  "workbench-v6-fixes.js",
-  "workbench-v7.js",
-  "workbench-v7-fixes.js",
-  "workbench-v8-multigroup.js",
-  "workbench-v9-feedback.js",
-  "v26-final.js",
-  "v27-final.js",
-  "v28-final.js",
-  "v29-consistency.js",
-  "v30-entry.js",
-  "v31-annotations.js",
-  "v32-duplicate-guard.js",
+  "baseline-runtime.js",
+  "release-controller.js",
 ];
 
 const banner = [
@@ -42,6 +27,4 @@ const body = sources
 const output = `${banner}${body}`;
 fs.writeFileSync(path.join(projectDir, "sous-runtime.js"), output, "utf8");
 fs.writeFileSync(path.join(projectDir, "app.js"), output, "utf8");
-console.log(`Built sous-runtime.js from ${sources.length} source modules.`);
-
-
+console.log(`Built sous-runtime.js from ${sources.length} controlled runtime layers.`);
