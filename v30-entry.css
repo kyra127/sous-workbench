@@ -21,6 +21,10 @@
   color: var(--v30-ink);
 }
 
+.v30-entry[hidden] {
+  display: none !important;
+}
+
 
 
 body.v30-entry-open > .app {
