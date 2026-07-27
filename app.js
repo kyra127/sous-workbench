@@ -5594,6 +5594,32 @@ ${extra ? `补充要求：${extra}` : ""}
     });
   }
 
+  function syncRegistrationBack() {
+    const shell = $("#sousSetup");
+    const entry = $("#v30Entry");
+    const back = $('[data-v7-step="1"] [data-v7-prev]', shell || document);
+    const registrationFlow = Boolean(shell && entry && !shell.classList.contains("v7-settings-mode"));
+    if (!back || !registrationFlow) return;
+    if (back.textContent !== "\u8fd4\u56de\u6ce8\u518c\u9875") back.textContent = "\u8fd4\u56de\u6ce8\u518c\u9875";
+    back.setAttribute("aria-label", "\u8fd4\u56de\u6ce8\u518c\u9875");
+    back.removeAttribute("disabled");
+    back.dataset.releaseRegistrationBack = "true";
+  }
+
+  function showRegistrationEntry() {
+    const entry = $("#v30Entry");
+    const shell = $("#sousSetup");
+    if (!entry || !shell || shell.classList.contains("v7-settings-mode")) return false;
+    shell.hidden = true;
+    shell.classList.remove("v31-industry-step");
+    document.body.classList.remove("setup-open");
+    entry.hidden = false;
+    document.body.classList.add("v30-entry-open");
+    enforceRegistrationGate();
+    requestAnimationFrame(() => $("#v30BusinessName", entry)?.focus());
+    return true;
+  }
+
   function syncSetup() {
     const shell = $("#sousSetup");
     if (!shell) return;
@@ -5613,6 +5639,7 @@ ${extra ? `补充要求：${extra}` : ""}
     const label = $("#v7StepLabel", shell);
     if (label) label.textContent = stepTwo ? "2 / 2 · 选择商品" : "1 / 2 · 选择行业";
     $$(".setup-progress span", shell).forEach((segment, index) => segment.classList.toggle("on", stepTwo ? index < 2 : index === 0));
+    syncRegistrationBack();
     const heading = $(".v7-manual-product .v7-preview-heading span", shell);
     if (heading) heading.innerHTML = `<b>添加您的商品</b><small>输入商品名称和销售单位，加入自己的目录</small>`;
   }
@@ -6005,6 +6032,15 @@ ${extra ? `补充要求：${extra}` : ""}
     if (typeof confirmOrder === "function" && !confirmOrder.releaseGuard) { const guarded = guardSave(confirmOrder); guarded.releaseGuard = true; confirmOrder = guarded; }
     if (typeof window.saveNeedsConfirmation === "function" && !window.saveNeedsConfirmation.releaseGuard) { const guarded = guardSave(window.saveNeedsConfirmation); guarded.releaseGuard = true; window.saveNeedsConfirmation = guarded; }
   }
+
+  window.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    const back = target?.closest('[data-v7-step="1"] [data-v7-prev]');
+    if (!back || !$("#v30Entry") || $("#sousSetup")?.classList.contains("v7-settings-mode")) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    showRegistrationEntry();
+  }, true);
 
   document.addEventListener("click", (event) => {
     const target = event.target instanceof Element ? event.target : null;
