@@ -6,6 +6,23 @@
   --v30-muted: #667085;
   --v30-line: #dfe5ee;
   --v30-surface: #ffffff;
+  --bg: linear-gradient(180deg, #f5f7fb 0%, #f5f7fb 100%);
+  --card: rgba(255, 255, 255, .9);
+  --line: rgba(95, 107, 124, .18);
+  --hairline: #dfe5ee;
+  --ink: #172033;
+  --ink-2: #526078;
+  --muted: #7b879b;
+  --acc: #0f62fe;
+  --acc-soft: #edf4ff;
+  --gold-ink: #ffffff;
+  --iri: linear-gradient(135deg, #0f62fe 0%, #0043ce 100%);
+  --iri-soft: linear-gradient(135deg, #edf4ff 0%, #e5efff 100%);
+  --warn-bg: #f5f7fb;
+  --warn-line: #d9e4f5;
+  --warn-ink: #526078;
+  --shadow: 0 12px 36px rgba(23, 32, 51, .08), 0 2px 8px rgba(23, 32, 51, .04);
+  --shadow-soft: 0 6px 20px rgba(23, 32, 51, .06);
 }
 
 /* First-use identity screen: intentionally simple, local-only, no password. */
