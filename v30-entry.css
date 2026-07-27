@@ -421,3 +421,6 @@ header.top .logo {
 }
 
 
+
+/* Ensure the completed first-use layer cannot intercept workbench interactions. */
+#v30Entry[hidden] { display: none !important; }

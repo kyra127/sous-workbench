@@ -4,6 +4,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectDir = path.dirname(fileURLToPath(import.meta.url));
+const buildVersion = "20260727-v31.36-rc1";
+const cleanResetKey = "sous:clean-release";
 const publicPort = Number(process.env.PORT || 8124);
 const allowedOrigins = new Set(
   String(process.env.ALLOWED_ORIGINS || "")
@@ -68,7 +70,7 @@ function sendFile(res, fileName, contentType) {
     ...securityHeaders,
     "Content-Type": contentType,
     "Content-Length": bytes.length,
-    "Cache-Control": "public, max-age=300",
+    "Cache-Control": /javascript|text\/css/.test(contentType) ? "no-store" : "public, max-age=300",
   });
   res.end(bytes);
 }
@@ -77,14 +79,36 @@ function injectWorkbench(html) {
   return html
     .replace(
       "</head>",
-      '<link rel="stylesheet" href="/workbench.css"><link rel="stylesheet" href="/workbench-v5.css"><link rel="stylesheet" href="/workbench-v8-multigroup.css"><link rel="stylesheet" href="/v26-final.css"><link rel="stylesheet" href="/v27-final.css"><link rel="stylesheet" href="/v27-final.css?v=27.3"><link rel="stylesheet" href="/v28-final.css?v=28.1"><link rel="stylesheet" href="/v29-consistency.css?v=29.2"><link rel="stylesheet" href="/v30-entry.css?v=30.8"></head>',
+      `<script>
+        (() => {
+          const params = new URLSearchParams(location.search);
+          const buildVersion = "${buildVersion}";
+          const resetKey = "${cleanResetKey}";
+          const shouldReset = params.get("resetAppData") === "1";
+          if (shouldReset) {
+            localStorage.clear();
+            sessionStorage.clear();
+            if ("caches" in window) {
+              caches.keys().then((keys) => Promise.all(keys.map((key) => caches.delete(key))));
+            }
+            if ("indexedDB" in window && typeof indexedDB.databases === "function") {
+              indexedDB.databases().then((databases) => {
+                databases.forEach((database) => {
+                  if (database.name) indexedDB.deleteDatabase(database.name);
+                });
+              });
+            }
+            history.replaceState(null, "", "/?firstUse=1&v=" + buildVersion);
+          }
+          localStorage.setItem(resetKey, buildVersion);
+        })();
+      </script><link rel="stylesheet" href="/sous-ui.css?v=${buildVersion}"></head>`,
     )
     .replace(
       "</body>",
-      '<script src="/workbench.js"></script><script src="/workbench-v2.js"></script><script src="/workbench-v4.js"></script><script src="/workbench-v6-pre.js"></script><script src="/workbench-v6.js"></script><script src="/workbench-v6-fixes.js"></script><script src="/workbench-v7.js?v=7.1"></script><script src="/workbench-v7-fixes.js"></script><script src="/workbench-v8-multigroup.js"></script><script src="/workbench-v9-feedback.js"></script><script src="/v26-final.js"></script><script type="module" src="/v27-final.js?v=27.3"></script><script type="module" src="/v28-final.js?v=28.1"></script><script type="module" src="/v29-consistency.js?v=29.2"></script><script src="/v30-entry.js?v=30.8"></script></body>',
+      `<script src="/sous-runtime.js?v=${buildVersion}"></script></body>`,
     );
 }
-
 function sendIndex(res) {
   const html = injectWorkbench(fs.readFileSync(path.join(projectDir, "index.html"), "utf8"));
   res.writeHead(200, {
@@ -97,6 +121,8 @@ function sendIndex(res) {
 }
 
 const assetRoutes = new Map([
+  ["/sous-ui.css", ["sous-ui.css", "text/css; charset=utf-8"]],
+  ["/sous-runtime.js", ["sous-runtime.js", "text/javascript; charset=utf-8"]],
   ["/workbench.js", ["workbench.js", "text/javascript; charset=utf-8"]],
   ["/workbench.css", ["workbench.css", "text/css; charset=utf-8"]],
   ["/workbench-v2.js", ["workbench-v2.js", "text/javascript; charset=utf-8"]],
@@ -107,9 +133,9 @@ const assetRoutes = new Map([
   ["/workbench-v6-fixes.js", ["workbench-v6-fixes.js", "text/javascript; charset=utf-8"]],
   ["/workbench-v7.js", ["workbench-v7.js", "text/javascript; charset=utf-8"]],
   ["/workbench-v7-fixes.js", ["workbench-v7-fixes.js", "text/javascript; charset=utf-8"]],
-  ["/workbench-v8-multigroup.js", ["workbench-v8-multigroup.js", "text/javascript; charset=utf-8"]],
+  ["/workbench-v8-multigroup.js?v=8.1", ["workbench-v8-multigroup.js", "text/javascript; charset=utf-8"]],
   ["/workbench-v8-multigroup.css", ["workbench-v8-multigroup.css", "text/css; charset=utf-8"]],
-  ["/workbench-v9-feedback.js", ["workbench-v9-feedback.js", "text/javascript; charset=utf-8"]],
+  ["/workbench-v9-feedback.js?v=9.1", ["workbench-v9-feedback.js", "text/javascript; charset=utf-8"]],
   ["/v26-final.js", ["v26-final.js", "text/javascript; charset=utf-8"]],
   ["/v26-final.css", ["v26-final.css", "text/css; charset=utf-8"]],
   ["/v27-final.js", ["v27-final.js", "text/javascript; charset=utf-8"]],
@@ -120,6 +146,8 @@ const assetRoutes = new Map([
   ["/v29-consistency.css", ["v29-consistency.css", "text/css; charset=utf-8"]],
   ["/v30-entry.js", ["v30-entry.js", "text/javascript; charset=utf-8"]],
   ["/v30-entry.css", ["v30-entry.css", "text/css; charset=utf-8"]],
+  ["/v31-blue-final.css", ["v31-blue-final.css", "text/css; charset=utf-8"]],
+  ["/v31-annotations.js", ["v31-annotations.js", "application/javascript; charset=utf-8"]],
   ["/sous-mark-v1.png", ["sous-mark-v1.png", "image/png"]],
 ]);
 
@@ -151,3 +179,14 @@ const workbench = http.createServer((req, res) => {
 workbench.listen(publicPort, "0.0.0.0", () => {
   console.log(`SOUS running at http://0.0.0.0:${publicPort}`);
 });
+
+
+
+
+
+
+
+
+
+
+

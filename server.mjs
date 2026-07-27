@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectDir = path.dirname(fileURLToPath(import.meta.url));
-const workspaceDir = path.resolve(projectDir, "..", "..");
+const workspaceDir = path.resolve(projectDir, "..");
 loadEnv(path.join(workspaceDir, ".env.local"));
 loadEnv(path.join(projectDir, ".env.local"));
 
@@ -31,6 +31,7 @@ const orderSchema = {
   additionalProperties: false,
   required: [
     "parse_ok",
+    "parse_failure_reason",
     "customer",
     "items",
     "delivery_date",
@@ -47,6 +48,7 @@ const orderSchema = {
   ],
   properties: {
     parse_ok: { type: "boolean" },
+    parse_failure_reason: { type: "string" },
     customer: { type: "string" },
     items: {
       type: "array",
@@ -134,6 +136,39 @@ const weeklySchema = {
   properties: {
     menu_text: { type: "string" },
     image_prompt: { type: "string" },
+  },
+};
+
+const groupingSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["groups", "uncertain_pairs"],
+  properties: {
+    groups: {
+      type: "array",
+      minItems: 1,
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["image_indexes", "customer_name"],
+        properties: {
+          image_indexes: { type: "array", minItems: 1, items: { type: "integer" } },
+          customer_name: { type: ["string", "null"] },
+        },
+      },
+    },
+    uncertain_pairs: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["image_index", "reference_index"],
+        properties: {
+          image_index: { type: "integer" },
+          reference_index: { type: "integer" },
+        },
+      },
+    },
   },
 };
 
@@ -245,14 +280,14 @@ async function handleAI(req, res) {
     content.push({
       type: "input_image",
       image_url: `data:${image.type};base64,${image.data}`,
-      detail: "original",
+      detail: "high",
     });
   }
 
   const payload = {
     model: TEXT_MODEL,
     input: [{ role: "user", content }],
-    reasoning: { effort: task === "order" ? "low" : "none" },
+    reasoning: { effort: task === "order" ? "medium" : task === "grouping" ? "low" : "none" },
     store: false,
   };
   if (task === "order") {
@@ -271,6 +306,15 @@ async function handleAI(req, res) {
         name: "sous_weekly_menu",
         strict: true,
         schema: weeklySchema,
+      },
+    };
+  } else if (task === "grouping") {
+    payload.text = {
+      format: {
+        type: "json_schema",
+        name: "sous_conversation_groups",
+        strict: true,
+        schema: groupingSchema,
       },
     };
   } else {

@@ -3,10 +3,6 @@
   let inventory = {};
   let undoTimer = null;
 
-  const style = document.createElement("link");
-  style.rel = "stylesheet";
-  style.href = "/workbench-v2.css";
-  document.head.appendChild(style);
 
   function setUserFacingAiStatus() {
     const label = document.getElementById("aiStatusText");

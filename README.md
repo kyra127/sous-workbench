@@ -1,4 +1,4 @@
-# SOUS Workbench
+﻿# SOUS Workbench v30.8
 
 SOUS is a local-first AI operations workbench for solo operators and very small
 businesses. It turns customer messages and chat screenshots into reviewable
@@ -16,7 +16,7 @@ user action.
 
 ## Local setup
 
-Requirements: Node.js 20+ and an OpenAI API key.
+Requirements: Node.js 20+. An OpenAI API key is only required for live AI text and image generation; the rest of the product remains usable without one.
 
 ```powershell
 Copy-Item .env.example .env.local
@@ -26,6 +26,8 @@ npm start
 ```
 
 Open <http://127.0.0.1:8124/>.
+
+For access from a phone on the same Wi-Fi network, keep the server running and open `http://<computer-LAN-IP>:8124/`. Windows Firewall must allow Node.js on the private network.
 
 ## Configuration
 
@@ -43,9 +45,20 @@ sent to the configured OpenAI project when AI features are used.
 ## Validation
 
 ```powershell
+npm run build
 npm run check
 npm run test:acceptance
 ```
+
+This version is a browser application served by Node.js and has no transpilation or generated production bundle. `npm run build` performs production syntax/runtime-asset validation; `npm start` is the production start command.
+
+The versioned runtime-layer filenames are required dependencies of the current v30.8 UI and are loaded in a fixed order by `workbench-server.mjs`; they are not separately runnable legacy applications.
+
+## Clean delivery contents
+
+- Current v30.8 source, server, starter templates, logo, and acceptance checks
+- No `.git`, `node_modules`, `.env.local`, API keys, logs, caches, screenshots, QA captures, installers, or archived UI directories
+- `.env.example` contains variable names and safe defaults only
 
 ## Deployment
 
@@ -64,3 +77,5 @@ The included `render.yaml` deploys the application as a Render Web Service:
 
 Business data is stored in the user's browser `localStorage`. There is no cloud
 account, server database, or multi-device synchronization.
+
+

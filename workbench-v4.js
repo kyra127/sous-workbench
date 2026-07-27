@@ -1,10 +1,6 @@
 (() => {
   "use strict";
 
-  const style = document.createElement("link");
-  style.rel = "stylesheet";
-  style.href = "/workbench-v4.css";
-  document.head.appendChild(style);
 
   const replacements = [
     [/K&K Bakery/g, "Independent Business"],

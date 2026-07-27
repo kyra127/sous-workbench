@@ -54,6 +54,7 @@
     const shell = document.getElementById("sousSetup");
     if (!shell) return false;
 
+    shell.classList.remove("v7-settings-mode");
     shell.hidden = false;
     document.body.classList.add("setup-open");
     shell.querySelectorAll("[data-v7-step]").forEach((screen) => screen.classList.remove("on"));
@@ -269,11 +270,7 @@
     });
   }
 
-  new MutationObserver(() => window.requestAnimationFrame(syncLayout)).observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
-  window.setInterval(syncLayout, 650);
+  window.SOUSRuntime?.registerSync("v30-entry", syncLayout) || syncLayout();
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init, { once: true });

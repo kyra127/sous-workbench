@@ -376,7 +376,6 @@ ${extra ? `补充要求：${extra}` : ""}
   installRenderEnhancement();
   installMaterialFix();
   installWorkspaceInterception();
-  sync();
-  new MutationObserver(sync).observe(document.body, { childList: true, subtree: true });
+  window.SOUSRuntime?.registerSync("v26-layout", sync) || sync();
   window.addEventListener("beforeunload", () => captureWorkspace());
 })();

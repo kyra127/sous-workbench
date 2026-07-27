@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOUS</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
-<style>
+
 :root{
   --bg:linear-gradient(178deg,#f5f7fb 0%,#F3ECD8 100%);
   --card:rgba(255,255,255,.72);
   --line:rgba(95,107,124,.14);
   --hairline:#EDE5D4;
   --ink:#172033; --ink-2:#7A6E5D; --muted:#AFA28B;
-  --acc:#2563eb; --acc-soft:#F5ECDA;
-  --gold-ink:#ffffff;
-  --iri:linear-gradient(135deg,#F0DDA2 0%,#E0BE6C 100%);
-  --iri-soft:linear-gradient(135deg,#FCF8EC 0%,#F8F0DA 100%);
-  --warn-bg:#fff7e6; --warn-line:#f0cf8a; --warn-ink:#9a650c;
+  --acc:#2563eb; --acc-soft:#edf4ff;
+  --action-ink:#ffffff;
+  --iri:linear-gradient(135deg,#1769ff 0%,#0f62fe 100%);
+  --iri-soft:linear-gradient(135deg,#f5f8ff 0%,#edf4ff 100%);
+  --warn-bg:#f5f7fb; --warn-line:#F1E4BE; --warn-ink:#A8802A;
   --ok:#3E9464; --ok-bg:#EAF6EF;
   --danger:#D0664F; --danger-bg:#FDF0EC;
   --r-xl:30px; --r-lg:24px; --r-md:17px; --r-sm:12px;
@@ -78,7 +70,7 @@ p.pg-sub{color:var(--ink-2);font-size:13px;margin-bottom:16px}
 .mini .l{font-size:10.5px;color:var(--ink-2);margin-top:3px;letter-spacing:.04em}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;font-weight:700;padding:13px 24px;transition:.2s;font-size:14px;letter-spacing:.01em}
-.btn.primary{background:var(--iri);color:var(--gold-ink);box-shadow:0 6px 18px rgba(37,99,235,.22), inset 0 1px 0 rgba(255,255,255,.65)}
+.btn.primary{background:var(--iri);color:var(--action-ink);box-shadow:0 6px 18px rgba(37,99,235,.22), inset 0 1px 0 rgba(255,255,255,.65)}
 .btn.primary:hover{filter:brightness(1.02)}
 .btn.primary:disabled{background:#EDEEF3;color:#B4B9C6;box-shadow:none;cursor:not-allowed}
 .btn.ghost{background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
@@ -96,7 +88,7 @@ p.pg-sub{color:var(--ink-2);font-size:13px;margin-bottom:16px}
 .upzone:hover{border-color:#2563eb;background:var(--acc-soft)}
 .upzone:active{transform:scale(.99)}
 .up-ic{width:52px;height:52px;margin:0 auto 12px;border-radius:16px;background:var(--iri);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 16px rgba(37,99,235,.22), inset 0 1px 0 rgba(255,255,255,.6)}
-.up-ic svg{width:24px;height:24px;stroke:var(--gold-ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.up-ic svg{width:24px;height:24px;stroke:var(--action-ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .upzone b{font-size:15px;display:block;margin-bottom:3px}
 .upzone small{font-size:11.5px;color:var(--muted)}
 .or-div{display:flex;align-items:center;gap:12px;margin:16px 0 12px;color:var(--muted);font-size:11.5px}
@@ -131,7 +123,7 @@ textarea.msg:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 4px rgb
 .badge{font-size:10.5px;font-weight:700;border-radius:999px;padding:4px 12px;letter-spacing:.02em}
 .badge.ok{background:var(--ok-bg);color:var(--ok)}
 .badge.warn{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line)}
-.badge.ai{background:var(--iri);color:var(--gold-ink);font-size:10px;padding:3px 10px}
+.badge.ai{background:var(--iri);color:var(--action-ink);font-size:10px;padding:3px 10px}
 .field-row{display:flex;align-items:flex-start;gap:10px;padding:13px 0;border-bottom:1px solid var(--hairline);position:relative}
 .field-row::after{content:"a";position:absolute;right:2px;top:14px;color:#C9CDD9;font-size:15px;font-weight:600}
 .field-row:last-of-type{border-bottom:none}
@@ -162,7 +154,7 @@ textarea.msg:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 4px rgb
 .chip{font-size:11px;font-weight:700;border-radius:999px;padding:5px 13px;border:none;letter-spacing:.02em}
 .chip.pending{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line)}
 .chip.done{background:var(--ok-bg);color:var(--ok)}
-.done-btn{font-size:11.5px;font-weight:800;border-radius:999px;padding:6px 15px;background:var(--iri);color:var(--gold-ink);box-shadow:0 3px 10px rgba(37,99,235,.22)}
+.done-btn{font-size:11.5px;font-weight:800;border-radius:999px;padding:6px 15px;background:var(--iri);color:var(--action-ink);box-shadow:0 3px 10px rgba(37,99,235,.22)}
 .mini-del{font-size:11.5px;color:var(--muted)}
 .mini-del:hover{color:var(--danger)}
 .empty{color:var(--muted);text-align:center;padding:40px 10px;font-size:13px}
@@ -227,7 +219,7 @@ price-cell.profit{border-color:#E0D2AE;background:var(--iri-soft)}
 .stat-cell .v{font-size:19px;font-weight:800;letter-spacing:-.02em}
 .stat-cell .v small{font-size:11px;color:var(--acc);font-weight:700}
 .stat-cell .k{font-size:10.5px;color:var(--ink-2);margin-top:1px}
-.stat-cell.gold .v{color:var(--acc)}
+.stat-cell.accent .v{color:var(--acc)}
 
 .log-item{font-size:12.5px;padding:12px 0;border-bottom:1px solid var(--hairline);color:var(--ink-2)}
 .log-item:last-child{border-bottom:none}
@@ -243,1280 +235,1327 @@ price-cell.profit{border-color:#E0D2AE;background:var(--iri-soft)}
 .entry-card:hover{transform:translateY(-1px)}
 .entry-card:active{transform:scale(.985)}
 .entry-ic{width:40px;height:40px;flex-shrink:0;border-radius:13px;background:var(--iri);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 3px 10px rgba(37,99,235,.18)}
-.entry-ic svg{width:19px;height:19px;stroke:var(--gold-ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.entry-ic svg{width:19px;height:19px;stroke:var(--action-ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .entry-tx{flex:1;line-height:1.35}
 .entry-tx b{font-size:14.5px;display:block}
 .entry-tx small{font-size:11.5px;color:var(--muted)}
 .entry-cv{color:#C9CDD9;font-size:18px;font-weight:600}
 .back-chip{font-size:12.5px;font-weight:700;color:var(--acc);padding:14px 0 0;display:inline-block}
-</style>
-</head>
-<body>
-<div class="app">
 
-  <header class="top">
-    <div>
-      <div class="logo">SOUS<span class="dot">.</span></div>
-      <div class="logo-sub">AI Operations Assistant · K&K Bakery</div>
-    </div>
-    <div class="head-right">
-      <div class="status-pill"><span class="d"></span><span>AI 就绪</span></div>
-    </div>
-  </header>
 
-  <!-- ========== HOME ========== -->
-  <div class="page on" id="page-home">
-    <h1 class="pg" id="greeting">你好</h1>
-    <p class="pg-sub">今天的经营概览。</p>
+.status-pill.checking .d { background: #2563eb; }
+.status-pill.offline { color: #9d5948; background: #fff4f0; border-color: #f4d8ce; }
+.status-pill.offline .d { background: #c96b52; box-shadow: 0 0 0 3px rgba(201,107,82,.14); }
+.poster-actions { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px; }
+.poster-actions .btn { flex:1; }
+.generated-poster { width:100%; display:block; border-radius:16px; box-shadow:var(--shadow-soft); border:1px solid rgba(255,255,255,.8); margin-top:12px; }
+.api-note { margin-top:8px; color:var(--muted); font-size:11px; text-align:center; }
+.entry-card:focus-visible,.upzone:focus-visible { outline:2px solid var(--acc); outline-offset:3px; }
+nav.tabs { bottom:max(16px,env(safe-area-inset-bottom)); }
 
-    <div class="hero">
-      
-      <div class="label">今日待处理</div>
-      <div class="big"><span id="heroCount">0</span><small>单</small></div>
-      <div class="next" id="heroNext">今天暂无待处理订单</div>
-      <div style="margin-top:16px;display:flex;gap:10px"><button class="btn primary small" onclick="go('intake')">＋ 智能录单</button><button class="btn ghost small" onclick="go('orders')">查看待处理 →</button></div>
-    </div>
 
-    <div class="mini-grid">
-      <div class="mini" onclick="go('orders')"><div class="n"><small>A$</small><span id="statRevenue">0</span></div><div class="l">本周营收</div></div>
-      <div class="mini" onclick="go('menu')"><div class="n"><small>A$</small><span id="statProfit">0</span></div><div class="l">本周毛利</div></div>
-      <div class="mini" onclick="go('orders')"><div class="n" id="statWeek">0</div><div class="l">本周订单</div></div>
-    </div>
-
-    <div class="section-label">最近订单 <a onclick="go('orders')">查看全部 →</a></div>
-    <div id="homeOrders"></div>
-  </div>
-
-  <!-- ========== INTAKE ========== -->
-  <div class="page" id="page-intake">
-    <h1 class="pg">智能录单</h1>
-    <p class="pg-sub">上传截图或粘贴消息，自动整理成结构化订单。</p>
-    <div class="card intake-card">
-      <div class="intake-lead">
-        <b>添加客户聊天</b>
-        <span>上传截图，SOUS 会整理订单信息</span>
-      </div>
-      <div class="upzone" role="button" tabindex="0" onclick="document.getElementById('shotInput').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('shotInput').click()}">
-        <div class="up-ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M8 5l1.2-2h5.6L16 5"/></svg></div>
-        <div class="up-copy"><b>选择聊天截图</b><small>最多 5 张，支持同一顾客连续截图</small></div>
-        <span class="up-action">选择</span>
-        <input type="file" id="shotInput" accept="image/*" multiple style="display:none" onchange="addScreenshots(this.files)">
-      </div>
-      <div class="intake-thumbs" id="imgThumbs"></div>
-      <details class="intake-text-details">
-        <summary><span>没有截图？</span><b>粘贴文字消息</b></summary>
-        <div class="intake-text-body">
-          <label class="field-label" for="msgInput">客户消息</label>
-          <textarea class="msg" id="msgInput" placeholder="例如：想要两个巴斯克，周六下午自取"></textarea>
-        </div>
-      </details>
-      <div class="samples">
-        <button onclick="fillSample(0)">简单订单</button>
-        <button onclick="fillSample(1)">缺信息</button>
-        <button onclick="fillSample(2)">有指代</button>
-        <button onclick="fillSample(3)">多单混写</button>
-      </div>
-      <div class="intake-submit"><button class="btn primary block" id="parseBtn" onclick="parseMessage()">整理订单信息</button><small>AI 只生成草稿，正式订单由您确认</small></div>
-    </div>
-    <div id="parseArea"></div>
-  </div>
-
-  <!-- ========== ORDERS ========== -->
-  <div class="page" id="page-orders">
-    <h1 class="pg">订单</h1>
-    <p class="pg-sub">按交付日期分组 · 完成后自动计入营收。</p>
-    <div id="orderList"></div>
-  </div>
-
-  <!-- ========== PREP ========== -->
-  <div class="page" id="page-prep">
-    <h1 class="pg">备货建议</h1>
-    <p class="pg-sub">根据物料清单与待处理订单自动计算。</p>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-        <b style="font-size:15px">物料需求</b>
-        <button class="prep-catalog-link" onclick="go('menu')" aria-label="前往商品管理修改物料清单">修改商品物料 <span aria-hidden="true">›</span></button>
-      </div>
-      <div id="prepTable"></div>
-    </div>
-    <div class="card prep-ai-assist">
-      <div class="prep-ai-copy"><b>需要准备提醒？ <span class="badge ai">AI 辅助</span></b><span>根据上方清单整理准备顺序和风险，不会更改物料数量。</span></div>
-      <button class="btn ghost small" id="prepBtn" onclick="genPrepSummary()">生成提醒</button>
-      <div id="prepSummary" class="prep-summary" hidden></div>
-      <div id="prepActions"></div>
-    </div>
-  </div>
-
-  <!-- ========== MENU ========== -->
-  <div class="page" id="page-menu">
-    <button class="back-chip" onclick="go('more')" aria-label="返回">← 返回</button>
-    <h1 class="pg">商品</h1>
-    <p class="pg-sub">管理在售商品、售价、成本与物料清单。</p>
-
-    <div class="stat-strip">
-      <div class="stat-cell"><div class="v"><small>A$</small><span id="mRevenue">0</span></div><div class="k">本周营收</div></div>
-      <div class="stat-cell"><div class="v"><small>A$</small><span id="mCost">0</span></div><div class="k">本周成本</div></div>
-      <div class="stat-cell gold"><div class="v"><small>A$</small><span id="mProfit">0</span></div><div class="k">本周毛利</div></div>
-    </div>
-
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <b>在售商品</b>
-        <button class="btn ghost small" onclick="toggleNewItem()">＋ 添加商品</button>
-      </div>
-
-      <div class="new-item-form" id="newItemForm" style="display:none">
-        <div class="row">
-          <input id="niName" placeholder="商品名称，如 抹茶巴斯克">
-        </div>
-        <div class="row">
-          <input id="niPrice" type="number" placeholder="售价 A$">
-          <input id="niCost" type="number" placeholder="单份成本 A$">
-        </div>
-        <div style="font-size:11px;color:var(--muted);margin:2px 0 8px">物料清单（可添加多行）</div>
-        <div id="niIngs">
-          <div class="ing-row"><input class="rn" placeholder="物料 (含单位)"><input class="ra" type="number" placeholder="用量"></div>
-        </div>
-        <div style="display:flex;gap:8px;margin-top:4px">
-          <button class="btn ghost tiny" onclick="addIngRowToForm()">＋ 再加一行物料</button>
-          <button class="btn primary small" style="margin-left:auto" onclick="addMenuItem()">保存商品</button>
-        </div>
-      </div>
-
-      <div id="menuList" style="margin-top:6px"></div>
-    </div>
-  </div>
-
-  <!-- ========== CONTENT ========== -->
-  <div class="page" id="page-content">
-    <button class="back-chip" onclick="go('more')" aria-label="返回">← 返回</button>
-    <h1 class="pg">AI 内容助手</h1>
-    <p class="pg-sub">描述您想要的内容，AI 先生成草稿，由您检查后使用。</p>
-
-    <div class="seg content-mode-tabs" id="contentSeg" aria-label="选择生成方式">
-      <button class="on" data-type="text" onclick="setContentType(this)">AI 生成文案</button>
-      <button data-type="image" onclick="setContentType(this)">AI 生成图片</button>
-    </div>
-
-    <div class="voice-box content-style" id="contentStyleBox">
-      <span><b>文案风格</b><small id="contentToneLabel">亲切自然</small></span>
-      <button type="button" class="text-action" onclick="cycleContentTone()">修改</button>
-    </div>
-
-    <div class="card content-tool-card" id="content-text">
-      <div class="content-card-heading">
-        <div><b>生成文案</b><small>填写用途和主题，AI 会生成一版可编辑的文案。</small></div>
-        <span class="badge ai">AI 草稿</span>
-      </div>
-      <label class="content-field"><span>发布渠道</span>
-        <select class="line" id="contentChannel">
-          <option>小红书</option><option>抖音</option><option>Instagram</option><option>其他</option>
-        </select>
-      </label>
-      <label class="content-field"><span>内容用途</span>
-        <select class="line" id="contentGoal">
-          <option>新品上新</option><option>本周菜单</option><option>节日推广</option><option>限量预订</option><option>日常分享</option>
-        </select>
-      </label>
-      <label class="content-field"><span>想写什么</span>
-        <input class="line" id="contentTopic" placeholder="例如：介绍本周新品抹茶巴斯克">
-      </label>
-      <label class="content-field"><span>补充要求 <em>选填</em></span>
-        <input class="line" id="contentExtra" placeholder="例如：周五截单，周六自取">
-      </label>
-      <button class="btn primary block" id="contentBtn" onclick="genContent()">生成文案</button>
-      <div class="gen-out" id="contentOut" style="display:none" aria-live="polite"></div>
-      <div class="content-result-actions" style="display:none" id="contentActions">
-        <button class="btn ghost small" onclick="copyText(document.getElementById('contentOut').innerText)">复制</button>
-        <button class="btn ghost small" onclick="genContent()">换一版</button>
-      </div>
-    </div>
-
-    <div id="content-image" style="display:none">
-      <div class="card content-tool-card content-image-request">
-        <div class="content-card-heading">
-          <div><b>生成图片</b><small>直接描述想要的画面，不需要先选择图片类型。</small></div>
-          <span class="badge ai">AI 草稿</span>
-        </div>
-        <label class="content-field"><span>您想生成什么图片？</span>
-          <textarea class="line" id="imagePrompt" rows="4" placeholder="例如：为周末新品做一张清爽的竖版图片，突出抹茶巴斯克，适合发小红书"></textarea>
-        </label>
-        <div class="content-field">
-          <span>参考商品 <em>选填</em></span>
-          <div id="imageProductChecks" class="content-product-checks compact-product-checks"></div>
-        </div>
-        <label class="content-field"><span>图片比例</span>
-          <select class="line" id="imageRatio">
-            <option value="3:4">竖版 3:4</option>
-            <option value="1:1">方形 1:1</option>
-            <option value="3:2">横版 3:2</option>
-          </select>
-        </label>
-        <button class="btn primary block" id="imageGenerateBtn" onclick="generateAIContentImage()">生成图片</button>
-        <p class="content-boundary-note">AI 只生成图片草稿，不会修改商品、价格或自动发布。</p>
-      </div>
-
-      <section class="content-image-result" id="contentImageResult" style="display:none" aria-live="polite">
-        <div class="content-result-heading">
-          <div><b>生成结果</b><small>请检查画面和文字后再使用</small></div>
-          <span id="contentImageModel"></span>
-        </div>
-        <div id="contentImageCanvas"></div>
-        <div class="content-image-actions" id="contentImageActions" style="display:none">
-          <button class="btn ghost" onclick="generateAIContentImage()">重新生成</button>
-          <button class="btn primary" onclick="downloadAIContentImage()">下载图片</button>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <!-- ========== MORE ========== -->
-  <div class="page" id="page-more">
-    <h1 class="pg">更多</h1>
-    <p class="pg-sub">商品、内容与经营设置。</p>
-
-    <div class="entry-card" onclick="go('menu')">
-      <span class="entry-ic"><svg viewBox="0 0 24 24"><path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg></span>
-      <span class="entry-tx"><b>商品管理</b><small>在售商品 · 售价成本 · 物料清单用量</small></span>
-      <span class="entry-cv">›</span>
-    </div>
-    <div class="entry-card" onclick="go('content')">
-      <span class="entry-ic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
-      <span class="entry-tx"><b>AI 内容助手</b><small>生成文案和图片</small></span>
-      <span class="entry-cv">›</span>
-    </div>
-    <div class="section-label" style="margin-top:26px">设置与数据</div>
-    <div class="card">
-      <b>订单默认设置</b>
-      <p style="font-size:12px;color:var(--ink-2);margin:8px 0 8px">统一配送时间 — 解析订单时可一键填入</p>
-      <input class="line" id="prefDelivery" placeholder="例如：周日 14:00–17:00 统一配送" onchange="savePrefs()">
-    </div>
-    <details class="card correction-history">
-      <summary><b>AI 与匹配修正</b><span>按需查看 ›</span></summary>
-      <p class="correction-note">只记录你实际修改过的解析字段，用于追溯和改进匹配；不会自动修改正式商品。</p>
-      <div id="editLog" style="margin-top:6px"></div>
-    </details>
-    <div class="card">
-      <b>数据导出</b>
-      <p style="font-size:12.5px;color:var(--ink-2);margin:8px 0 14px">导出全部订单、商品、修正记录与顾客数据（JSON）。</p>
-      <button class="btn primary" onclick="exportData()">导出全部数据</button>
-    </div>
-    <p class="footnote">SOUS · 数据仅保存在本机设备</p>
-  </div>
-
-  <nav class="tabs">
-    <button class="on" data-page="home" onclick="go('home')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>首页</button>
-    <button data-page="intake" onclick="go('intake')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9 9h6M9 12h4"/></svg>录单</button>
-    <button data-page="orders" onclick="go('orders')"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>订单</button>
-    <button data-page="prep" onclick="go('prep')"><svg viewBox="0 0 24 24"><path d="M9 3v3M15 3v3"/><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 12l2.5 2.5L16 9"/></svg>备货</button>
-    <button data-page="more" onclick="go('more')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>更多</button>
-  </nav>
-</div>
-<div class="toast" id="toast"></div>
-
-<script>
-/* SOUS v3 — 部署到 Netlify 时：
-   1) store 适配层换成 localStorage
-   2) callAI() 指向 Netlify Function（隐藏 API key）
-   3) genMenuImage() 接入图像 API（如 OpenAI Images），同样经由 Netlify Function 转发 */
-const memStore = {};
-const store = {
-  async get(k){ try{ if(window.storage){ const r = await window.storage.get('sous:'+k); return r ? JSON.parse(r.value) : null; } }catch(e){} return memStore[k] ?? null; },
-  async set(k,v){ memStore[k]=v; try{ if(window.storage){ await window.storage.set('sous:'+k, JSON.stringify(v)); } }catch(e){} }
-};
-
-let orders = [];
-let editLog = [];
-let customers = [];
-let parseCountWeek = [];
-/* menu: { 品名: {price, cost, ings:{物料:用量}} } */
-let menu = {};
-
-let currentParse = null;
-let contentType = "text";
-let prefs = { deliveryPreset: "" };
-let pendingImages = [];   // {data: base64, type: mediaType}
-
-const SAMPLES = [
-  "你好～想要两个巴斯克，周六下午3点自取，可以低糖吗？谢谢！",
-  "在吗！我朋友生日想订一个提拉米苏，帮我留一个哈",
-  "老样子再来一份！这周日方便吗",
-  "我要两个巴斯克一个司康，巴斯克周六要，司康和上次一样周日配送到家，对了巴斯克其中一个不要太甜"
-];
-function fillSample(i){ document.getElementById('msgInput').value = SAMPLES[i]; }
-
-function addScreenshots(files){
-  const remain = 5 - pendingImages.length;
-  [...files].slice(0, remain).forEach(f=>{
-    if(!f.type.startsWith('image/')) return;
-    const r = new FileReader();
-    r.onload = ()=>{
-      const data = r.result.split(',')[1];
-      const fingerprint = window.sousImageFingerprint?.(data) || "";
-      if (pendingImages.some((image) => image.data === data || (fingerprint && image.fingerprint === fingerprint))) {
-        toast("这张截图已经上传过了，未重复添加");
-        return;
-      }
-      pendingImages.push({ data, type: f.type, url: r.result, fingerprint });
-      renderThumbs();
-    };
-    r.onerror = ()=>toast('图片读取失败');
-    r.readAsDataURL(f);
-  });
-  if(files.length > remain) toast('最多 5 张截图');
-}
-function removeScreenshot(i){ pendingImages.splice(i,1); renderThumbs(); }
-function renderThumbs(){
-  document.getElementById('imgThumbs').innerHTML = pendingImages.map((img,i)=>
-    `<span style="position:relative;display:inline-block">
-      <img src="${img.url}" style="width:56px;height:56px;object-fit:cover;border-radius:10px;border:1px solid var(--line)">
-      <button onclick="removeScreenshot(${i})" style="position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:rgba(38,33,26,.85);color:#fff;font-size:11px;line-height:1">×</button>
-    </span>`).join("");
+:root {
+  --sous-accent: #2563eb;
+  --sous-accent-deep: #2563eb;
 }
 
-(async function init(){
-  const o = await store.get('orders'); if(o) orders = o;
-  const l = await store.get('editLog'); if(l) editLog = l;
-  const c = await store.get('customers'); if(c) customers = c;
-  const p = await store.get('parseCountWeek'); if(p) parseCountWeek = p;
-  const pf = await store.get('prefs'); if(pf) prefs = pf;
-  const pd = document.getElementById('prefDelivery'); if(pd) pd.value = prefs.deliveryPreset||"";
-  const m = await store.get('menu');
-  if(m) menu = m;
-  else {
-    /* 从旧版 recipes 迁移 */
-    const r = await store.get('recipes');
-    if(r){ menu = {}; for(const k in r) menu[k] = {price:0, cost:0, ings:r[k]}; await store.set('menu', menu); }
-  }
-  setGreeting();
-  renderAll();
-})();
-
-function setGreeting(){
-  const h = new Date().getHours();
-  const g = h<5 ? "夜深了" : h<11 ? "早上好" : h<14 ? "中午好" : h<18 ? "下午好" : "晚上好";
-  document.getElementById('greeting').textContent = g;
+.setup-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  padding: max(18px, env(safe-area-inset-top)) 16px max(22px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 76% 12%, rgba(235, 199, 102, .22), transparent 31%),
+    linear-gradient(180deg, #f5f7fb 0%, #f5f7fb 100%);
+}
+.setup-shell[hidden] { display: none; }
+.setup-panel {
+  width: min(100%, 393px);
+  min-height: min(780px, calc(100dvh - 36px));
+  display: flex;
+  flex-direction: column;
+  padding: 18px 8px 10px;
+}
+.setup-brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 34px; }
+.setup-brand .logo { font-size: 29px; }
+.setup-step-label { color: #5f6b7c; font-size: 12px; font-weight: 700; }
+.setup-progress { display: flex; gap: 6px; margin-bottom: 28px; }
+.setup-progress span { height: 3px; flex: 1; border-radius: 999px; background: #dfe5ee; }
+.setup-progress span.on { background: var(--sous-accent); }
+.setup-screen { display: none; animation: setup-in .24s ease both; }
+.setup-screen.on { display: block; }
+@keyframes setup-in { from { opacity: 0; transform: translateY(8px); } }
+.setup-kicker {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--sous-accent-deep);
+  background: rgba(37,99,235,.10);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.setup-title {
+  margin: 14px 0 8px;
+  color: #172033;
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: clamp(31px, 9vw, 40px);
+  line-height: 1.16;
+  letter-spacing: -.03em;
+}
+.setup-copy { margin: 0 0 24px; color: #5f6b7c; line-height: 1.75; font-size: 14px; }
+.setup-field { margin-bottom: 13px; }
+.setup-field label { display: block; margin: 0 0 7px; color: #5f6b7c; font-size: 12px; font-weight: 800; }
+.setup-field input {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #dfe5ee;
+  border-radius: 14px;
+  background: rgba(255,255,255,.76);
+  padding: 0 15px;
+  color: #172033;
+  font: inherit;
+  outline: none;
+}
+.setup-field input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.12); }
+.setup-actions { display: flex; gap: 10px; margin-top: 22px; }
+.setup-actions .btn { flex: 1; min-height: 48px; }
+.setup-foot { margin-top: auto; padding-top: 26px; color: #5f6b7c; font-size: 11px; line-height: 1.65; }
+.industry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.industry-option,
+.choice-chip {
+  position: relative;
+  border: 1px solid #dfe5ee;
+  background: rgba(255,255,255,.66);
+  color: #5f6b7c;
+  text-align: left;
+  cursor: pointer;
+}
+.industry-option { min-height: 96px; border-radius: 17px; padding: 15px; }
+.industry-option b { display: block; margin-bottom: 5px; color: #172033; font-size: 15px; }
+.industry-option small { color: #5f6b7c; font-size: 11px; line-height: 1.45; }
+.industry-option.on,
+.choice-chip.on {
+  border-color: #2563eb;
+  background: linear-gradient(145deg, #f5f7fb, #f5f7fb);
+  box-shadow: 0 7px 20px rgba(37,99,235,.08);
+}
+.industry-option.on::after {
+  content: "✓";
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  color: var(--sous-accent-deep);
+  font-weight: 900;
+}
+.choice-group { margin: 20px 0; }
+.choice-group > b { display: block; margin-bottom: 9px; color: #172033; font-size: 13px; }
+.choice-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice-chip { min-height: 38px; border-radius: 999px; padding: 8px 13px; font-size: 12px; font-weight: 700; }
+.setup-summary {
+  border: 1px solid rgba(215,198,160,.75);
+  border-radius: 20px;
+  background: rgba(255,255,255,.62);
+  padding: 17px;
+  box-shadow: 0 14px 34px rgba(92,74,39,.07);
+}
+.setup-summary h3 { margin: 0 0 10px; color: #172033; }
+.setup-summary p { margin: 6px 0; color: #5f6b7c; font-size: 12px; line-height: 1.6; }
+.setup-summary strong { color: #172033; }
+.setup-toggle { display: flex; align-items: flex-start; gap: 9px; margin-top: 14px; color: #5f6b7c; font-size: 12px; line-height: 1.5; }
+.setup-toggle input { margin-top: 2px; accent-color: #2563eb; }
+.business-profile-card {
+  margin: 12px 0 18px;
+  border: 1px solid rgba(223,229,238,.9);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(255,255,255,.76), rgba(234,241,255,.72));
+  padding: 15px 16px;
+}
+.business-profile-card .eyebrow { color: #2563eb; font-size: 10px; font-weight: 900; letter-spacing: .08em; }
+.business-profile-card b { display: block; margin: 5px 0 4px; color: #172033; font-size: 15px; }
+.business-profile-card p { margin: 0; color: #5f6b7c; font-size: 11.5px; line-height: 1.55; }
+.business-profile-card button {
+  margin-top: 10px;
+  border: 0;
+  background: transparent;
+  color: #2563eb;
+  padding: 0;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+}
+.execution-context { display: flex; gap: 7px; flex-wrap: wrap; margin: -6px 0 15px; }
+.execution-context span {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(220,205,170,.26);
+  color: #5f6b7c;
+  font-size: 10.5px;
+}
+body.setup-open .app { visibility: hidden; }
+@media (max-width: 380px) {
+  .industry-option { min-height: 88px; padding: 13px; }
+  .setup-title { font-size: 30px; }
 }
 
-function renderAll(){ renderHome(); renderOrders(); renderPrepTable(); renderMenu(); renderWeeklyChecks(); renderEditLog(); }
 
-function go(page){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
-  document.getElementById('page-'+page).classList.add('on');
-  const navPage = (page==='menu'||page==='content'||page==='more') ? 'more' : page;
-  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('on', b.dataset.page===navPage));
-  window.scrollTo({top:0});
+.conversation-grouping {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(250, 246, 237, .76);
 }
 
-let toastTimer;
-function toast(t){
-  const el = document.getElementById('toast'); el.textContent = t; el.classList.add('show');
-  clearTimeout(toastTimer); toastTimer = setTimeout(()=>el.classList.remove('show'), 2400);
-}
-function copyText(t){
-  if(navigator.clipboard){ navigator.clipboard.writeText(t).then(()=>toast('已复制')).catch(()=>toast('复制失败，请手动选择')); }
-  else toast('复制失败，请手动选择');
+.conversation-grouping[hidden] {
+  display: none;
 }
 
-/* ---------- AI ---------- */
-async function callAI(userPrompt, images){
-  let content = userPrompt;
-  if(images && images.length){
-    content = [
-      ...images.map(img=>({ type:"image", source:{ type:"base64", media_type: img.type, data: img.data } })),
-      { type:"text", text: userPrompt }
-    ];
-  }
-  const resp = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-6",
-      max_tokens: 1000,
-      messages: [{ role: "user", content }]
-    })
-  });
-  if(!resp.ok) throw new Error("API " + resp.status);
-  const data = await resp.json();
-  return (data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
-}
-function todayContext(){
-  const d = new Date();
-  const week = ["周日","周一","周二","周三","周四","周五","周六"][d.getDay()];
-  return `今天是 ${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 ${week}`;
+.grouping-head,
+.draft-queue-head,
+.conversation-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-/* ---------- 智能录单 ---------- */
-function fillSample(i){ document.getElementById('msgInput').value = SAMPLES[i]; }
-
-function buildParsePrompt(msg, draft){
-  const products = Object.keys(menu).join("、");
-  const custContext = customers.length
-    ? `\n已知老顾客（可用于解析指代，如「老样子」）：\n${customers.slice(0,8).map(c=>`- ${c.name}：上次订单「${c.lastItems}」(${c.lastDate||"日期不详"})，累计 ${c.count} 单`).join("\n")}\n`
-    : "";
-  const draftContext = draft
-    ? `\n【追加模式】当前已有一张未确认的订单草稿：\n${JSON.stringify(draft)}\n新消息很可能是同一位顾客的补充（如地址、时间、改数量）。请把新信息合并进草稿：新消息中提到的字段用新信息更新，未提到的字段保持草稿原值不变。合并后的字段若来自明确的新消息则标 high。\n`
-    : "";
-  return `你是小型经营者的订单解析助手，服务通过私聊接单并按约交付的商家。${todayContext()}。在售商品：${products}。
-${custContext}${draftContext}
-解析下面这条顾客消息，只输出一个 JSON 对象，不要任何其他文字、不要 markdown 代码块。
-
-JSON 结构：
-{
- "parse_ok": true/false,
- "customer": "顾客称呼。消息中自报的名字，或与老顾客名单匹配到的名字；无法判断则空字符串",
- "items": [{"product":"品名","qty":数字}],
- "delivery_date": "如 7月25日(周六)，无法确定则空字符串",
- "delivery_time": "如 15:00 或 下午，无法确定则空字符串",
- "method": "自取/配送/未确定",
- "address": "配送地址，无则空字符串",
- "customer_note": "整体备注，无则空",
- "customer_ref": "消息中指向历史订单或老客的线索，如「老样子」「跟上次一样」，无则空",
- "urgent": true/false,
- "confidence": {"customer":"high/low","items":"high/low","delivery_date":"high/low","delivery_time":"high/low","method":"high/low","address":"high/low","customer_note":"high/low","customer_ref":"high/low"},
- "reasons": {"字段名":"只说明一个不确定点，不超过20个汉字"},
- "missing_critical": ["缺失的关键信息字段的中文名"],
- "follow_up": "只写一句可直接发给顾客的问题，不超过40个汉字；否则空字符串"
+.grouping-head > div {
+  display: grid;
+  gap: 3px;
 }
 
-规则：
-- 所有输出使用简单、口语化中文。customer_note 只保留明确影响制作、包装或交付的特殊要求，不复述用途、场景、聚会或交付后的安排，不超过30个汉字。
-- reasons 每项不超过20个汉字。
-- items 中只保留品名与数量。明确的客制、口味、包装、分装等要求写入 customer_note。不能从使用场景推断包装要求；若可能影响履约但客户未明确提出，标记低置信度并生成追问。
-- 若输入为聊天截图：只提取顾客侧的订单需求，忽略商家的回复内容（但商家已确认的信息如「好的周六可以」可用于提高置信度）。
-- 若输入为聊天截图：优先从截图顶部的聊天标题栏或消息署名读取顾客的微信昵称/用户名，填入 customer 并标 high；读取不到再看消息内容中的自报姓名。
-- urgent 判断：顾客明确要求加急、越快越好、今天就要、当天交付等情况时为 true，其余为 false。
-- 出现「老样子」「跟上次一样」等指代时：若能在老顾客名单中匹配到该顾客且有历史订单，可将历史订单内容填入对应字段，但必须标 low，reason 写明「来自该顾客上次订单，需确认」；匹配不到则字段留空、标 low，并在 follow_up 中礼貌确认。
-- 相对日期（周六、明天）换算为具体日期，标 high；语气含糊（"大概""左右"）标 low 并说明。
-- 数量、品名尽量归一到在售商品；顾客写了不在售商品则原样保留并标 low。
-- 有配送地址时 method 应为 配送。
-- 消息完全不是订单（如闲聊、询价）时 parse_ok 为 false。
-
-${msg}`;
+.grouping-head small,
+.draft-queue-head small,
+.grouping-tip,
+.grouping-summary,
+.draft-queue-tabs button small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
 }
 
-function getCurrentDraft(){
-  if(!currentParse) return null;
-  const get = k=>document.getElementById('f-'+k)?.value?.trim() ?? "";
-  return {
-    customer: get('customer'), items: get('items'),
-    delivery_date: get('delivery'), delivery_time: "",
-    method: get('method'), address: get('address'), customer_note: get('customer_note')
-  };
+.conversation-groups {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
 }
 
-async function parseMessage(){
-  const msg = document.getElementById('msgInput').value.trim();
-  const hasImages = pendingImages.length > 0;
-  if(!msg && !hasImages){ toast('请上传截图或输入消息'); return; }
-  const isMerge = !!currentParse;
-  const draft = isMerge ? getCurrentDraft() : null;
-  const prevRaw = isMerge ? currentParse.rawMsg : "";
-  const btn = document.getElementById('parseBtn');
-  const area = document.getElementById('parseArea');
-  btn.disabled = true;
-  if(isMerge){
-    const head = document.querySelector('#parseArea .result-head .t');
-    if(head) head.innerHTML = `<span style="display:inline-flex;align-items:center;gap:8px"><span class="pearl" style="width:18px;height:18px"></span>合并中…</span>`;
-  } else {
-    area.innerHTML = `<div class="card"><div class="loading-center"><div class="pearl"></div><b>SOUS 正在${hasImages?'阅读截图':'理解这条消息'}…</b><span>正在提取订单关键信息</span></div></div>`;
-  }
-  const imgNote = hasImages
-    ? `\n输入包含 ${pendingImages.length} 张聊天截图。请阅读截图中的对话内容（右侧气泡通常是商家，左侧是顾客），只提取顾客的订单需求。多张截图属于同一位顾客的连续对话，请合并理解。${msg?`商家补充说明：「${msg}」`:""}`
-    : `顾客消息：「${msg}」`;
-  const imgs = hasImages ? [...pendingImages] : null;
-  try{
-    const raw = await callAI(buildParsePrompt(imgNote, draft), imgs);
-    const clean = raw.replace(/```json|```/g,"").trim();
-    const parsed = JSON.parse(clean);
-    if(parsed.parse_ok === false && !isMerge) throw new Error("NOT_ORDER");
-    currentParse = { data: parsed, original: JSON.parse(JSON.stringify(parsed)), rawMsg: (prevRaw?prevRaw+"\n":"")+(msg||`[${pendingImages.length}张截图]`), merged: isMerge };
-    parseCountWeek.push(Date.now()); await store.set('parseCountWeek', parseCountWeek);
-    renderParseResult();
-    document.getElementById('msgInput').value = "";
-    pendingImages = []; renderThumbs();
-    updateParseBtn();
-    if(isMerge) toast('已合并进当前订单');
-    renderHome();
-  }catch(err){
-    if(isMerge){ renderParseResult(); toast('合并失败，草稿未受影响，可重试'); }
-    else renderFallback(msg, err.message==="NOT_ORDER");
-  }finally{
-    btn.disabled = false;
-  }
-}
-function updateParseBtn(){
-  document.getElementById('parseBtn').textContent = currentParse ? "添加补充消息" : "整理订单信息";
+.conversation-group {
+  padding: 12px;
+  border: 1px solid rgba(180, 160, 110, .2);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .68);
 }
 
-function renderParseResult(){
-  const p = currentParse.data;
-  const conf = p.confidence || {};
-  const reasons = p.reasons || {};
-  const area = document.getElementById('parseArea');
-  const warnIcon = `<svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>`;
+.conversation-title input {
+  width: min(170px, 100%);
+  border: 0;
+  background: transparent;
+  font-weight: 800;
+  color: var(--ink);
+}
 
-  const deliveryVal = [p.delivery_date, p.delivery_time].filter(Boolean).join(" ");
-  const deliveryLow = conf.delivery_date==="low" || conf.delivery_time==="low" || !deliveryVal;
-  const deliveryReason = [reasons.delivery_date, reasons.delivery_time].filter(Boolean).join("；");
+.conversation-title > span {
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
 
-  const confirmationFields = [
-    conf.customer==="low" || !p.customer ? "顾客姓名" : "",
-    conf.items==="low" || !(p.items||[]).length ? "商品与数量" : "",
-    deliveryLow ? "交付时间" : "",
-    conf.method==="low" || !p.method || p.method==="未确定" ? "交付方式" : "",
-    (p.method||"").includes("配送") && (conf.address==="low" || !p.address) ? "配送地址" : "",
-    conf.customer_note==="low" ? "客制备注" : "",
-  ].filter(Boolean);
-  const lowCount = confirmationFields.length;
+.text-button {
+  min-height: 44px;
+  color: var(--danger);
+  font-size: 11px;
+  font-weight: 700;
+}
 
-  let fieldsHtml = "";
-  fieldsHtml += fieldRow("顾客","customer",p.customer||"",conf.customer==="low",reasons.customer);
-  const itemsText = (p.items||[]).map(i=>`${i.product} ×${i.qty}`).join("；");
-  fieldsHtml += fieldRow("品项","items",itemsText,conf.items==="low",reasons.items);
-  fieldsHtml += fieldRow("交付时间","delivery",deliveryVal,deliveryLow,deliveryReason||undefined);
-  if(prefs.deliveryPreset){
-    fieldsHtml = fieldsHtml.replace(`<div class="edited-tag" id="edited-delivery" style="display:none">✓ 已修正</div>`,
-      `<button class="btn ghost tiny" style="margin-top:6px" onclick="applyPreset()">用统一配送时间：${escapeHtml(prefs.deliveryPreset)}</button><div class="edited-tag" id="edited-delivery" style="display:none">✓ 已修正</div>`);
-  }
-  fieldsHtml += methodRow(p.method||"未确定", conf.method==="low", reasons.method);
-  fieldsHtml += urgentRow(p.urgent===true);
-  if(p.address || (p.method||"").includes("配送")) fieldsHtml += fieldRow("配送地址","address",p.address||"",conf.address==="low",reasons.address);
-  fieldsHtml += fieldRow("客制备注","customer_note",p.customer_note||"",conf.customer_note==="low",reasons.customer_note);
-  if(p.customer_ref) fieldsHtml += fieldRow("顾客线索","customer_ref",p.customer_ref,conf.customer_ref==="low",reasons.customer_ref);
+.group-image-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 9px;
+}
 
-  let followHtml = "";
-  const followMessage = String(p.follow_up || "").trim()
-    || (confirmationFields.length
-      ? `你好，为了准确安排订单，想和你确认一下：${confirmationFields.join("、")}。谢谢！`
-      : "");
-  if(followMessage){
-    followHtml = `<section class="followup" aria-labelledby="followupTitle">
-      <div class="fh" id="followupTitle">${warnIcon} 有信息需要和顾客确认</div>
-      ${confirmationFields.length ? `<div class="confirm-fields" aria-label="待确认字段">${confirmationFields.map(label=>`<span>${escapeHtml(label)}</span>`).join("")}</div>` : ""}
-      <div class="msgtext" id="followMsg">${escapeHtml(followMessage)}</div>
-      <div class="actions">
-        <button class="btn ghost small" onclick="copyText(document.getElementById('followMsg').innerText)">复制追问话术</button>
-      </div>
-      <p class="followup-note">SOUS 不会自动发送消息，由你确认后再发给顾客。</p>
-    </section>`;
+.group-image {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+}
+
+.group-image img {
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.group-image label {
+  display: grid;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.group-image select {
+  width: 100%;
+  min-height: 40px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  font-size: 12px;
+}
+
+.grouping-tip {
+  margin: 9px 0 0;
+}
+
+.grouping-summary {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--hairline);
+}
+
+.draft-queue {
+  margin: -2px 0 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.draft-queue-tabs {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.draft-queue-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.draft-queue-tabs button {
+  min-width: 132px;
+  min-height: 66px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 2px 7px;
+  align-items: center;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255,255,255,.68);
+  text-align: left;
+}
+
+.draft-queue-tabs button.on {
+  border-color: var(--acc);
+  background: var(--acc-soft);
+}
+
+.draft-queue-tabs button > span {
+  grid-row: 1 / 3;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--iri);
+  color: var(--action-ink);
+  font-weight: 800;
+  font-size: 11px;
+}
+
+.draft-queue-tabs button b,
+.draft-queue-tabs button small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.draft-queue-tabs button.error {
+  border-color: var(--danger);
+  opacity: .72;
+}
+
+@media (max-width: 430px) {
+  .grouping-head {
+    align-items: flex-start;
   }
 
-  area.innerHTML = `<div class="card">
-    <div class="result-head">
-      <span class="t">解析结果</span>
-      ${lowCount>0 ? `<span class="badge warn">${lowCount} 个字段待确认</span>` : `<span class="badge ok">全部字段高置信</span>`}
-    </div>
-    ${fieldsHtml}
-    ${followHtml}
-    <div class="append-box">
-      <div class="at">追加顾客消息</div>
-      <div class="ad">粘贴新消息并合并到当前草稿。</div>
-      <button class="btn ghost small" onclick="clipboardAppend()">粘贴并合并</button>
-    </div>
-    <div style="display:flex;gap:10px;margin-top:16px">
-      <button class="btn ghost" onclick="discardParse()">放弃</button>
-      <button class="btn primary" style="flex:1" onclick="confirmOrder()">确认入库</button>
-    </div>
-    <p class="hint-line">点击任意字段可修改 · 黄色为 AI 不确定的部分</p>
-  </div>`;
-  requestAnimationFrame(() => {
-    area.querySelectorAll("textarea.auto-grow").forEach(autoGrow);
-  });
-}
-
-async function clipboardAppend(){
-  try{
-    const text = await navigator.clipboard.readText();
-    if(!text || !text.trim()){ toast('剪贴板是空的'); return; }
-    document.getElementById('msgInput').value = text.trim();
-    parseMessage();
-  }catch(e){
-    toast('无法读取剪贴板，请手动粘贴到上方输入框');
-    window.scrollTo({top:0, behavior:'smooth'});
-    document.getElementById('msgInput').focus();
+  .grouping-head .btn {
+    padding-inline: 11px;
   }
 }
 
-function methodRow(value,isLow,reason){
-  const warnIcon = `<svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>`;
-  const opts = ["自取","配送"].map(o=>
-    `<button class="btn ${value===o?'primary':'ghost'} tiny" style="margin-right:8px" onclick="setMethod('${o}')">${o}</button>`).join("");
-  return `<div class="field-row">
-    <div class="k">取货方式</div>
-    <div class="field-wrap ${isLow?'low':''}" id="wrap-method">
-      <input type="hidden" id="f-method" value="${escapeAttr(value)}">
-      <div style="padding:5px 0" id="methodChips">${opts}</div>
-      ${isLow&&reason?`<div class="reason">${warnIcon}<span>${escapeHtml(reason)}</span></div>`:""}
-      <div class="edited-tag" id="edited-method" style="display:none">✓ 已修正</div>
-    </div>
-  </div>`;
-}
-function setMethod(v){
-  const el = document.getElementById('f-method');
-  const orig = (currentParse.original.method)||"未确定";
-  el.value = v;
-  document.querySelectorAll('#methodChips button').forEach(b=>{
-    b.className = 'btn ' + (b.textContent===v?'primary':'ghost') + ' tiny';
-    b.style.marginRight = '8px';
-  });
-  document.getElementById('wrap-method').classList.remove('low');
-  if(v !== orig){
-    document.getElementById('edited-method').style.display='block';
-    currentParse.edits = currentParse.edits||{};
-    currentParse.edits.method = {label:"取货方式", from:orig, to:v};
-  }
-  const addrRow = document.getElementById('wrap-address');
-  if(v==="配送" && !addrRow){
-    toast('别忘了补充配送地址');
-  }
-}
-function urgentRow(isUrgent){
-  const opts = [["普通",false],["加急",true]].map(([label,val])=>
-    `<button class="btn ${isUrgent===val?'primary':'ghost'} tiny" style="margin-right:8px${val&&isUrgent?';background:#FDEBE7;color:#C25A42;box-shadow:none;border:1px solid #F4CFC5':''}" onclick="setUrgent(${val})">${label}</button>`).join("");
-  return `<div class="field-row">
-    <div class="k">优先级</div>
-    <div class="field-wrap" id="wrap-urgent">
-      <input type="hidden" id="f-urgent" value="${isUrgent?'加急':'普通'}">
-      <div style="padding:5px 0" id="urgentChips">${opts}</div>
-    </div>
-  </div>`;
-}
-function setUrgent(val){
-  document.getElementById('f-urgent').value = val ? '加急' : '普通';
-  document.querySelectorAll('#urgentChips button').forEach(b=>{
-    const on = (b.textContent==='加急') === val;
-    b.className = 'btn ' + (on?'primary':'ghost') + ' tiny';
-    b.style.marginRight = '8px';
-    if(b.textContent==='加急' && on){ b.style.background='#FDEBE7'; b.style.color='#C25A42'; b.style.boxShadow='none'; b.style.border='1px solid #F4CFC5'; }
-    else { b.style.background=''; b.style.color=''; b.style.boxShadow=''; b.style.border=''; }
-  });
-}
-function applyPreset(){
-  const el = document.getElementById('f-delivery');
-  el.value = prefs.deliveryPreset;
-  fieldEdited('delivery','交付时间');
-  toast('已填入统一配送时间');
+/* Simplified AI-assisted screenshot grouping */
+.grouping-loading,
+.grouping-result-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.grouping-loading { justify-content:flex-start; min-height:56px; }
+.grouping-loading > div,
+.grouping-result-head > div { display:grid; gap:3px; }
+.grouping-loading small,
+.grouping-result-head small { color:var(--muted); font-size:11px; line-height:1.5; }
+.grouping-loading .pearl { position:static; width:24px; height:24px; flex:0 0 24px; }
+.ai-suggestion { padding:5px 8px; border-radius:999px; background:var(--acc-soft); color:var(--acc); font-size:10px; font-weight:800; white-space:nowrap; }
+.grouping-suggestions { display:grid; gap:8px; margin-top:12px; }
+.group-suggestion-card { display:grid; grid-template-columns:minmax(86px,auto) 1fr; gap:10px; align-items:center; padding:10px; border:1px solid rgba(95,107,124,.18); border-radius:12px; background:rgba(255,255,255,.68); }
+.group-suggestion-card > div:first-child { display:grid; gap:2px; }
+.group-suggestion-card span { color:var(--muted); font-size:11px; }
+.suggestion-thumbs { display:flex; justify-content:flex-end; gap:6px; overflow-x:auto; }
+.suggestion-thumbs img { width:46px; height:46px; flex:0 0 46px; border:1px solid var(--line); border-radius:9px; object-fit:cover; }
+.grouping-notice,
+.grouping-question { margin:10px 0 0; padding:10px; border-radius:12px; background:rgba(109,40,217,.08); font-size:11px; line-height:1.5; }
+.grouping-question { display:grid; gap:7px; }
+.grouping-question > div { display:flex; gap:8px; }
+.grouping-adjust-link { min-height:44px; margin:4px 0 -8px; color:var(--muted); font-size:11px; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+.grouping-done { width:100%; margin-top:10px; }
+.grouping-adjustment .conversation-title { grid-template-columns:1fr auto auto; }
+@media (max-width:430px) {
+  .group-suggestion-card { grid-template-columns:78px 1fr; }
+  .suggestion-thumbs img { width:42px; height:42px; flex-basis:42px; }
 }
 
-function autoGrow(element){
-  if(!element) return;
-  element.style.height = "auto";
-  element.style.height = `${Math.max(element.scrollHeight, 54)}px`;
-}
-function fieldRow(label,key,value,isLow,reason){
-  const warnIcon = `<svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>`;
-  const control = key === "customer_note"
-    ? `<textarea class="field-input auto-grow" id="f-${key}" rows="2" oninput="autoGrow(this)" onchange="fieldEdited('${key}','${escapeAttr(label)}')">${escapeHtml(value)}</textarea>`
-    : `<input class="field-input" id="f-${key}" value="${escapeAttr(value)}" onchange="fieldEdited('${key}','${escapeAttr(label)}')">`;
-  return `<div class="field-row ${key === "customer_note" ? "note-field-row" : ""}">
-    <div class="k">${label}</div>
-    <div class="field-wrap ${isLow?'low':''}" id="wrap-${key}">
-      ${control}
-      ${isLow&&reason?`<div class="reason">${warnIcon}<span>${escapeHtml(reason)}</span></div>`:""}
-      <div class="edited-tag" id="edited-${key}" style="display:none">✓ 已修正</div>
-    </div>
-  </div>`;
-}
-function fieldEdited(key,label){
-  const el = document.getElementById('f-'+key);
-  const wrap = document.getElementById('wrap-'+key);
-  const orig = getOriginalValue(key);
-  if(el.value !== orig){
-    document.getElementById('edited-'+key).style.display='block';
-    wrap.classList.remove('low');
-    currentParse.edits = currentParse.edits||{};
-    currentParse.edits[key] = {label, from:orig, to:el.value};
-  }
-}
-function getOriginalValue(key){
-  const o = currentParse.original;
-  if(key==="items") return (o.items||[]).map(i=>`${i.product} ×${i.qty}`).join("；");
-  if(key==="delivery") return [o.delivery_date, o.delivery_time].filter(Boolean).join(" ");
-  return o[key]||"";
+#page-menu .stat-strip{display:none!important}
+.header-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+:root{
+  --v26-ink:#111827;
+  --v26-muted:#667085;
+  --v26-line:#dbe3ee;
+  --v26-blue:#0f62fe;
+  --v26-surface:#fff;
 }
 
-async function confirmOrder(){
-  const get = k=>document.getElementById('f-'+k)?.value?.trim()||"";
-  const order = {
-    id: Date.now(),
-    customer: get('customer'),
-    items: get('items') || "未填写品项",
-    date: get('delivery'), time: "",
-    method: get('method'), address: get('address'), note: get('customer_note'), ref: get('customer_ref'),
-    urgent: get('urgent')==='加急',
-    rawMsg: currentParse.rawMsg,
-    sourceImages: currentParse.sourceImages || [],
-    conversationGroupId: currentParse.conversationGroupId || null,
-    status: "pending",
-    createdAt: new Date().toISOString()
-  };
-  orders.unshift(order);
-  await store.set('orders', orders);
-  if(order.customer){
-    const existing = customers.find(c=>c.name===order.customer);
-    if(existing){ existing.lastItems = order.items; existing.lastDate = order.date; existing.count++; customers = [existing, ...customers.filter(c=>c!==existing)]; }
-    else customers.unshift({name:order.customer, lastItems:order.items, lastDate:order.date, count:1});
-    await store.set('customers', customers);
-  }
-  if(currentParse.edits){
-    for(const k in currentParse.edits){
-      editLog.unshift({ time:new Date().toISOString(), customer:order.customer || "", field:currentParse.edits[k].label, from:currentParse.edits[k].from, to:currentParse.edits[k].to, msg:currentParse.rawMsg });
-    }
-    await store.set('editLog', editLog);
-  }
-  currentParse = null;
-  document.getElementById('parseArea').innerHTML = "";
-  document.getElementById('msgInput').value = "";
-  updateParseBtn();
-  renderAll();
-  toast('订单已入库' + (order.customer ? ' · 已记住顾客「'+order.customer+'」' : ''));
-  go('orders');
-}
-function discardParse(){ currentParse=null; document.getElementById('parseArea').innerHTML=""; updateParseBtn(); }
+body{font-family:Inter,"SF Pro Text","Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--v26-ink)}
+.pg{line-height:1.2;letter-spacing:-.025em}.pg-sub{max-width:36em;line-height:1.55}
+.card,.entry-card,.workspace-card{border-color:var(--v26-line)}
+.btn,.entry-card,button,input,select,textarea{font-family:inherit}
+.btn{min-height:44px}.content-field>span{font-size:12px;line-height:1.45}
+.content-tool-card{display:grid;gap:16px;padding:20px}
+.content-card-heading{align-items:flex-start;gap:12px;margin:0}
+.content-card-heading>div{display:grid;gap:4px}.content-card-heading b{font-size:17px;line-height:1.35}
+.content-card-heading small{font-size:12.5px;line-height:1.55}
+.content-tool-card .content-field{display:grid;gap:7px;margin:0}
+.content-tool-card .line{min-height:46px;border-radius:12px}
+.content-tool-card textarea.line{min-height:120px}
+.content-tool-card>.btn.primary{margin-top:2px}
+.content-result-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
+.content-result-actions[style*="display: none"],.content-result-actions[style*="display:none"]{display:none!important}
+.gen-out{margin-top:0;padding:18px;border-radius:14px;font-size:13.5px;line-height:1.75}
+.content-products-details{border:1px solid var(--v26-line);border-radius:14px;background:#f8fafc;overflow:hidden}
+.content-products-details>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:54px;padding:10px 13px;list-style:none;cursor:pointer}
+.content-products-details>summary::-webkit-details-marker{display:none}
+.content-products-details>summary span:first-child{display:grid;gap:1px}
+.content-products-details>summary b{font-size:12.5px}.content-products-details>summary small,.content-products-details>summary span:last-child{font-size:11px;color:var(--v26-muted)}
+.content-products-details[open]>summary span:last-child{font-size:0}.content-products-details[open]>summary span:last-child::after{content:"收起";font-size:11px}
+.content-products-details>.content-field{padding:0 12px 12px}
+.ratio-hint{padding:10px 12px;border-left:3px solid #b9cdf5;background:#f8fafc;border-radius:0 10px 10px 0}
+.ratio-hint small{color:var(--v26-muted);font-size:11.5px;line-height:1.5}
+.content-boundary-note{margin:0;text-align:center;font-size:11px;line-height:1.45}
+.content-image-result{margin-top:22px}
 
-function renderFallback(msg,isNotOrder){
-  document.getElementById('parseArea').innerHTML = `<div class="card">
-    <div class="fail-center">
-      <div class="fail-blob"></div>
-      <div class="ft">${isNotOrder?"这条消息看起来不是订单":"AI 解析没有成功"}</div>
-      <div class="fs">${isNotOrder?"这条消息可能是咨询或闲聊。<br>如果确实是订单，可以手动录入。":"可能是信息不足或网络异常。<br>可以重试，或直接手动录入订单。"}</div>
-      <button class="btn primary block" onclick="manualForm()">手动录入订单</button>
-      <button class="btn ghost block" style="margin-top:10px" onclick="parseMessage()">重试解析</button>
-    </div>
-  </div>`;
-}
-function manualForm(){
-  currentParse = { data:{items:[],confidence:{},reasons:{}}, original:{items:[]}, rawMsg:document.getElementById('msgInput').value.trim(), edits:{} };
-  document.getElementById('parseArea').innerHTML = `<div class="card">
-    <div class="result-head"><span class="t">手动录入</span><span class="badge ok">人工模式</span></div>
-    ${fieldRowPH("顾客","customer","请输入顾客姓名")}
-    ${fieldRowPH("品项","items","选择品项与数量")}
-    ${fieldRowPH("交付时间","delivery",prefs.deliveryPreset?"":"选择日期与时间",prefs.deliveryPreset||"")}
-    ${methodRow("自取",false)}
-    ${urgentRow(false)}
-    ${fieldRowPH("配送地址","address","输入收货地址（仅配送时填写）")}
-    ${fieldRowPH("客制备注","customer_note","如：低糖、无坚果等")}
-    ${fieldRowPH("顾客线索","customer_ref","任何有助识别的信息")}
-    <div style="display:flex;gap:10px;margin-top:16px">
-      <button class="btn ghost" onclick="discardParse()">放弃</button>
-      <button class="btn primary" style="flex:1" onclick="confirmOrder()">确认入库</button>
-    </div>
-  </div>`;
-}
-function fieldRowPH(label,key,placeholder,value){
-  return `<div class="field-row">
-    <div class="k">${label}</div>
-    <div class="field-wrap" id="wrap-${key}">
-      <input class="field-input" id="f-${key}" value="${escapeAttr(value||"")}" placeholder="${escapeAttr(placeholder)}" onchange="fieldEdited('${key}','${escapeAttr(label)}')">
-      <div class="edited-tag" id="edited-${key}" style="display:none">✓ 已修正</div>
-    </div>
-  </div>`;
+#page-menu .stat-strip,#menuSaveState{display:none!important}
+#page-menu>.pg-sub{margin-bottom:18px}
+#page-menu>.card{padding:18px}
+#menuList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px!important}
+#menuList .menu-item{min-width:0;margin:0!important;padding:14px!important;border:1px solid var(--v26-line);border-radius:14px;background:#fff}
+#menuList .menu-item.is-editing{grid-column:1/-1}
+#menuList .menu-head{gap:8px}.menu-head .mname{font-size:14px;line-height:1.35}
+#menuList .menu-summary{font-size:11.5px;line-height:1.45}
+#menuList .v10-material-preview{gap:5px}
+.v9-common-materials,.v10-new-materials{display:flex!important;align-items:center;gap:6px;max-height:92px;padding:8px 0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.v9-common-materials>span,.v10-new-materials>span{position:sticky;left:0;z-index:1;flex:0 0 auto;padding-right:4px;background:#fff}
+.v9-common-materials button,.v10-new-materials button{flex:0 0 auto;min-height:34px!important;padding:6px 10px!important;border-radius:999px!important;font-size:11.5px!important;white-space:nowrap}
+.structured-add{gap:8px!important}
+
+.account-settings{display:flex;align-items:center;gap:7px;min-height:44px;padding:5px 8px;border:1px solid var(--v26-line);border-radius:999px;background:#fff;color:var(--v26-ink)}
+.account-settings>span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e8f0ff;color:#0043ce;font-size:12px;font-weight:800}
+.account-settings>b{font-size:11.5px}
+.settings-section{margin-top:24px}.settings-section>.section-label{margin:0 0 8px}
+.workspace-card{display:grid;gap:14px;padding:18px;border:1px solid var(--v26-line);border-radius:16px;background:#fff}
+.workspace-card>div{display:grid;gap:3px}.workspace-card b{font-size:15px}.workspace-card small{font-size:11.5px;color:var(--v26-muted)}
+.workspace-card label{display:grid;gap:6px;color:var(--v26-muted);font-size:11.5px}
+.workspace-card select{min-height:44px;padding:0 12px;border:1px solid var(--v26-line);border-radius:10px;background:#fff}
+#movedSettings>.section-label{margin:0 0 8px!important}
+#movedSettings>#v9ProductTemplateEntry{display:none!important}
+#page-more>.entry-card{margin-bottom:12px}
+
+@media(max-width:430px){
+  .content-tool-card{gap:14px;padding:17px}
+  .content-card-heading b{font-size:16px}
+  .content-card-heading small{font-size:12px}
+  .content-tool-card textarea.line{min-height:108px}
+  .content-result-actions{position:static;grid-template-columns:1fr 1fr}
+  #menuList{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #menuList .menu-item{padding:12px!important}
+  #menuList .menu-head{display:grid;grid-template-columns:minmax(0,1fr) auto}
+  #menuList .menu-head .icon-btn{min-width:36px;min-height:36px}
+  #menuList .menu-summary{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .account-settings>b{display:none}
+  .app{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
 }
 
-/* ---------- 金额计算 ---------- */
-function parseItems(itemsText){
-  const out = [];
-  const re = /([\u4e00-\u9fa5A-Za-z]+)\s*[×x]\s*(\d+)/g; let m;
-  while((m = re.exec(itemsText||""))!==null){
-    const menuKey = Object.keys(menu).find(k=>m[1].includes(k)||k.includes(m[1]));
-    out.push({name:m[1], qty:parseInt(m[2]), menuKey});
-  }
-  return out;
+
+#aiStatus,
+.status-pill{display:none!important}
+
+.header-actions{gap:0}
+.account-settings{
+  width:44px!important;
+  min-width:44px!important;
+  height:44px!important;
+  padding:0!important;
+  display:grid!important;
+  place-items:center;
+  border:1px solid var(--v26-line)!important;
+  border-radius:50%!important;
+  background:#fff!important;
 }
-function orderAmount(o){
-  let rev=0, cost=0, known=false;
-  parseItems(o.items).forEach(it=>{
-    if(it.menuKey){ known=true; rev += (menu[it.menuKey].price||0)*it.qty; cost += (menu[it.menuKey].cost||0)*it.qty; }
-  });
-  return {rev, cost, known};
+.account-settings img{width:20px;height:20px;display:block}
+
+#menuList{
+  display:block!important;
 }
-function weekStats(){
-  const weekAgo = Date.now()-7*864e5;
-  let rev=0, cost=0;
-  orders.filter(o=>o.status==='done' && new Date(o.createdAt).getTime()>weekAgo).forEach(o=>{
-    const a = orderAmount(o); rev+=a.rev; cost+=a.cost;
-  });
-  return {rev, cost, profit: rev-cost};
+#menuList .menu-item{
+  display:block!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:13px 0!important;
+  border:0!important;
+  border-bottom:1px solid var(--v26-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+#menuList .menu-item:last-child{border-bottom:0!important}
+#menuList .menu-head{
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  min-width:0;
+}
+#menuList .menu-head .mname{
+  flex:1 1 auto;
+  min-width:0;
+  margin:0!important;
+  font-size:15px!important;
+  line-height:1.35!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  writing-mode:horizontal-tb!important;
+  word-break:keep-all!important;
+}
+#menuList .menu-head .btn,
+#menuList .menu-head .icon-btn{
+  flex:0 0 auto;
+  min-width:38px!important;
+  min-height:38px!important;
+  padding:7px 10px!important;
+}
+#menuList .menu-summary{
+  margin:3px 0 0!important;
+  font-size:11.5px!important;
+  line-height:1.45!important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+#menuList .menu-item:not(.is-editing) .v10-material-preview{display:none!important}
+#menuList .menu-item.is-editing{
+  padding:16px 0!important;
 }
 
-/* ---------- 订单 ---------- */
-function dateLabels(){
-  const fmt = d=>`${d.getMonth()+1}月${d.getDate()}日`;
-  const t = new Date(); const tm = new Date(Date.now()+864e5);
-  return { today: fmt(t), tomorrow: fmt(tm) };
+.workspace-card{gap:12px!important}
+.workspace-current{display:grid;gap:3px}
+.workspace-current>span{font-size:11px;color:var(--v26-muted)}
+.workspace-current>b{font-size:16px!important;line-height:1.35}
+.workspace-list{
+  display:grid;
+  gap:7px;
 }
-function deliveryTimestamp(order){
-  const dateText = String(order?.date || "").trim();
-  const embeddedTime = dateText.match(/[T\s](\d{1,2})[:：](\d{2})/);
-  const timeText = String(order?.time || (embeddedTime ? `${embeddedTime[1]}:${embeddedTime[2]}` : "")).trim();
-  if(!dateText || !timeText) return Number.POSITIVE_INFINITY;
-  let year = new Date().getFullYear();
-  let month = null;
-  let day = null;
-  const iso = dateText.match(/(\d{4})[-\/]?(\d{1,2})[-\/](\d{1,2})/);
-  const zh = dateText.match(/(?:(\d{4})年)?(\d{1,2})月(\d{1,2})日/);
-  if(iso){ year=Number(iso[1]); month=Number(iso[2]); day=Number(iso[3]); }
-  else if(zh){ year=Number(zh[1] || year); month=Number(zh[2]); day=Number(zh[3]); }
-  const clock = timeText.match(/(\d{1,2})[:：](\d{2})/);
-  if(!month || !day || !clock) return Number.POSITIVE_INFINITY;
-  let hour = Number(clock[1]);
-  if(/下午|晚上/.test(timeText) && hour < 12) hour += 12;
-  if(/上午/.test(timeText) && hour === 12) hour = 0;
-  const value = new Date(year, month-1, day, hour, Number(clock[2])).getTime();
-  return Number.isFinite(value) ? value : Number.POSITIVE_INFINITY;
+.workspace-list>button{
+  min-height:52px;
+  width:100%;
+  padding:9px 11px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border:1px solid var(--v26-line);
+  border-radius:11px;
+  background:#fff;
+  color:var(--v26-ink);
+  text-align:left;
 }
-function compareOrdersByDelivery(a,b){
-  const delivery = deliveryTimestamp(a) - deliveryTimestamp(b);
-  if(Number.isFinite(delivery) && delivery !== 0) return delivery;
-  if(Number.isFinite(deliveryTimestamp(a)) !== Number.isFinite(deliveryTimestamp(b))) return Number.isFinite(deliveryTimestamp(a)) ? -1 : 1;
-  if(Boolean(a.urgent) !== Boolean(b.urgent)) return a.urgent ? -1 : 1;
-  return new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime();
+.workspace-list>button[aria-current="true"]{
+  border-color:#8bb4ff;
+  background:#eef4ff;
 }
-function orderDateGroupLabel(value){
-  const raw = String(value || "").trim();
-  const iso = raw.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
-  return iso ? `${Number(iso[2])}月${Number(iso[3])}日` : raw;
+.workspace-list>button>span{display:grid;gap:2px;min-width:0}
+.workspace-list b{font-size:13px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.workspace-list small{font-size:10.5px!important;color:var(--v26-muted)}
+.workspace-list em{font-size:11px;font-style:normal;color:#0f62fe}
+.workspace-add{
+  min-height:44px;
+  border:1px solid var(--v26-line);
+  border-radius:11px;
+  background:#fff;
+  color:var(--v26-ink);
+  font-weight:700;
 }
-function renderOrders(){
-  const list = document.getElementById('orderList');
-  if(!orders.length){ list.innerHTML = `<div class="empty"><svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:#C8BFB0;fill:none;stroke-width:1.3;stroke-linecap:round;margin-bottom:8px"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h5"/></svg><br>暂无订单</div>`; return; }
-  const {today, tomorrow} = dateLabels();
-  const groups = new Map();
-  orders.forEach(o=>{
-    let key = orderDateGroupLabel(o.date) || "日期待定";
-    if(o.date && o.date.includes(today)) key = "今日 · " + o.date;
-    else if(o.date && o.date.includes(tomorrow)) key = "明日 · " + o.date;
-    if(!groups.has(key)) groups.set(key, []);
-    groups.get(key).push(o);
-  });
-  const sortKey = label=>{
-    if(label==="日期待定") return 99999;
-    const m = label.match(/(\d+)月(\d+)日/);
-    return m ? parseInt(m[1])*100 + parseInt(m[2]) : 99998;
-  };
-  const sorted = [...groups.entries()].sort((a,b)=>sortKey(a[0])-sortKey(b[0]));
-  let html = "";
-  for(const [label, arr] of sorted){
-    arr.sort(compareOrdersByDelivery);
-    html += `<div class="date-group">${escapeHtml(label)}</div>`;
-    html += arr.map(o=>orderCardHtml(o,true)).join("");
-  }
-  list.innerHTML = html;
+.workspace-help{margin:0;font-size:10.5px;line-height:1.5;color:var(--v26-muted)}
+
+#page-more>.v27-business-entry{
+  margin:18px 2px 0!important;
+  padding-top:14px;
+  border-top:1px solid var(--v26-line);
 }
-function compactOrderNote(value){
-  const clean = String(value || "")
-    .replace(/客户原话要求|客户确认要|客户表示要|客户表示|店家表示|商家表示|预计/g, "")
-    .replace(/[“”]/g, "")
-    .trim();
-  const parts = clean.split(/[。；;]+/).map((part) => part.trim()).filter(Boolean).slice(0, 3);
-  const summary = parts.join(" · ");
-  return summary.length > 48 ? `${summary.slice(0, 47)}…` : summary;
+#page-more>.v27-business-entry>button{
+  width:100%;
+  min-height:44px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border:0;
+  background:transparent;
+  color:var(--v26-ink);
+  font-size:12px;
+  font-weight:700;
+  text-align:left;
 }
-function orderCardHtml(o, withActions){
-  const a = orderAmount(o);
-  return `<div class="order-card">
-    <div>
-      <div class="items">${o.urgent?`<span style="font-size:10.5px;font-weight:800;background:#FDEBE7;color:#C25A42;border:1px solid #F4CFC5;border-radius:6px;padding:1.5px 8px;margin-right:6px;vertical-align:middle">加急</span>`:""}${o.customer?`<span class="cust">${escapeHtml(o.customer)}</span> · `:""}${escapeHtml(o.items)}</div>
-      <div class="meta">${(withActions?[o.time,o.method,o.address]:[o.date,o.time,o.method,o.address]).filter(Boolean).map(escapeHtml).join(" · ")||"时间待定"}</div>
-      ${a.known?`<div class="amount">A$ ${a.rev.toFixed(0)}</div>`:""}
-      ${o.note?`<span class="note">${escapeHtml(compactOrderNote(o.note))}</span>`:""}
-      ${o.ref?`<span class="note ref">${escapeHtml(o.ref)}</span>`:""}
-    </div>
-    <div class="order-side">
-      ${withActions
-        ? (o.status==='pending'
-            ? `<button class="done-btn" onclick="toggleStatus(${o.id})">✓ 完成</button><button class="mini-del" onclick="delOrder(${o.id})">删除</button>`
-            : `<button class="chip done" onclick="toggleStatus(${o.id})">已完成</button><button class="mini-del" onclick="delOrder(${o.id})">删除</button>`)
-        : `<span class="chip ${o.status==='pending'?'pending':'done'}">${o.status==='pending'?'待处理':'已完成'}</span>`}
-    </div>
-  </div>`;
+#page-more>.v27-business-entry span{
+  color:var(--v26-muted);
+  font-size:10.5px;
+  font-weight:500;
 }
-async function toggleStatus(id){
-  const o = orders.find(x=>x.id===id); if(!o) return;
-  const wasDone = o.status==='done';
-  o.status = wasDone ? 'pending' : 'done';
-  await store.set('orders',orders); renderAll();
-  if(!wasDone){
-    const a = orderAmount(o);
-    toast(a.known ? `订单完成 · 营收 +A$${a.rev.toFixed(0)}` : '订单完成');
-  }
-}
-async function delOrder(id){
-  orders = orders.filter(x=>x.id!==id);
-  await store.set('orders',orders); renderAll(); toast('已删除');
+#movedSettings>.section-label{font-size:11px!important;color:var(--v26-muted)!important}
+
+@media(max-width:430px){
+  #menuList .menu-item{padding:12px 0!important}
+  #menuList .menu-head{grid-template-columns:none!important}
+  #menuList .menu-head .mname{font-size:14px!important}
+  .workspace-card{padding:16px!important}
 }
 
-function renderHome(){
-  const pending = orders.filter(o=>o.status==='pending');
-  document.getElementById('heroCount').textContent = pending.length;
-  const {today} = dateLabels();
-  const todayPending = pending.filter(o=>o.date && o.date.includes(today) && o.time);
-  document.getElementById('heroNext').textContent =
-    todayPending.length ? `${todayPending[todayPending.length-1].time} 第一单取货` :
-    pending.length ? `最近交付：${(pending.find(o=>o.date)||{}).date || "日期待定"}` : "今天暂无待处理订单";
-  const weekAgo = Date.now()-7*864e5;
-  document.getElementById('statWeek').textContent = orders.filter(o=>new Date(o.createdAt).getTime()>weekAgo).length;
-  const s = weekStats();
-  document.getElementById('statRevenue').textContent = s.rev.toFixed(0);
-  document.getElementById('statProfit').textContent = s.profit.toFixed(0);
-  const home = document.getElementById('homeOrders');
-  const activeForHome = orders.filter(o=>o.status==="pending" || o.status==="needs_confirmation");
-  const recent = [...(activeForHome.length ? activeForHome : orders)].sort(compareOrdersByDelivery).slice(0,3);
-  home.innerHTML = recent.length? recent.map(o=>orderCardHtml(o,false)).join("") : `<div class="empty">暂无订单记录。</div>`;
+#page-more > #v7StarterSettings,
+#page-more > #v9ProductTemplateEntry { display: none !important; }
+
+
+:root {
+  --v28-blue: #0f62fe;
+  --v28-ink: #111827;
+  --v28-muted: #667085;
+  --v28-line: #d9e1ec;
+  --v28-surface: #ffffff;
+  --v28-soft: #f5f8fc;
 }
 
-/* ---------- 备货 ---------- */
-function calcIngredients(){
-  const pending = orders.filter(o=>o.status==='pending');
-  const totals = {}; const counted = {}; const unknown = [];
-  pending.forEach(o=>{
-    const items = parseItems(o.items);
-    if(!items.length && o.items && o.items!=="未填写品项") unknown.push(o.items);
-    items.forEach(it=>{
-      if(it.menuKey){
-        counted[it.menuKey] = (counted[it.menuKey]||0)+it.qty;
-        const ings = menu[it.menuKey].ings||{};
-        for(const ing in ings){ totals[ing]=(totals[ing]||0)+ings[ing]*it.qty; }
-      } else unknown.push(it.name);
-    });
-  });
-  return {totals, counted, unknown, orderCount: pending.length};
+.account-settings {
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid var(--v28-line) !important;
+  border-radius: 50% !important;
+  background: var(--v28-surface) !important;
+  box-shadow: 0 8px 22px rgba(17, 24, 39, .06) !important;
 }
-function renderPrepTable(){
-  const {totals, counted, unknown, orderCount} = calcIngredients();
-  const el = document.getElementById('prepTable');
-  if(!orderCount){ el.innerHTML = `<div class="empty" style="padding:20px">没有待处理订单，暂无需备货。</div>`; return; }
-  let html = `<p style="font-size:12px;color:var(--ink-2);margin:6px 0 8px">待处理 ${orderCount} 单：${Object.entries(counted).map(([k,v])=>`${k} ×${v}`).join("、")||"—"}</p>`;
-  html += `<table class="prep"><tr><th>物料</th><th style="text-align:right">需求总量</th></tr>`;
-  for(const ing in totals){ html += `<tr><td>${escapeHtml(ing)}</td><td class="num">${Math.round(totals[ing]*10)/10}</td></tr>`; }
-  html += `</table>`;
-  if(unknown.length) html += `<div style="margin-top:10px;padding:10px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:12px;font-size:12px;color:var(--warn-ink);display:flex;justify-content:space-between;align-items:center;gap:8px"><span>未匹配到商品：${[...new Set(unknown)].map(escapeHtml).join("、")}</span><button class="btn ghost tiny" style="flex-shrink:0" onclick="go('menu')">前往商品管理 ›</button></div>`;
-  el.innerHTML = html;
+.account-settings img { width: 20px !important; height: 20px !important; }
+#aiStatus, .status-pill { display: none !important; }
+
+#page-more > .v27-business-entry.v28-business-entry {
+  margin-top: clamp(72px, 12vh, 128px) !important;
+  margin-bottom: 18px !important;
 }
-async function genPrepSummary(){
-  const {totals, counted, orderCount} = calcIngredients();
-  if(!orderCount){ toast('没有待处理订单'); return; }
-  const btn = document.getElementById('prepBtn'); btn.disabled = true;
-  const out = document.getElementById('prepSummary');
-  out.hidden = false;
-  const actionsEl = document.getElementById('prepActions');
-  actionsEl.innerHTML = "";
-  out.innerHTML = `<div class="loading"><div class="pearl"></div>正在整理备货计划…</div>`;
-  const pending = orders.filter(o=>o.status==='pending').map(o=>`${o.items}｜${o.date||'日期未定'} ${o.time||''}｜${o.method||''}`).join("\n");
-  try{
-    const raw = await callAI(`你是小型经营者的备货与履约助手。${todayContext()}。
-
-以下数据已精确计算（物料清单×数量），你不需要也不允许重新计算任何数字，只负责把它组织成简短可执行的中文备货建议。
-
-待处理订单：
-${pending}
-
-产品汇总：${JSON.stringify(counted)}
-物料需求总量（已计算好）：${JSON.stringify(totals)}
-
-只输出一个 JSON 对象，不要其他文字、不要 markdown 代码块：
-{
- "summary": "3-5 行的备货摘要，口语但专业。按时间倒推建议什么时候完成什么备料（如冷藏类提前一晚）；订单集中在同一天时提示产能风险；直接引用上面的数字，不要改动。",
- "actions": ["3条具体的建议行动，每条一句话"]
-}`);
-    const parsed = JSON.parse(raw.replace(/```json|```/g,"").trim());
-    out.textContent = parsed.summary || "";
-    out.style.color = "var(--ink)";
-    const checkIcon = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>`;
-    if(Array.isArray(parsed.actions) && parsed.actions.length){
-      actionsEl.innerHTML = `<div style="margin-top:14px;padding-top:8px;border-top:1px solid var(--line)"><b style="font-size:13px">建议行动</b>${parsed.actions.map(a=>`<div class="action-item">${checkIcon}<span>${escapeHtml(a)}</span></div>`).join("")}</div>`;
-    }
-  }catch(e){
-    out.innerHTML = `摘要生成失败，上方的计算结果不受影响。<span style="font-size:12px;color:var(--muted)">可点击重试</span>`;
-  }finally{ btn.disabled=false; }
+#page-more > .v27-business-entry.v28-business-entry > button {
+  min-height: 44px !important;
+  padding: 8px 2px !important;
 }
 
-/* ---------- 商品 ---------- */
-function renderMenu(){
-  const s = weekStats();
-  document.getElementById('mRevenue').textContent = s.rev.toFixed(0);
-  document.getElementById('mCost').textContent = s.cost.toFixed(0);
-  document.getElementById('mProfit').textContent = s.profit.toFixed(0);
-
-  const el = document.getElementById('menuList');
-  const names = Object.keys(menu);
-  if(!names.length){ el.innerHTML = `<div class="empty" style="padding:18px">还没有商品。点击右上角「＋ 添加商品」。</div>`; return; }
-  el.innerHTML = names.map(prod=>{
-    const it = menu[prod];
-    const margin = (it.price||0)-(it.cost||0);
-    return `<div class="menu-item">
-      <div class="menu-head">
-        <span class="mname">${escapeHtml(prod)}</span>
-        <button class="icon-btn" title="删除商品" onclick="deleteMenuItem('${escapeAttr(prod)}')">×</button>
-      </div>
-      <div class="price-row">
-        <div class="price-cell"><div class="pl">售价 A$</div><input type="number" value="${it.price||0}" onchange="updateMenuField('${escapeAttr(prod)}','price',this.value)"></div>
-        <div class="price-cell"><div class="pl">成本 A$</div><input type="number" value="${it.cost||0}" onchange="updateMenuField('${escapeAttr(prod)}','cost',this.value)"></div>
-        <div class="price-cell profit"><div class="pl">单份毛利</div><div class="pv">A$ ${margin.toFixed(1)}</div></div>
-      </div>
-      <div class="ing-grid">
-        ${Object.entries(it.ings||{}).map(([ing,amt])=>`
-          <span class="ing-chip">${escapeHtml(ing)}
-            <input type="number" value="${amt}" onchange="updateIng('${escapeAttr(prod)}','${escapeAttr(ing)}',this.value)">
-            <span class="x" title="删除物料" onclick="deleteIng('${escapeAttr(prod)}','${escapeAttr(ing)}')">×</span>
-          </span>`).join("")}
-        <button class="btn ghost tiny" onclick="toggleAddIng('${escapeAttr(prod)}')">＋ 物料</button>
-      </div>
-      <div class="add-inline" id="addIng-${cssId(prod)}" style="display:none">
-        <input class="w-name" id="ai-name-${cssId(prod)}" placeholder="物料 (含单位)">
-        <input class="w-amt" id="ai-amt-${cssId(prod)}" type="number" placeholder="用量">
-        <button class="btn primary small" onclick="addIng('${escapeAttr(prod)}')">确定</button>
-      </div>
-    </div>`;
-  }).join("");
+.content-tool-card .content-card-heading {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: start !important;
+  gap: 12px !important;
+  margin-bottom: 18px !important;
 }
-function cssId(s){ return s.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g,'_'); }
-
-async function updateMenuField(prod, field, val){
-  menu[prod][field] = parseFloat(val)||0;
-  await store.set('menu',menu); renderAll(); toast('已更新');
-}
-async function updateIng(prod,ing,val){
-  menu[prod].ings[ing] = parseFloat(val)||0;
-  await store.set('menu',menu); renderPrepTable(); toast('物料清单已更新');
-}
-async function deleteMenuItem(prod){
-  if(!confirm(`删除商品「${prod}」？`)) return;
-  delete menu[prod];
-  await store.set('menu',menu); renderAll(); toast('商品已删除');
-}
-async function deleteIng(prod,ing){
-  delete menu[prod].ings[ing];
-  await store.set('menu',menu); renderAll(); toast('物料已删除');
-}
-function toggleAddIng(prod){
-  const el = document.getElementById('addIng-'+cssId(prod));
-  el.style.display = el.style.display==='none' ? 'flex' : 'none';
-}
-async function addIng(prod){
-  const name = document.getElementById('ai-name-'+cssId(prod)).value.trim();
-  const amt = parseFloat(document.getElementById('ai-amt-'+cssId(prod)).value);
-  if(!name || !amt){ toast('请填写物料名称和用量'); return; }
-  menu[prod].ings[name] = amt;
-  await store.set('menu',menu); renderAll(); toast('物料已添加');
-}
-function toggleNewItem(){
-  const el = document.getElementById('newItemForm');
-  el.style.display = el.style.display==='none' ? 'block' : 'none';
-}
-function addIngRowToForm(){
-  const wrap = document.getElementById('niIngs');
-  const row = document.createElement('div');
-  row.className = 'ing-row';
-  row.innerHTML = `<input class="rn" placeholder="物料 (含单位)"><input class="ra" type="number" placeholder="用量"><button class="icon-btn" onclick="this.parentElement.remove()">×</button>`;
-  wrap.appendChild(row);
-}
-async function addMenuItem(){
-  const name = document.getElementById('niName').value.trim();
-  if(!name){ toast('请填写商品名称'); return; }
-  if(menu[name]){ toast('该商品已存在'); return; }
-  const price = parseFloat(document.getElementById('niPrice').value)||0;
-  const cost = parseFloat(document.getElementById('niCost').value)||0;
-  const ings = {};
-  document.querySelectorAll('#niIngs .ing-row').forEach(r=>{
-    const n = r.querySelector('.rn').value.trim();
-    const a = parseFloat(r.querySelector('.ra').value);
-    if(n && a) ings[n] = a;
-  });
-  menu[name] = {price, cost, ings};
-  await store.set('menu',menu);
-  document.getElementById('niName').value=""; document.getElementById('niPrice').value=""; document.getElementById('niCost').value="";
-  document.getElementById('niIngs').innerHTML = `<div class="ing-row"><input class="rn" placeholder="物料 (含单位)"><input class="ra" type="number" placeholder="用量"></div>`;
-  document.getElementById('newItemForm').style.display='none';
-  renderAll(); toast('商品已添加');
+.content-tool-card .content-card-heading > div { min-width: 0; }
+.content-tool-card .content-card-heading .badge.ai {
+  position: static !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: 28px !important;
+  padding: 0 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 999px !important;
+  white-space: nowrap !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  background: var(--v28-blue) !important;
 }
 
-/* ---------- 内容 ---------- */
-let contentTone = "亲切自然";
-const contentToneOptions = ["亲切自然", "简洁专业", "活泼轻松", "高级克制"];
-let contentImageState = null;
-
-function cycleContentTone(){
-  const index = contentToneOptions.indexOf(contentTone);
-  contentTone = contentToneOptions[(index + 1) % contentToneOptions.length];
-  const label = document.getElementById("contentToneLabel");
-  if(label) label.textContent = contentTone;
+#contentStyleBox.content-style-inline {
+  margin: 0 0 16px !important;
+  padding: 12px 14px !important;
+  border: 1px solid var(--v28-line) !important;
+  border-radius: 12px !important;
+  background: var(--v28-soft) !important;
+  box-shadow: none !important;
+}
+#contentStyleBox.content-style-inline b { color: var(--v28-ink) !important; }
+#contentStyleBox.content-style-inline small {
+  margin-top: 2px !important;
+  color: var(--v28-muted) !important;
+  font-size: 12px !important;
+}
+.v28-channel-hint {
+  display: block;
+  margin-top: 6px;
+  color: var(--v28-muted);
+  font-size: 11.5px;
+  line-height: 1.45;
 }
 
-function setContentType(btn){
-  document.querySelectorAll('#contentSeg button').forEach(button=>button.classList.remove('on'));
-  btn.classList.add('on');
-  contentType = btn.dataset.type;
-  ['text','image'].forEach(type=>{
-    const panel = document.getElementById(`content-${type}`);
-    if(panel) panel.style.display = contentType===type ? 'block' : 'none';
-  });
-  const styleBox = document.getElementById('contentStyleBox');
-  if(styleBox) styleBox.style.display = contentType==='text' ? 'flex' : 'none';
-  if(contentType==='image') renderWeeklyChecks();
+#page-content .content-field { margin-bottom: 14px !important; }
+#page-content .content-field > span {
+  margin-bottom: 6px !important;
+  font-size: 12.5px !important;
+  line-height: 1.35 !important;
 }
-
-async function genContent(){
-  const topic = document.getElementById('contentTopic').value.trim();
-  if(!topic){ toast('请填写想写的内容'); return; }
-  const channel = document.getElementById('contentChannel').value;
-  const goal = document.getElementById('contentGoal').value;
-  const extra = document.getElementById('contentExtra').value.trim();
-  const btn = document.getElementById('contentBtn');
-  const out = document.getElementById('contentOut');
-  btn.disabled = true;
-  out.style.display='block';
-  out.innerHTML = `<div class="loading"><div class="pearl"></div>正在生成文案…</div>`;
-  try{
-    const text = await callAI(`你是小型经营品牌的内容助手。请生成一份供经营者检查和编辑的文案草稿。
-
-发布渠道：${channel}
-内容用途：${goal}
-文案风格：${contentTone}
-主题：${topic}
-${extra?`补充要求：${extra}`:""}
-
-要求：
-1. 使用大众易懂的语言，不夸大、不编造价格、库存、销量或优惠。
-2. 只使用用户提供的信息；缺少的信息不要自行补充。
-3. 小红书可使用2-3个自然emoji和3个相关标签；抖音更短；Instagram可附简短英文标签；其他渠道保持简洁。
-4. 只输出文案草稿，不要解释。`);
-    out.textContent = text.trim();
-    document.getElementById('contentActions').style.display='flex';
-  }catch(e){
-    out.textContent = "生成失败，您填写的内容已保留，可以重试。";
-  }finally{ btn.disabled=false; }
+#page-content .line { min-height: 46px !important; }
+#page-content textarea.line { min-height: 116px !important; line-height: 1.55 !important; }
+#page-content .btn.primary.block { margin-top: 4px !important; }
+#contentActions {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 10px !important;
+  margin-top: 12px !important;
 }
+#contentActions .btn { width: 100% !important; min-height: 44px !important; }
 
-function activeContentProducts(){
-  return Object.entries(menu || {}).filter(([,item])=>item && item.active !== false && !item.isExample);
-}
+#page-more > h1.pg { margin-bottom: 6px !important; }
+#page-more > .pg-sub { margin-bottom: 24px !important; }
 
-function renderWeeklyChecks(){
-  const checks = document.getElementById('imageProductChecks');
-  if(!checks) return;
-  const products = activeContentProducts();
-  if(!products.length){
-    checks.innerHTML = `<div class="empty compact-empty">还没有正式商品，也可以直接描述图片需求。</div>`;
-    return;
-  }
-  const selected = new Set([...checks.querySelectorAll('input:checked')].map(input=>input.value));
-  checks.innerHTML = products.map(([name,item])=>`
-    <label class="check-item">
-      <input type="checkbox" value="${escapeAttr(name)}" ${selected.has(name) ? 'checked' : ''}>
-      <span>${escapeHtml(name)}</span>
-      <span class="price">A$ ${Number(item.price||0).toFixed(0)}</span>
-    </label>`).join("");
-}
-
-function selectedImageProducts(){
-  return [...document.querySelectorAll('#imageProductChecks input:checked')]
-    .map(input=>input.value)
-    .filter(name=>menu[name])
-    .map(name=>({name, price:Number(menu[name].price||0)}));
-}
-
-async function generateAIContentImage(){
-  const request = document.getElementById('imagePrompt')?.value.trim();
-  if(!request){ toast('请描述您想生成的图片'); return; }
-  const ratio = document.getElementById('imageRatio')?.value || '3:4';
-  const products = selectedImageProducts();
-  const sizeMap = {'3:4':'1024x1536','1:1':'1024x1024','3:2':'1536x1024'};
-  const result = document.getElementById('contentImageResult');
-  const canvas = document.getElementById('contentImageCanvas');
-  const actions = document.getElementById('contentImageActions');
-  const button = document.getElementById('imageGenerateBtn');
-  const productContext = products.length
-    ? `可参考的正式商品：${products.map(item=>`${item.name}（A$ ${item.price.toFixed(0)}）`).join('、')}。如果画面出现商品名称或价格，必须完全使用这些正式数据，不得改写。`
-    : '没有选择商品参考。不要自行添加价格、优惠、库存或其他业务事实。';
-  const prompt = `请根据经营者的直接需求生成一张可供检查的商业图片草稿。
-
-经营者需求：${request}
-${productContext}
-
-要求：
-1. 经营者的需求优先，不要把图片擅自归类为海报、菜单或商品图。
-2. 画面清晰、克制、适合移动端查看。
-3. 不得编造价格、折扣、销量、库存或营业信息。
-4. 中文文字如非用户明确要求，尽量少放；如需文字，保持简短且可读。
-5. 这是待人工确认的图片草稿，不代表已发布内容。`;
-  result.style.display='block';
-  actions.style.display='none';
-  canvas.innerHTML = `<div class="content-image-loading"><div class="pearl"></div><b>正在生成图片</b><span>通常需要几十秒，请不要关闭页面</span></div>`;
-  button.disabled = true;
-  result.scrollIntoView({behavior:'smooth', block:'start'});
-  try{
-    const response = await callWorkbenchApi('/api/image', {
-      prompt,
-      quality:'low',
-      size:sizeMap[ratio] || sizeMap['3:4']
-    }, 190000);
-    contentImageState = {
-      image:response.image,
-      model:response.model,
-      request,
-      ratio,
-      createdAt:new Date().toISOString()
-    };
-    canvas.innerHTML = `<img class="content-generated-image" src="${response.image}" alt="根据您的需求生成的 AI 图片草稿">`;
-    document.getElementById('contentImageModel').textContent = `${response.model} · 草稿`;
-    actions.style.display='grid';
-  }catch(error){
-    canvas.innerHTML = `<div class="content-image-error"><b>图片生成失败</b><span>${escapeHtml(error.message || '请稍后重试')}</span><button class="btn ghost small" onclick="generateAIContentImage()">重试</button></div>`;
-  }finally{
-    button.disabled = false;
+@media (max-width: 520px) {
+  .content-tool-card { padding: 18px !important; }
+  .content-tool-card .content-card-heading { gap: 8px !important; }
+  .content-tool-card .content-card-heading .badge.ai {
+    height: 26px !important;
+    padding-inline: 8px !important;
+    font-size: 10.5px !important;
   }
 }
 
-function downloadAIContentImage(){
-  if(!contentImageState?.image){ toast('请先生成图片'); return; }
-  const link = document.createElement('a');
-  link.download = `sous-ai-image-${new Date().toISOString().slice(0,10)}.jpg`;
-  link.href = contentImageState.image;
-  link.click();
-  toast('图片已下载');
+
+:root {
+  --v29-blue: #0f62fe;
+  --v29-blue-soft: #edf4ff;
+  --v29-ink: #172033;
+  --v29-muted: #667085;
+  --v29-line: #dfe5ee;
+  --v29-surface: #ffffff;
 }
 
-/* ---------- 设置 ---------- */
-function renderEditLog(){
-  const el = document.getElementById('editLog');
-  if(!editLog.length){ el.innerHTML = `<div class="empty" style="padding:18px">暂无修正记录。修改解析结果后会自动记录。</div>`; return; }
-  el.innerHTML = editLog.slice(0,30).map(e=>{
-    const matchedOrder = orders.find(order=>order.rawMsg && e.msg && order.rawMsg===e.msg);
-    const customer = e.customer || matchedOrder?.customer || "顾客未记录";
-    return `<div class="log-item"><div class="log-customer">${escapeHtml(customer)}</div><b>${escapeHtml(e.field)}</b>：<span class="from">${escapeHtml(e.from||"(空)")}</span> → <span class="to">${escapeHtml(e.to)}</span><br>
-    <span class="log-source">来源：${escapeHtml((e.msg||"").slice(0,40))}${(e.msg||"").length>40?"…":""} · ${new Date(e.time).toLocaleString('zh-CN')}</span></div>`;
-  }).join("");
+/* One settings affordance across every business and page. */
+.account-settings {
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  border: 1px solid var(--v29-line) !important;
+  border-radius: 50% !important;
+  background: var(--v29-surface) !important;
+  box-shadow: 0 8px 22px rgba(17, 24, 39, .06) !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
 }
-async function savePrefs(){
-  prefs.deliveryPreset = document.getElementById('prefDelivery').value.trim();
-  await store.set('prefs', prefs);
-  toast('经营偏好已保存');
-}
-function exportData(){
-  const payload = JSON.stringify({orders, menu, editLog, customers, exportedAt:new Date().toISOString()}, null, 2);
-  const blob = new Blob([payload], {type:"application/json"});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `sous-data-${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  toast('数据已导出');
+.account-settings > *:not(img) { display: none !important; }
+.account-settings img {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
-/* ---------- utils ---------- */
-function escapeHtml(s){ return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
-function escapeAttr(s){ return String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
-</script>
-</body>
-</html>
+/* The industry action is secondary and lives at the end of the tools page. */
+#page-more > .v27-business-entry.v29-business-entry {
+  order: 99 !important;
+  margin: clamp(180px, 28vh, 300px) 2px 18px !important;
+  padding: 12px 0 0 !important;
+  border-top: 1px solid var(--v29-line) !important;
+}
+#page-more > .v27-business-entry.v29-business-entry > button {
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 0 2px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--v29-ink) !important;
+  text-align: left !important;
+}
+#page-more > .v29-business-entry b {
+  font-size: 12.5px !important;
+  line-height: 1.35 !important;
+}
+#page-more > .v29-business-entry span {
+  color: var(--v29-muted) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+}
+
+/* A single workspace component, regardless of active industry. */
+#page-settings .workspace-card.v29-workspace-card {
+  display: grid !important;
+  gap: 12px !important;
+  padding: 18px !important;
+  border: 1px solid var(--v29-line) !important;
+  border-radius: 16px !important;
+  background: var(--v29-surface) !important;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, .05) !important;
+}
+.v29-workspace-current {
+  display: grid !important;
+  gap: 3px !important;
+}
+.v29-workspace-current > span {
+  color: var(--v29-muted) !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+.v29-workspace-current > b {
+  color: var(--v29-ink) !important;
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+.v29-workspace-current > small {
+  color: var(--v29-muted) !important;
+  font-size: 11.5px !important;
+  line-height: 1.45 !important;
+}
+.v29-workspace-list {
+  display: grid !important;
+  gap: 7px !important;
+}
+.v29-workspace-list > button {
+  width: 100% !important;
+  min-height: 54px !important;
+  padding: 9px 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  border: 1px solid var(--v29-line) !important;
+  border-radius: 11px !important;
+  background: var(--v29-surface) !important;
+  color: var(--v29-ink) !important;
+  text-align: left !important;
+}
+.v29-workspace-list > button[aria-current="true"] {
+  border-color: #8bb4ff !important;
+  background: var(--v29-blue-soft) !important;
+}
+.v29-workspace-list > button > span {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: 2px !important;
+}
+.v29-workspace-list b {
+  overflow: hidden !important;
+  color: var(--v29-ink) !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.v29-workspace-list small {
+  color: var(--v29-muted) !important;
+  font-size: 10.5px !important;
+  line-height: 1.4 !important;
+}
+.v29-workspace-list em {
+  flex: 0 0 auto !important;
+  color: var(--v29-blue) !important;
+  font-size: 11px !important;
+  font-style: normal !important;
+  font-weight: 650 !important;
+}
+.v29-workspace-add {
+  width: 100% !important;
+  min-height: 44px !important;
+  border: 1px solid var(--v29-line) !important;
+  border-radius: 11px !important;
+  background: var(--v29-surface) !important;
+  color: var(--v29-ink) !important;
+  font: inherit !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+.v29-workspace-help {
+  margin: 0 !important;
+  color: var(--v29-muted) !important;
+  font-size: 10.5px !important;
+  line-height: 1.5 !important;
+}
+
+@media (max-width: 430px) {
+  #page-settings .workspace-card.v29-workspace-card { padding: 16px !important; }
+  #page-more > .v27-business-entry.v29-business-entry {
+    margin-top: clamp(150px, 24vh, 230px) !important;
+  }
+}
+
+
+:root {
+  --v30-blue: #0f62fe;
+  --v30-blue-deep: #0043ce;
+  --v30-blue-soft: #edf4ff;
+  --v30-ink: #172033;
+  --v30-muted: #667085;
+  --v30-line: #dfe5ee;
+  --v30-surface: #ffffff;
+}
+
+/* First-use identity screen: intentionally simple, local-only, no password. */
+.v30-entry {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background:
+    radial-gradient(circle at 18% 5%, rgba(255, 255, 255, .2), transparent 25%),
+    linear-gradient(145deg, #1769ff 0%, #0f62fe 55%, #0043ce 100%);
+  color: var(--v30-ink);
+}
+
+
+
+body.v30-entry-open > .app {
+  display: none !important;
+}
+
+.v30-entry-brand {
+  width: min(100% - 40px, 440px);
+  min-height: 26svh;
+  margin: 0 auto;
+  padding: max(28px, env(safe-area-inset-top)) 2px 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.v30-entry-logo {
+  font-size: 28px;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.v30-entry-step {
+  padding-top: 8px;
+  color: rgba(255, 255, 255, .8);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.v30-entry-sheet {
+  width: min(100%, 520px);
+  min-height: 74svh;
+  margin: 0 auto;
+  padding: 28px max(22px, env(safe-area-inset-left)) calc(32px + env(safe-area-inset-bottom));
+  border-radius: 32px 32px 0 0;
+  background: var(--v30-surface);
+  box-shadow: 0 -18px 50px rgba(0, 35, 102, .14);
+}
+
+.v30-entry-handle {
+  width: 42px;
+  height: 4px;
+  margin: 0 auto 30px;
+  border-radius: 99px;
+  background: #d8dde6;
+}
+
+.v30-entry-copy {
+  margin: 0 0 30px;
+  text-align: center;
+}
+
+.v30-entry-copy h1 {
+  margin: 0;
+  color: var(--v30-ink);
+  font-size: clamp(30px, 8vw, 40px);
+  font-weight: 820;
+  letter-spacing: -.04em;
+  line-height: 1.16;
+}
+
+.v30-entry-copy p {
+  margin: 10px auto 0;
+  max-width: 320px;
+  color: var(--v30-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.v30-entry-form {
+  width: 100%;
+  display: grid;
+  gap: 18px;
+}
+
+.v30-entry-field {
+  display: grid;
+  gap: 8px;
+}
+
+.v30-entry-field label {
+  color: var(--v30-ink);
+  font-size: 13px;
+  font-weight: 720;
+  line-height: 1.35;
+}
+
+.v30-entry-field input {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 16px;
+  border: 1px solid var(--v30-line);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--v30-ink);
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+.v30-entry-field input::placeholder {
+  color: #a1aaba;
+}
+
+.v30-entry-field input:focus-visible {
+  border-color: var(--v30-blue);
+  box-shadow: 0 0 0 4px rgba(15, 98, 254, .14);
+}
+
+.v30-entry-field input[aria-invalid="true"] {
+  border-color: #d92d20;
+}
+
+.v30-entry-error {
+  margin: -6px 0 0;
+  color: #b42318;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.v30-entry-submit {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--v30-blue), var(--v30-blue-deep));
+  box-shadow: 0 12px 26px rgba(15, 98, 254, .22);
+  color: #fff;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 760;
+  cursor: pointer;
+}
+
+.v30-entry-submit:focus-visible {
+  outline: 3px solid rgba(15, 98, 254, .28);
+  outline-offset: 3px;
+}
+
+.v30-entry-note {
+  margin: 0;
+  color: var(--v30-muted);
+  font-size: 11.5px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+/* Keep More in a normal flow and place the industry switch after AI Content Assistant. */
+#page-more.on {
+  min-height: 0 !important;
+  display: block !important;
+}
+
+#page-more > .v27-business-entry.v29-business-entry.v30-industry-entry {
+  margin: 12px 0 26px !important;
+}
+
+/* Compact home shortcuts sit directly below Today's Pending. */
+.v30-home-quick-tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 12px 0 22px;
+}
+
+.v30-home-quick-tool {
+  min-width: 0;
+  min-height: 58px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 10px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--v30-line);
+  border-radius: 16px;
+  background: var(--v30-surface);
+  color: var(--v30-ink);
+  box-shadow: 0 8px 20px rgba(23, 32, 51, 0.06);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.v30-home-quick-icon {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--v30-blue-soft);
+  color: var(--v30-blue);
+}
+
+.v30-home-quick-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.v30-home-quick-copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.v30-home-quick-copy b,
+.v30-home-quick-copy small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v30-home-quick-copy b {
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.v30-home-quick-copy small {
+  color: var(--v30-muted);
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+
+.v30-home-quick-arrow {
+  color: #98a2b3;
+  font-size: 18px;
+}
+
+.v30-home-quick-tool:focus-visible {
+  outline: 3px solid rgba(15, 98, 254, 0.25);
+  outline-offset: 2px;
+}
+
+/* Screenshot remove controls: touchable, contained, and consistent on phones. */
+#imgThumbs > span {
+  position: relative !important;
+  display: inline-grid !important;
+  width: 64px !important;
+  height: 64px !important;
+  place-items: center !important;
+}
+
+#imgThumbs > span > img {
+  width: 56px !important;
+  height: 56px !important;
+  display: block !important;
+}
+
+#imgThumbs > span > button {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 2px solid #fff !important;
+  border-radius: 50% !important;
+  background: #344054 !important;
+  color: #fff !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  box-shadow: 0 4px 10px rgba(17, 24, 39, .2) !important;
+  transform: none !important;
+  touch-action: manipulation;
+}
+
+#imgThumbs > span > button:focus-visible {
+  outline: 3px solid rgba(15, 98, 254, .35) !important;
+  outline-offset: 2px !important;
+}
+
+@media (min-width: 700px) {
+  .v30-entry {
+    display: grid;
+    align-content: center;
+    padding: 36px 0;
+  }
+
+  .v30-entry-brand {
+    min-height: auto;
+    padding: 0 2px 22px;
+  }
+
+  .v30-entry-sheet {
+    min-height: auto;
+    border-radius: 32px;
+    padding: 26px 42px 38px;
+  }
+}
+
+@media (max-width: 430px) {
+  .v30-entry-brand {
+    min-height: 23svh;
+  }
+
+  .v30-entry-sheet {
+    min-height: 77svh;
+    padding-top: 22px;
+  }
+
+  #page-more > .v27-business-entry.v29-business-entry.v30-industry-entry {
+    margin: 10px 0 96px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v30-entry-field input,
+  .v30-entry-submit {
+    transition: none;
+  }
+}
+
+/* Brand usage: full emphasis on first-use, compact mark in everyday headers. */
+.v30-entry-emblem {
+  width: 104px;
+  height: 104px;
+  margin: -4px auto 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e6edfa;
+  border-radius: 28px;
+  background: #f6f9ff;
+  box-shadow: 0 12px 30px rgba(15, 98, 254, .12);
+}
+
+.v30-entry-emblem img {
+  width: 78px;
+  height: 78px;
+  display: block;
+  object-fit: contain;
+}
+
+header.top .logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.v30-brand-mark {
+  width: 30px;
+  height: 30px;
+  display: block;
+  flex: 0 0 30px;
+  object-fit: contain;
+}
+
+@media (max-width: 430px) {
+  .v30-entry-emblem {
+    width: 92px;
+    height: 92px;
+    margin-bottom: 18px;
+    border-radius: 24px;
+  }
+
+  .v30-entry-emblem img {
+    width: 68px;
+    height: 68px;
+  }
+
+  .v30-brand-mark {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+}
+#page-more:not(.on) { display: none !important; }
+
+
+@media (max-width: 430px) {
+  .v30-entry { height: 100dvh; overflow: hidden; display: grid; grid-template-rows: 84px minmax(0, 1fr); }
+  .v30-entry-brand { width: calc(100% - 48px); min-height: 0; height: 84px; padding: max(20px, env(safe-area-inset-top)) 0 8px; align-items: flex-start; }
+  .v30-entry-logo { font-size: 25px; }
+  .v30-entry-sheet { width: 100%; height: 100%; min-height: 0; overflow: hidden; padding: 12px 24px calc(12px + env(safe-area-inset-bottom)); border-radius: 28px 28px 0 0; }
+  .v30-entry-handle { width: 38px; height: 4px; margin-bottom: 9px; }
+  .v30-entry-emblem { width: 62px; height: 62px; margin: 0 auto 7px; border-radius: 17px; }
+  .v30-entry-emblem img { width: 47px; height: 47px; }
+  .v30-entry-copy { margin-bottom: 11px; }
+  .v30-entry-copy h1 { font-size: 28px; line-height: 1.12; }
+  .v30-entry-copy p { margin-top: 5px; font-size: 12px; line-height: 1.4; }
+  .v30-entry-form { gap: 8px; }
+  .v30-entry-field { gap: 4px; }
+  .v30-entry-field label { font-size: 12px; }
+  .v30-entry-field input { min-height: 46px; padding: 0 14px; border-radius: 12px; font-size: 15px; }
+  .v30-entry-submit { min-height: 47px; margin-top: 1px; border-radius: 14px; font-size: 15px; }
+  .v30-entry-note { font-size: 10.5px; line-height: 1.35; }
+}
 
 
 
 
 
+/* Canonical SOUS blue design system. */
+:root{--bg:#f5f7fb;--card:rgba(255,255,255,.94);--line:#dfe5ee;--hairline:#dfe5ee;--ink:#172033;--ink-2:#5f6b7c;--muted:#7b8798;--acc:#0f62fe;--acc-soft:#edf4ff;--iri:linear-gradient(145deg,#1769ff 0%,#0f62fe 55%,#0043ce 100%);--iri-soft:#edf4ff;--action-ink:#fff;--warn-bg:#fff7ed;--warn-line:#fed7aa;--warn-ink:#9a3412;--shadow:0 12px 32px rgba(15,98,254,.10);--shadow-soft:0 6px 18px rgba(23,32,51,.07)}
+body{background:#f5f7fb}.btn.primary,.done-btn{background:#0f62fe;color:#fff}nav.tabs button.on{color:#0043ce;background:#edf4ff}
 
-
-
-
-
+/* State invariant: hidden UI must never be revived by component display rules. */
+[hidden]{display:none!important}

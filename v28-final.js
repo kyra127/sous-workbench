@@ -165,9 +165,5 @@
     demoteIndustryEntry();
   }
 
-  document.addEventListener("DOMContentLoaded", sync);
-  window.addEventListener("load", sync);
-  const observer = new MutationObserver(() => requestAnimationFrame(sync));
-  observer.observe(document.documentElement, { childList: true, subtree: true });
-  sync();
+  window.SOUSRuntime?.registerSync("v28-consistency", sync) || sync();
 })();
