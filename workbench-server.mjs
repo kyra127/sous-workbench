@@ -1,10 +1,11 @@
-import http from "node:http";
+﻿import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
+import zlib from "node:zlib";
 import { fileURLToPath } from "node:url";
 
 const projectDir = path.dirname(fileURLToPath(import.meta.url));
-const buildVersion = "20260727-v31.36-rc1";
+const buildVersion = "20260727-v31.37";
 const cleanResetKey = "sous:clean-release";
 const publicPort = Number(process.env.PORT || 8124);
 const allowedOrigins = new Set(
@@ -23,6 +24,7 @@ const securityHeaders = {
   "Referrer-Policy": "same-origin",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
   "Cross-Origin-Opener-Policy": "same-origin",
+  "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
 };
 
 function clientIp(req) {
@@ -64,13 +66,25 @@ function json(res, status, payload) {
   res.end(body);
 }
 
-function sendFile(res, fileName, contentType) {
-  const bytes = fs.readFileSync(path.join(projectDir, fileName));
+function encodedBody(req, bytes, contentType) {
+  if (!/javascript|text\/css|text\/html|application\/json/.test(contentType) || bytes.length < 1024) return { bytes, encoding: null };
+  const accepted = String(req.headers["accept-encoding"] || "");
+  if (accepted.includes("br")) return { bytes: zlib.brotliCompressSync(bytes), encoding: "br" };
+  if (accepted.includes("gzip")) return { bytes: zlib.gzipSync(bytes), encoding: "gzip" };
+  return { bytes, encoding: null };
+}
+
+function sendFile(req, res, fileName, contentType) {
+  const source = fs.readFileSync(path.join(projectDir, fileName));
+  const { bytes, encoding } = encodedBody(req, source, contentType);
+  const versioned = new URL(req.url, "http://localhost").searchParams.get("v") === buildVersion;
   res.writeHead(200, {
     ...securityHeaders,
     "Content-Type": contentType,
     "Content-Length": bytes.length,
-    "Cache-Control": /javascript|text\/css/.test(contentType) ? "no-store" : "public, max-age=300",
+    "Cache-Control": versioned ? "public, max-age=31536000, immutable" : "no-cache",
+    "Vary": "Accept-Encoding",
+    ...(encoding ? { "Content-Encoding": encoding } : {}),
   });
   res.end(bytes);
 }
@@ -109,46 +123,25 @@ function injectWorkbench(html) {
       `<script src="/sous-runtime.js?v=${buildVersion}"></script></body>`,
     );
 }
-function sendIndex(res) {
+function sendIndex(req, res) {
   const html = injectWorkbench(fs.readFileSync(path.join(projectDir, "index.html"), "utf8"));
+  const { bytes, encoding } = encodedBody(req, Buffer.from(html), "text/html");
   res.writeHead(200, {
     ...securityHeaders,
     "Content-Type": "text/html; charset=utf-8",
-    "Content-Length": Buffer.byteLength(html),
+    "Content-Length": bytes.length,
     "Cache-Control": "no-cache",
+    "Vary": "Accept-Encoding",
+    ...(encoding ? { "Content-Encoding": encoding } : {}),
   });
-  res.end(html);
+  res.end(bytes);
 }
 
 const assetRoutes = new Map([
   ["/sous-ui.css", ["sous-ui.css", "text/css; charset=utf-8"]],
   ["/sous-runtime.js", ["sous-runtime.js", "text/javascript; charset=utf-8"]],
-  ["/workbench.js", ["workbench.js", "text/javascript; charset=utf-8"]],
-  ["/workbench.css", ["workbench.css", "text/css; charset=utf-8"]],
-  ["/workbench-v2.js", ["workbench-v2.js", "text/javascript; charset=utf-8"]],
-  ["/workbench-v4.js", ["workbench-v4.js", "text/javascript; charset=utf-8"]],
-  ["/workbench-v5.css", ["workbench-v5.css", "text/css; charset=utf-8"]],
-  ["/workbench-v6-pre.js", ["workbench-v6-pre.js", "text/javascript; charset=utf-8"]],
-  ["/workbench-v6.js", ["workbench-v6.js", "text/javascript; charset=utf-8"]],
-  ["/workbench-v6-fixes.js", ["workbench-v6-fixes.js", "text/javascript; charset=utf-8"]],
-  ["/workbench-v7.js", ["workbench-v7.js", "text/javascript; charset=utf-8"]],
-  ["/workbench-v7-fixes.js", ["workbench-v7-fixes.js", "text/javascript; charset=utf-8"]],
-  ["/workbench-v8-multigroup.js?v=8.1", ["workbench-v8-multigroup.js", "text/javascript; charset=utf-8"]],
-  ["/workbench-v8-multigroup.css", ["workbench-v8-multigroup.css", "text/css; charset=utf-8"]],
-  ["/workbench-v9-feedback.js?v=9.1", ["workbench-v9-feedback.js", "text/javascript; charset=utf-8"]],
-  ["/v26-final.js", ["v26-final.js", "text/javascript; charset=utf-8"]],
-  ["/v26-final.css", ["v26-final.css", "text/css; charset=utf-8"]],
-  ["/v27-final.js", ["v27-final.js", "text/javascript; charset=utf-8"]],
-  ["/v27-final.css", ["v27-final.css", "text/css; charset=utf-8"]],
-  ["/v28-final.js", ["v28-final.js", "text/javascript; charset=utf-8"]],
-  ["/v28-final.css", ["v28-final.css", "text/css; charset=utf-8"]],
-  ["/v29-consistency.js", ["v29-consistency.js", "text/javascript; charset=utf-8"]],
-  ["/v29-consistency.css", ["v29-consistency.css", "text/css; charset=utf-8"]],
-  ["/v30-entry.js", ["v30-entry.js", "text/javascript; charset=utf-8"]],
-  ["/v30-entry.css", ["v30-entry.css", "text/css; charset=utf-8"]],
-  ["/v31-blue-final.css", ["v31-blue-final.css", "text/css; charset=utf-8"]],
-  ["/v31-annotations.js", ["v31-annotations.js", "application/javascript; charset=utf-8"]],
   ["/sous-mark-v1.png", ["sous-mark-v1.png", "image/png"]],
+  ["/sous-loader-v1.png", ["sous-loader-v1.png", "image/png"]],
 ]);
 
 const workbench = http.createServer((req, res) => {
@@ -162,10 +155,10 @@ const workbench = http.createServer((req, res) => {
   }
   if (req.method === "GET" && assetRoutes.has(pathname)) {
     const [fileName, contentType] = assetRoutes.get(pathname);
-    return sendFile(res, fileName, contentType);
+    return sendFile(req, res, fileName, contentType);
   }
   if (req.method === "GET" && (pathname === "/" || pathname === "/index.html")) {
-    return sendIndex(res);
+    return sendIndex(req, res);
   }
   if (req.method === "POST" && pathname.startsWith("/api/")) {
     if (!sameOrigin(req)) return json(res, 403, { error: "Origin not allowed" });
@@ -179,14 +172,3 @@ const workbench = http.createServer((req, res) => {
 workbench.listen(publicPort, "0.0.0.0", () => {
   console.log(`SOUS running at http://0.0.0.0:${publicPort}`);
 });
-
-
-
-
-
-
-
-
-
-
-

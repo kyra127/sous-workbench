@@ -4,16 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const projectDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sources = [
-  "workbench.css",
-  "workbench-v5.css",
-  "workbench-v8-multigroup.css",
-  "v26-final.css",
-  "v27-final.css",
-  "v28-final.css",
-  "v29-consistency.css",
-  "v30-entry.css",
-  "v31-blue-final.css",
-  "v32-duplicate-guard.css",
+  "baseline-ui.css",
+  "release-ui.css",
 ];
 
 const banner = [
@@ -32,6 +24,4 @@ const body = sources
   .join("\n");
 
 fs.writeFileSync(path.join(projectDir, "sous-ui.css"), `${banner}${body}`, "utf8");
-console.log(`Built sous-ui.css from ${sources.length} source stylesheets.`);
-
-
+console.log(`Built sous-ui.css from ${sources.length} controlled style layers.`);
