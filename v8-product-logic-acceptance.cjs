@@ -19,7 +19,7 @@ const assert = (condition, message) => {
   await page.evaluate(() => localStorage.clear());
   await page.reload({ waitUntil: "domcontentloaded" });
   await page.locator("#v30Entry").waitFor({ state: "visible" });
-  await page.locator("#v30BusinessName").fill("测试工作室");
+  await page.locator("#v30BusinessName").fill("SOUS Test Studio");
   await page.locator("#v30Email").fill("owner@example.com");
   await page.locator("#v30EntryForm").evaluate((form) => form.requestSubmit());
   await page.waitForFunction(

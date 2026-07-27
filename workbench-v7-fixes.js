@@ -49,13 +49,16 @@
     true,
   );
 
-  let attempts = 0;
-  const timer = setInterval(() => {
-    attempts += 1;
+  let setupHydrated = false;
+  const hydrateSetup = () => {
+    if (setupHydrated) return;
     const shell = document.getElementById("sousSetup");
-    if (!shell && attempts < 80) return;
-    clearInterval(timer);
     if (!shell) return;
+    if (shell.querySelector('[data-v7-step="1"].on')) {
+      setupHydrated = true;
+      return;
+    }
+    setupHydrated = true;
 
     if (localStorage.getItem(LEGACY_BACKUP_KEY)) {
       localStorage.setItem(COMPLETE_KEY, "true");
@@ -105,5 +108,6 @@
     });
     const label = shell.querySelector("#v7StepLabel");
     if (label) label.textContent = "1 / 2 · 经营信息";
-  }, 50);
+  };
+  window.SOUSRuntime?.registerSync("v7-setup-hydration", hydrateSetup) || hydrateSetup();
 })();

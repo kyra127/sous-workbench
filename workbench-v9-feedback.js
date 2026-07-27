@@ -137,20 +137,18 @@
     const delivery = document.getElementById("prefDelivery");
     if (delivery && delivery.placeholder !== "例：周日 14:00–17:00") delivery.placeholder = "例：周日 14:00–17:00";
     document.querySelectorAll(".back-chip").forEach((button) => {
-      if (button.textContent.trim() !== "← 返回更多") button.textContent = "← 返回更多";
-      if (button.getAttribute("aria-label") !== "返回更多页面") button.setAttribute("aria-label", "返回更多页面");
+      if (button.textContent.trim() !== "← 返回") button.textContent = "← 返回";
+      if (button.getAttribute("aria-label") !== "返回") button.setAttribute("aria-label", "返回");
     });
     addMaterialShortcuts(); addCompactMaterialPreviews(); enhanceNewItemForm(); replaceTemplateSettings(); enhanceMoreLayout(); fixTerminology();
   }
 
-  const style = document.createElement("link"); style.rel = "stylesheet"; style.href = "/workbench-v9-feedback.css"; document.head.appendChild(style);
-  const systemStyle = document.createElement("link"); systemStyle.rel = "stylesheet"; systemStyle.href = "/workbench-v10-system.css"; document.head.appendChild(systemStyle);
   setTimeout(() => {
     const baseGo = window.go;
     if (typeof baseGo === "function") window.go = function v9Go(page) { baseGo(page); requestAnimationFrame(syncPage); };
     const baseRenderMenu = window.renderMenu;
     if (typeof baseRenderMenu === "function") window.renderMenu = function v9RenderMenu() { baseRenderMenu(); syncPage(); };
-    new MutationObserver(syncPage).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ["class"] });
+    window.SOUSRuntime?.registerSync("v9-feedback", syncPage);
     document.addEventListener("click", (event) => {
       const trigger = event.target.closest("button[onclick^='toggleAddIng']");
       if (!trigger) return;
@@ -158,7 +156,7 @@
       const panel = trigger.closest(".menu-item")?.querySelector(".structured-add");
       if (panel) panel.style.display = panel.style.display === "none" ? "grid" : "none";
     }, true);
-    syncPage(); setInterval(syncPage, 500);
+    window.SOUSRuntime?.requestSync();
   }, 1500);
 })();
 

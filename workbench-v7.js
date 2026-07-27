@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   "use strict";
 
   const PROFILE_KEY = "sous:business-profile:v1";
@@ -253,7 +253,7 @@
     return `
       <section class="setup-shell v7-setup" id="sousSetup" role="dialog" aria-modal="true" aria-labelledby="v7SetupTitle" hidden>
         <div class="setup-panel">
-          <div class="v7-settings-head"><button type="button" data-v7-close-settings aria-label="返回更多页面">← 返回更多</button><span>行业设置</span></div>
+          <div class="v7-settings-head"><button type="button" data-v7-close-settings aria-label="返回">← 返回</button><span>行业设置</span></div>
           <div class="setup-brand">
             <div class="logo">SOUS<span class="dot">.</span></div>
             <span class="setup-step-label" id="v7StepLabel">1 / 2 · 经营信息</span>
@@ -323,6 +323,12 @@
           </button>`,
       )
     ].join("");
+    if (!grid.querySelector('[data-v7-template="blank"]')) {
+      grid.insertAdjacentHTML("beforeend", `
+        <button type="button" class="v7-template v31-other-template ${V7.selectedTemplateId === "blank" ? "on" : ""}" data-v7-template="blank" data-v31-other="true">
+          <b>其他行业</b><small>自定义商品目录</small>
+        </button>`);
+    }
   }
 
   function initializeTemplateSelection(template) {
@@ -352,12 +358,22 @@
     if (!preview || !title || !importButton) return;
 
     if (!template) {
-      title.textContent = "暂不添加商品";
-      importButton.textContent = V7.settingsMode ? "返回设置" : "进入工作台";
-      preview.innerHTML = `<div class="v7-preview-empty"><b>商品目录可以稍后完善</b><span>手动录单始终可用；商品匹配和备货计算会在添加商品后启用。</span></div>`;
+      title.textContent = "添加您的商品";
+      importButton.textContent = V7.settingsMode ? "加入商品目录" : "保存并进入工作台";
+      const manualRowsBlank = V7.manualProducts.map((item) => `
+        <div class="v7-manual-row"><span><b>${esc(item.name)}</b><small>${esc(item.unit)}</small></span><button type="button" data-v7-remove-manual="${esc(item.id)}" aria-label="删除 ${esc(item.name)}">删除</button></div>`).join("");
+      preview.innerHTML = `
+        <section class="v7-manual-product v31-custom-catalog">
+          <div class="v7-preview-heading"><span><b>添加您的商品</b><small>输入商品名称和销售单位，建立自己的目录</small></span></div>
+          <div class="v7-manual-form">
+            <label><span>商品名称</span><input id="v7ManualName" placeholder="例如：招牌生日蛋糕" maxlength="40"></label>
+            <label><span>销售单位</span><select id="v7ManualUnit"><option>个</option><option>件</option><option>盒</option><option>套</option><option>份</option><option>杯</option><option>瓶</option><option>张</option></select></label>
+            <button type="button" class="btn ghost small" data-v7-add-manual>添加商品</button>
+          </div>
+          <div class="v7-manual-list">${manualRowsBlank}</div>
+        </section>`;
       return;
     }
-
     title.textContent = V7.settingsMode ? "选择要添加的商品" : "选择您的在售商品";
     importButton.textContent = V7.settingsMode ? "加入商品目录" : "保存并进入工作台";
     const products = template.catalogItems.map((item) => `
@@ -374,7 +390,7 @@
         <div class="v7-candidate-list">${products || "<div class='v7-preview-empty'>暂无建议商品。</div>"}</div>
       </section>
       <section class="v7-manual-product">
-        <div class="v7-preview-heading"><span><b>添加其他商品</b><small>直接加入本次目录</small></span></div>
+        <div class="v7-preview-heading"><span><b>添加您的商品</b><small>输入商品名称和销售单位，加入自己的目录</small></span></div>
         <div class="v7-manual-form">
           <label><span>商品名称</span><input id="v7ManualName" placeholder="例如：生日蛋糕" maxlength="40"></label>
           <label><span>销售单位</span><select id="v7ManualUnit"><option>个</option><option>份</option><option>盒</option><option>套</option><option>束</option><option>件</option><option>瓶</option><option>张</option></select></label>
@@ -391,10 +407,10 @@
       screen.classList.toggle("on", Number(screen.dataset.v7Step) === V7.step);
     });
     shell.querySelectorAll(".setup-progress span").forEach((bar, index) => {
-      bar.classList.toggle("on", index <= V7.step);
+      bar.classList.toggle("on", index < V7.step);
     });
     shell.querySelector("#v7StepLabel").textContent =
-      V7.step === -1 ? "欢迎" : V7.step === 0 ? "1 / 2 · 基本信息" : V7.step === 1 ? "2 / 2 · 选择行业" : "选择商品";
+      V7.step === -1 ? "欢迎" : V7.step === 0 ? "基本信息" : V7.step === 1 ? "1 / 2 · 选择行业" : "2 / 2 · 选择商品";
     if (V7.step === 1) renderTemplateOptions();
     if (V7.step === 2) renderPreview();
     if (!V7.settingsMode && !V7.previewMode) writeOnboardingSession(V7.step);
@@ -442,7 +458,7 @@
       ["自取", "配送", "到店服务", "上门服务"],
       profile.fulfillment || [],
     );
-    V7.selectedTemplateId = profile.starterTemplateId || "blank";
+    V7.selectedTemplateId = profile.starterTemplateId || "";
     initializeTemplateSelection(selectedTemplate());
     shell.hidden = false;
     document.body.classList.add("setup-open");
@@ -529,12 +545,7 @@
   }
 
   async function importSelectedTemplate() {
-    const template = selectedTemplate();
-    if (!template) {
-      await finishWithoutTemplate();
-      return;
-    }
-
+    const template = selectedTemplate() || { id: "blank", catalogItems: [] };
 
     const existingNames = Object.keys(menu);
     let createdCount = 0;
@@ -865,6 +876,7 @@ ${correctionLines.join("\n") || "- 暂无"}
 只输出一个 JSON 对象，不要输出 Markdown：
 {
   "parse_ok": true,
+  "parse_failure_reason": "",
   "customer": "",
   "items": [{"product": "", "qty": 1}],
   "delivery_date": "",
@@ -881,7 +893,10 @@ ${correctionLines.join("\n") || "- 暂无"}
 }
 
 规则：
-1. 优先将商品描述匹配到上面的真实启用商品目录。
+1. 仔细读取每张截图中的全部聊天气泡；联系人名称、在线状态、休假状态和系统栏不是顾客消息。
+2. 只要截图中出现明确购买意图、商品、数量、日期或交付讨论中的任意一项，就生成可编辑草稿并将 parse_ok 设为 true；缺失内容使用空值和 low 置信度，不要因信息不完整而判定失败。
+3. 只有截图完全没有订单或购买意图，或图片确实无法辨认时，才将 parse_ok 设为 false，并在 parse_failure_reason 中用不超过 24 个汉字说明具体原因；成功时该字段为空字符串。
+4. 优先将商品描述匹配到上面的真实启用商品目录。
 2. 无法确认时保留客户原话、将 items 标为 low，并要求人工确认。
 3. 不得自行创建正式商品，不得因为商品名称推断固定行业。
 4. 启动模板中的未启用示例不属于正式目录。
@@ -1037,11 +1052,11 @@ ${message}`;
     const demandRows = [
       ...[...demand].map(
         ([name, detail]) => `
-          <div class="v7-demand-row"><span><strong>${esc(name)}</strong>${missingRecipes.includes(name) ? ` <span class="v7-missing">缺少材料配置</span>` : ""}${detail.matchReasons?.length ? `<small class="v7-match-reason">${esc([...new Set(detail.matchReasons)].join("；"))}</small>` : ""}</span><b>×${detail.qty}</b></div>`,
+          <div class="v7-demand-row"><span><strong>${esc(name)}</strong>${missingRecipes.includes(name) ? ` <span class="v7-missing">缺少材料配置</span>` : ""}${detail.matchReasons?.length ? `<small class="v7-match-reason">${esc([...new Set(detail.matchReasons)].join("；"))}</small>` : ""}</span><b aria-label="数量 ${detail.qty}">×${detail.qty}</b></div>`,
       ),
       ...[...unknown].map(
         ([name, detail]) => `
-          <div class="v7-demand-row"><span><strong>${esc(name)}</strong> <span class="v7-missing">未匹配到正式商品</span></span><b>×${detail.qty}</b></div>`,
+          <div class="v7-demand-row is-unmatched"><span><strong>${esc(name)}</strong><span class="v7-missing">未匹配正式商品</span></span><b aria-label="数量 ${detail.qty}">×${detail.qty}</b></div>`,
       ),
     ].join("");
     const materialHtml = [...materialRows.values()]
@@ -1052,19 +1067,23 @@ ${message}`;
         const conflict = unitsByName.get(row.name)?.size > 1;
         return `
           <div class="v7-material-row">
-            <div class="v7-material-main">
-              <div><div class="v7-material-name">${esc(row.name)}</div><div class="v7-material-meta">需求 ${row.needed.toFixed(1)} ${esc(row.unit)} · 库存 ${stock.toFixed(1)} ${esc(row.unit)}</div></div>
-              <div class="v7-material-qty">建议采购<br>${purchase.toFixed(1)} ${esc(row.unit)}</div>
+            <div class="v7-material-head">
+              <div class="v7-material-name">${esc(row.name)}</div>
+              <div class="v7-material-qty"><small>需采购</small><b>${purchase.toFixed(1)} ${esc(row.unit)}</b></div>
             </div>
-            ${conflict ? `<div class="v7-unit-warning">单位冲突：同名材料按单位分开显示，请统一单位后再合并。</div>` : ""}
-            <div class="v7-source">计算来源：${esc(row.sources.join("、"))}</div>
+            <div class="v7-material-stats">
+              <span><small>订单需求</small><b>${row.needed.toFixed(1)} ${esc(row.unit)}</b></span>
+              <span><small>当前库存</small><b>${stock.toFixed(1)} ${esc(row.unit)}</b></span>
+            </div>
+            ${conflict ? `<div class="v7-unit-warning">单位不一致，请先统一</div>` : ""}
+            <div class="v7-source">来源：${esc(row.sources.join("、"))}</div>
           </div>`;
       })
       .join("");
 
     target.innerHTML = `
-      <div class="prep-meta">来自 ${pendingOrders.length} 笔待处理订单。示例商品不参与计算。</div>
-      <section class="v7-product-demand"><b>商品需求量</b>${demandRows || "<span class='v7-missing'>没有匹配到正式商品</span>"}</section>
+      <div class="prep-meta"><strong>${pendingOrders.length} 笔待处理订单</strong><span>示例商品不参与计算</span></div>
+      <section class="v7-product-demand"><div class="v7-demand-heading"><b>商品需求</b><span>${demand.size + unknown.size} 种</span></div>${demandRows || "<span class='v7-missing'>没有匹配到正式商品</span>"}</section>
       ${materialHtml || `<div class="prep-warning">当前没有可计算的材料数量。请先为正式商品配置材料。</div>`}`;
   }
 
@@ -1142,11 +1161,8 @@ ${message}`;
         return;
       }
       if (event.target.closest("[data-v7-preview]")) {
-        if (V7.selectedTemplateId === "blank") finishWithoutTemplate();
-        else {
-          initializeTemplateSelection(selectedTemplate());
-          showStep(2);
-        }
+        initializeTemplateSelection(selectedTemplate());
+        showStep(2);
         return;
       }
       if (event.target.closest("[data-v7-back-template]")) {
@@ -1250,10 +1266,7 @@ ${message}`;
   }
 
   async function init() {
-    const style = document.createElement("link");
-    style.rel = "stylesheet";
-    style.href = "/workbench-v7.css";
-    document.head.appendChild(style);
+
 
     try {
       await loadTemplates();

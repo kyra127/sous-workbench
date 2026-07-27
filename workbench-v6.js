@@ -8,13 +8,6 @@
     setupIndustryChosen: false,
   };
 
-  function addStyle() {
-    if (document.querySelector('link[href="/workbench-v6.css"]')) return;
-    const style = document.createElement("link");
-    style.rel = "stylesheet";
-    style.href = "/workbench-v6.css";
-    document.head.appendChild(style);
-  }
 
   function ensureUtilityUi() {
     if (!document.getElementById("v6Dialog")) {
@@ -131,8 +124,8 @@
     }
     if (hint) {
       hint.textContent = result.valid
-        ? "信息已完整，可以创建正式订单。"
-        : `创建正式订单前还需补充：${result.missing.map(([, label]) => label).join("、")}。`;
+        ? "信息完整，可创建订单"
+        : `还需补充：${result.missing.map(([, label]) => label).join("、")}`;
       hint.classList.toggle("ok", result.valid);
     }
     try {
@@ -179,7 +172,7 @@
       const actions = oldConfirm.parentElement;
       actions.classList.add("draft-actions");
       if (!actions.querySelector("[data-save-pending]")) {
-        oldConfirm.insertAdjacentHTML("beforebegin", `<button type="button" class="btn ghost" data-save-pending onclick="saveNeedsConfirmation()">保存，稍后确认</button>`);
+        oldConfirm.insertAdjacentHTML("beforebegin", `<button type="button" class="btn ghost" data-save-pending onclick="saveNeedsConfirmation()">暂存草稿</button>`);
       }
       actions.insertAdjacentHTML("afterend", `<p class="draft-validation" data-draft-validation aria-live="polite"></p>`);
       const savePending = actions.querySelector("[data-save-pending]");
@@ -233,6 +226,8 @@
       ref: draftValue("customer_ref"),
       urgent: draftValue("urgent") === "加急",
       rawMsg: currentParse.rawMsg || previous?.rawMsg || "",
+      sourceImages: currentParse.sourceImages || previous?.sourceImages || [],
+      conversationGroupId: currentParse.conversationGroupId || previous?.conversationGroupId || null,
       status,
       createdAt: previous?.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -458,8 +453,8 @@
           <div class="order-list-meta">${fulfillment.length ? fulfillment.map((value) => `<span>${escapeHtml(value)}</span>`).join("") : `<span class="order-list-empty-meta">交付信息未填写</span>`}</div>
         </div>
         <div class="order-list-state">
-          <span class="chip ${meta.className}">${meta.label}</span>
-          ${missing.length ? `<small class="order-list-missing">缺：${missing.join("、")}</small>` : specialCount ? `<small>${specialCount} 项特殊要求</small>` : ""}
+          <span class="chip ${meta.className}" role="status" aria-label="订单状态 ${meta.label}">${meta.label}</span>
+          ${missing.length ? `<small class="order-list-missing">\u5f85\u8865\u5145 ${missing.join(" ")}</small>` : specialCount ? `<small class="order-list-special-count">${specialCount} 项特殊要求</small>` : ""}
         </div>
       </div>`;
     }
@@ -820,7 +815,7 @@
   function init() {
     if (window.__sousV6Ready) return;
     window.__sousV6Ready = true;
-    addStyle();
+
     ensureUtilityUi();
     installOrderFlow();
     installCatalogSafety();

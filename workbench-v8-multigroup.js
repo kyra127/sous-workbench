@@ -341,6 +341,7 @@
       rawMsg: `[${group.label} · ${group.images.length} 张截图]${note ? ` ${note}` : ""}`,
       sourceImages: group.images.map((image) => ({
         id: image.id,
+        fingerprint: image.fingerprint || window.sousImageFingerprint?.(image.data) || "",
         type: image.type,
         url: image.url,
         groupId: group.id,
@@ -449,9 +450,10 @@
     const sources = active.sourceImages || [];
     await baseConfirmOrder();
     if (currentParse === active) return;
-    if (orders[0] && sources.length) {
-      orders[0].sourceImages = sources;
-      orders[0].conversationGroupId = active.conversationGroupId;
+    const savedOrder = active.editingOrderId ? orders.find((order) => order.id === active.editingOrderId) : orders[0];
+    if (savedOrder && sources.length) {
+      savedOrder.sourceImages = sources;
+      savedOrder.conversationGroupId = active.conversationGroupId;
       await store.set("orders", orders);
     }
     removeActiveQueueEntry();
@@ -467,9 +469,10 @@
     const sources = active.sourceImages || [];
     await baseSavePending();
     if (currentParse === active) return;
-    if (orders[0] && sources.length) {
-      orders[0].sourceImages = sources;
-      orders[0].conversationGroupId = active.conversationGroupId;
+    const savedOrder = active.editingOrderId ? orders.find((order) => order.id === active.editingOrderId) : orders[0];
+    if (savedOrder && sources.length) {
+      savedOrder.sourceImages = sources;
+      savedOrder.conversationGroupId = active.conversationGroupId;
       await store.set("orders", orders);
     }
     removeActiveQueueEntry();
@@ -498,9 +501,10 @@
       const sources = active.sourceImages || [];
       await finalConfirmOrder();
       if (currentParse === active) return;
-      if (orders[0] && sources.length) {
-        orders[0].sourceImages = sources;
-        orders[0].conversationGroupId = active.conversationGroupId;
+      const savedOrder = active.editingOrderId ? orders.find((order) => order.id === active.editingOrderId) : orders[0];
+      if (savedOrder && sources.length) {
+        savedOrder.sourceImages = sources;
+        savedOrder.conversationGroupId = active.conversationGroupId;
         await store.set("orders", orders);
       }
       removeActiveQueueEntry();
@@ -517,9 +521,10 @@
       const sources = active.sourceImages || [];
       await finalSavePending();
       if (currentParse === active) return;
-      if (orders[0] && sources.length) {
-        orders[0].sourceImages = sources;
-        orders[0].conversationGroupId = active.conversationGroupId;
+      const savedOrder = active.editingOrderId ? orders.find((order) => order.id === active.editingOrderId) : orders[0];
+      if (savedOrder && sources.length) {
+        savedOrder.sourceImages = sources;
+        savedOrder.conversationGroupId = active.conversationGroupId;
         await store.set("orders", orders);
       }
       removeActiveQueueEntry();

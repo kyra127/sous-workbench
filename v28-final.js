@@ -6,7 +6,7 @@
     intake: "录单",
     orders: "订单",
     prep: "备货",
-    more: "更多",
+    more: "经营工具",
     menu: "商品管理",
     content: "AI 内容助手",
   };
@@ -71,12 +71,12 @@
       if (!String(target).includes("more")) return;
       const labels = [...item.querySelectorAll("span, b")];
       const label = labels.at(-1);
-      if (label && label.textContent !== "更多") label.textContent = "更多";
+      if (label && label.textContent !== "工具") label.textContent = "工具";
       else if (item.childNodes.length) {
         const textNode = [...item.childNodes].find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
-        if (textNode) textNode.textContent = "更多";
+        if (textNode) textNode.textContent = "工具";
       }
-      item.setAttribute("aria-label", "更多");
+      item.setAttribute("aria-label", "经营工具");
     });
   }
 
@@ -165,9 +165,5 @@
     demoteIndustryEntry();
   }
 
-  document.addEventListener("DOMContentLoaded", sync);
-  window.addEventListener("load", sync);
-  const observer = new MutationObserver(() => requestAnimationFrame(sync));
-  observer.observe(document.documentElement, { childList: true, subtree: true });
-  sync();
+  window.SOUSRuntime?.registerSync("v28-consistency", sync) || sync();
 })();

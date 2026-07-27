@@ -12,6 +12,7 @@
     "parseCountWeek",
     "prefs",
     "materials",
+    "inventory",
     "starterTemplateHistory",
   ];
   const PAGE_LABELS = {
@@ -178,11 +179,11 @@
         window.go?.(destination);
       });
       old.replaceWith(button);
-      button.textContent = `← 返回${label}`;
-      button.setAttribute("aria-label", `返回${label}`);
+      button.textContent = "← 返回";
+      button.setAttribute("aria-label", "返回");
       return;
     }
-    const nextText = '\u2190 \u8fd4\u56de' + label;
+    const nextText = "← 返回";
     if (old.textContent !== nextText) old.textContent = nextText;
     if (old.getAttribute('aria-label') !== nextText) old.setAttribute('aria-label', nextText);
   }
@@ -282,12 +283,5 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", sync);
-  window.addEventListener("load", sync);
-  new MutationObserver(() => requestAnimationFrame(sync)).observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-  });
-  setInterval(sync, 600);
-  sync();
+  window.SOUSRuntime?.registerSync("v29-workspaces", sync) || sync();
 })();

@@ -237,6 +237,5 @@
 
   recoverWorkspaceIndex();
   installNewWorkspaceInterception();
-  sync();
-  new MutationObserver(sync).observe(document.body, { childList: true, subtree: true });
+  window.SOUSRuntime?.registerSync("v27-workspaces", sync) || sync();
 })();
