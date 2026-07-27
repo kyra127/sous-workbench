@@ -126,3 +126,105 @@ body.v30-entry-open > #sousSetup {
   visibility: hidden !important;
 }
 
+
+/* v31.41 — one fixed mobile viewport; only the active content pane may scroll. */
+html,
+body {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+body {
+  display: flex !important;
+  justify-content: center !important;
+  background: #eef2f8 !important;
+}
+body > .app {
+  position: relative !important;
+  flex: 0 0 min(100vw, 430px) !important;
+  width: min(100vw, 430px) !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  overflow: hidden !important;
+  background: var(--bg) !important;
+  box-shadow: 0 0 0 1px rgba(220, 228, 240, .72) !important;
+}
+.app > header.top { grid-row: 1 !important; flex: none !important; }
+.app > .page {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  scrollbar-width: none !important;
+  padding-bottom: calc(94px + env(safe-area-inset-bottom)) !important;
+  scroll-padding-bottom: calc(104px + env(safe-area-inset-bottom)) !important;
+}
+.app > .page::-webkit-scrollbar,
+.v30-entry-sheet::-webkit-scrollbar,
+#sousSetup .setup-screen.on::-webkit-scrollbar { display: none !important; }
+nav.tabs { max-width: 410px !important; }
+.v30-entry,
+#sousSetup.setup-shell {
+  top: 0 !important;
+  bottom: auto !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+}
+.v30-entry-sheet { overscroll-behavior: contain !important; scrollbar-width: none !important; }
+#sousSetup .setup-panel,
+#sousSetup.v7-settings-mode .setup-panel {
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+#sousSetup .setup-brand,
+#sousSetup .setup-progress,
+#sousSetup .v7-settings-head { flex: 0 0 auto !important; }
+#sousSetup .setup-screen { min-height: 0 !important; }
+#sousSetup .setup-screen.on {
+  flex: 1 1 auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  scrollbar-width: none !important;
+  padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+}
+#sousSetup.v31-industry-step .setup-screen.on { overflow-y: hidden !important; }
+#sousSetup.v31-industry-step .v7-template-grid { gap: 10px !important; }
+#sousSetup.v31-industry-step .v7-template { min-height: 76px !important; padding: 13px 14px !important; }
+@media (max-height: 680px) {
+  #sousSetup.v31-industry-step .setup-screen.on { overflow-y: auto !important; }
+  #sousSetup.v31-industry-step .v7-template { min-height: 62px !important; padding: 9px 11px !important; }
+}
+/* Keep both onboarding and add-business industry screens non-scrolling. */
+#sousSetup .setup-screen[data-v7-step="1"].on {
+  overflow-y: hidden !important;
+}
+#sousSetup .setup-screen[data-v7-step="1"].on .v7-template {
+  min-height: 76px !important;
+  padding: 13px 14px !important;
+}
+@media (max-height: 680px) {
+  #sousSetup .setup-screen[data-v7-step="1"].on {
+    overflow-y: auto !important;
+  }
+  #sousSetup .setup-screen[data-v7-step="1"].on .v7-template {
+    min-height: 62px !important;
+    padding: 9px 11px !important;
+  }
+}
