@@ -6,6 +6,23 @@
   --v30-muted: #667085;
   --v30-line: #dfe5ee;
   --v30-surface: #ffffff;
+  --bg: linear-gradient(180deg, #f5f7fb 0%, #f5f7fb 100%);
+  --card: rgba(255, 255, 255, .9);
+  --line: rgba(95, 107, 124, .18);
+  --hairline: #dfe5ee;
+  --ink: #172033;
+  --ink-2: #526078;
+  --muted: #7b879b;
+  --acc: #0f62fe;
+  --acc-soft: #edf4ff;
+  --gold-ink: #ffffff;
+  --iri: linear-gradient(135deg, #0f62fe 0%, #0043ce 100%);
+  --iri-soft: linear-gradient(135deg, #edf4ff 0%, #e5efff 100%);
+  --warn-bg: #f5f7fb;
+  --warn-line: #d9e4f5;
+  --warn-ink: #526078;
+  --shadow: 0 12px 36px rgba(23, 32, 51, .08), 0 2px 8px rgba(23, 32, 51, .04);
+  --shadow-soft: 0 6px 20px rgba(23, 32, 51, .06);
 }
 
 /* First-use identity screen: intentionally simple, local-only, no password. */
@@ -19,6 +36,190 @@
     radial-gradient(circle at 18% 5%, rgba(255, 255, 255, .2), transparent 25%),
     linear-gradient(145deg, #1769ff 0%, #0f62fe 55%, #0043ce 100%);
   color: var(--v30-ink);
+}
+
+.v30-entry[hidden] {
+  display: none !important;
+}
+
+/* v30 onboarding completion: the clean package no longer ships the old
+   workbench-v7 stylesheet, so keep the industry/catalog steps self-contained. */
+#sousSetup.setup-shell {
+  background: #f5f7fb !important;
+}
+
+#sousSetup .logo .dot {
+  background: none !important;
+  color: var(--v30-blue) !important;
+}
+
+#sousSetup .btn.primary {
+  background: linear-gradient(135deg, var(--v30-blue), var(--v30-blue-deep)) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 24px rgba(15, 98, 254, .2) !important;
+}
+
+#sousSetup .v7-template-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#sousSetup .v7-template {
+  position: relative;
+  min-width: 0;
+  min-height: 92px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border: 1px solid var(--v30-line);
+  border-radius: 17px;
+  background: #fff;
+  color: var(--v30-ink);
+  text-align: left;
+  box-shadow: 0 6px 16px rgba(23, 32, 51, .04);
+}
+
+#sousSetup .v7-template b {
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+#sousSetup .v7-template small {
+  margin-top: 5px;
+  color: var(--v30-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+#sousSetup .v7-template.on {
+  border-color: var(--v30-blue);
+  background: var(--v30-blue-soft);
+  box-shadow: 0 0 0 2px rgba(15, 98, 254, .1);
+}
+
+#sousSetup .v7-template.on::after {
+  content: "✓";
+  position: absolute;
+  top: 9px;
+  right: 11px;
+  color: var(--v30-blue);
+  font-weight: 850;
+}
+
+#sousSetup .v7-text-action {
+  margin-top: 14px;
+  color: var(--v30-blue);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+#sousSetup .v7-preview {
+  display: grid;
+  gap: 12px;
+}
+
+#sousSetup .v7-preview-group,
+#sousSetup .v7-manual-product,
+#sousSetup .v7-preview-empty {
+  padding: 15px;
+  border: 1px solid var(--v30-line);
+  border-radius: 17px;
+  background: #fff;
+}
+
+#sousSetup .v7-preview-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+#sousSetup .v7-preview-heading > span {
+  display: grid;
+  gap: 2px;
+}
+
+#sousSetup .v7-preview-heading small,
+#sousSetup .v7-preview-empty span {
+  color: var(--v30-muted);
+  font-size: 10.5px;
+}
+
+#sousSetup .v7-preview-empty {
+  display: grid;
+  gap: 5px;
+  line-height: 1.5;
+}
+
+#sousSetup .v7-candidate-list {
+  display: grid;
+}
+
+#sousSetup .v7-check,
+#sousSetup .v7-manual-row {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid #edf0f5;
+}
+
+#sousSetup .v7-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--v30-blue);
+}
+
+#sousSetup .v7-manual-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92px auto;
+  align-items: end;
+  gap: 8px;
+}
+
+#sousSetup .v7-manual-form label {
+  display: grid;
+  gap: 5px;
+  color: var(--v30-muted);
+  font-size: 10.5px;
+}
+
+#sousSetup .v7-manual-form input,
+#sousSetup .v7-manual-form select,
+#sousSetup .v7-conflict {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--v30-line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--v30-ink);
+  font: inherit;
+  font-size: 12px;
+}
+
+#sousSetup .setup-inline-error {
+  margin-top: 10px;
+  color: #b42318;
+  font-size: 12px;
+}
+
+@media (max-width: 430px) {
+  #sousSetup .v7-template {
+    min-height: 82px;
+    padding: 13px;
+  }
+
+  #sousSetup .v7-manual-form {
+    grid-template-columns: minmax(0, 1fr) 86px;
+  }
+
+  #sousSetup .v7-manual-form .btn {
+    grid-column: 1 / -1;
+  }
 }
 
 
