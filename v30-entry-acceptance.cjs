@@ -26,6 +26,17 @@ const assert = (condition, message) => { if (!condition) throw new Error(message
   assert((await page.locator("[data-v7-template]").count()) === 5, "expected exactly five industry choices");
   assert((await page.locator('[data-v7-template="blank"]').count()) === 1, "other industry duplicated");
   assert((await page.locator(".setup-progress span.on").count()) === 1, "step one progress state incorrect");
+  assert((await page.locator('[data-v7-step="1"] [data-v7-prev]').textContent()).trim() === "\u8fd4\u56de\u6ce8\u518c\u9875", "registration back label incorrect");
+  await page.locator('[data-v7-template="bakery"]').click();
+  await page.locator("[data-v7-preview]").click();
+  await page.waitForFunction(() => document.querySelector('[data-v7-step="2"]')?.classList.contains("on"));
+  await page.locator("[data-v7-back-template]").click();
+  await page.waitForFunction(() => document.querySelector('[data-v7-step="1"]')?.classList.contains("on"));
+  const registrationBack = page.locator('[data-v7-step="1"] [data-v7-prev]');
+  assert((await registrationBack.textContent()).trim() === "\u8fd4\u56de\u6ce8\u518c\u9875", "registration back label was overwritten after product step");
+  await registrationBack.click();
+  await page.locator("#v30Entry").waitFor({ state: "visible" });
+  assert(!(await page.locator('[data-v7-step="0"]').evaluate((node) => node.classList.contains("on"))), "back incorrectly opened legacy business info");
   assert(errors.length === 0, `page errors: ${errors.join(" | ")}`);
   await browser.close();
   console.log("v30 entry acceptance passed");
