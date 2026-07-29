@@ -8,3 +8,6 @@ test-results/
 *.tmp
 .DS_Store
 Thumbs.db
+qa-*.png
+qa-*.jpg
+audit-*.png

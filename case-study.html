@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="SOUS：将聊天中的订单信息转化为可检查草稿的 AI 订单工作台产品案例。">
+  <title>SOUS — AI Order Assistant Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/case-study.css">
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="回到页面顶部"><img src="/sous-mark-v1.png" alt=""><span>SOUS</span></a>
+    <nav aria-label="案例章节"><a href="#problem">问题</a><a href="#conditions">用户</a><a href="#ai">AI 边界</a><a href="#scope">MVP</a><a href="#journey">流程</a><a href="#gallery">产品</a><a href="#decisions">决策</a><a href="#reflection">反思</a></nav>
+    <a class="header-cta" href="/" target="_blank" rel="noopener">打开产品 ↗</a>
+  </header>
+  <main id="top">
+    <section class="hero section">
+      <div class="eyebrow reveal">SOUS · AI 订单助手</div>
+      <div class="hero-grid">
+        <div class="hero-copy reveal"><p class="kicker">项目概览</p><h1 class="hero-wordmark">SOUS<span aria-hidden="true">.</span></h1><p class="hero-positioning">将聊天与截图转化为可确认的订单草稿。</p><p class="lede">面向通过私信接单的小微经营者。AI 负责理解消息，经营者确认后再形成正式订单；同一套商品资料继续连接备货与内容辅助。</p><div class="hero-actions"><a class="button primary hero-demo" href="/" target="_blank" rel="noopener">查看产品演示 ↗</a><a class="button secondary" href="#problem">阅读案例</a></div></div>
+        <dl class="project-meta reveal"><div><dt>角色</dt><dd>独立完成产品设计与开发</dd></div><div><dt>范围</dt><dd>产品策略 · AI 体验 · 原型与实现</dd></div><div><dt>状态</dt><dd>可运行原型 · 单用户 · 非 SaaS</dd></div></dl>
+      </div>
+      <div class="hero-stage reveal"><div class="stage-glow"></div><img class="hero-screen" src="/case-assets/registration-wide.png" alt="SOUS 网页版首次注册页面"><img class="hero-phone" src="/case-assets/intake.png" alt="SOUS 移动端 AI 录单页面"></div>
+    </section>
+
+    <section id="problem" class="section dark problem-editorial">
+      <div class="section-index">01 / 问题</div>
+      <div class="problem-story-header reveal">
+        <p class="kicker">PROJECT CONTEXT</p>
+        <h2 class="section-title">问题与现有工作流</h2>
+        <p>聊天完成了沟通，却没有形成可执行的订单。这个项目来自我经营 K&amp;K Bakery 的实际过程：一个人同时负责宣传、沟通、接单、录单和交付。</p>
+      </div>
+      <div class="problem-divider reveal" aria-hidden="true"><span></span></div>
+
+      <div class="real-scenarios reveal">
+        <article><figure><img src="/case-assets/real-chat-confirmation.jpg" alt="K&K Bakery 与顾客确认商品口味和取货日期的真实聊天截图" loading="eager"></figure><div><span>真实场景 01</span><h3>客户沟通确认</h3><p>商品、口味和日期分散在多轮对话中，需要反复追问才能形成完整订单。</p></div></article>
+        <article><figure class="scenario-pair"><img src="/case-assets/real-order-notes.jpg" alt="K&K Bakery 经营者把多笔订单整理后发送给自己的真实记录" loading="eager"><img src="/case-assets/real-excel-cost-sheet.jpg" alt="K&K Bakery 使用 Excel 记录配方与成本的真实表格" loading="eager"></figure><div><span>真实场景 02</span><h3>手工整理与统计</h3><p>经营者把多笔订单重新发给自己，再用 Excel 等表格分别汇总订单、配方和成本。</p></div></article>
+      </div>
+      <p class="section-end-summary reveal"><strong>订单不是在交付时丢的，是在从聊天转写到记录时丢的。</strong></p>
+    </section>
+
+    <section id="conditions" class="section applicability-section soft" aria-labelledby="conditionsTitle">
+      <div class="section-index">02 / 目标用户</div>
+      <div class="applicability-heading reveal">
+        <div><p class="kicker">目标用户</p><h2 id="conditionsTitle" class="section-title">目标用户与适用场景</h2></div>
+        <div><p>面向通过私域聊天接单、需要备料，并由一到两人完成经营与交付的小型商家。</p></div>
+      </div>
+      <div class="condition-grid reveal">
+        <article><span>01</span><h3>私域接单</h3><p>订单来自私信，没有标准化入口。</p></article>
+        <article><span>02</span><h3>需要备料</h3><p>接单后要按订单准备材料。</p></article>
+        <article><span>03</span><h3>一到两人经营</h3><p>没有专职运营或复杂权限。</p></article>
+      </div>
+
+    </section>
+
+    <section id="pain" class="section pain-section soft" aria-labelledby="painTitle">
+      <div class="section-index">03 / 用户痛点</div>
+      <div class="pain-section-heading reveal">
+        <div><p class="kicker">USER PAIN</p><h2 id="painTitle" class="section-title">用户痛点</h2></div>
+        <p>经营者承担聊天之后的回看、追问、汇总和转写；顾客仍然使用熟悉的私信方式下单。</p>
+      </div>
+      <div class="pain-matrix reveal" aria-label="私域接单中的四类操作成本">
+        <article><span>01</span><h3>信息分散</h3><p>商品、数量与时间散落在多轮聊天中。</p></article>
+        <article><span>02</span><h3>反复追问</h3><p>缺失字段只能再次联系顾客确认。</p></article>
+        <article><span>03</span><h3>手工汇总</h3><p>多笔订单需要重新整理到自己或表格。</p></article>
+        <article><span>04</span><h3>重复搬运</h3><p>同一信息反复进入订单、备货与统计。</p></article>
+      </div>
+      <div class="pain-options reveal">
+        <div><p class="kicker">现有方式</p><h3>人工整理保留习惯；固定入口提高下单门槛。</h3></div>
+        <article><span>继续人工整理</span><p>顾客无需改变习惯，经营者仍要回看、确认和转写。</p></article>
+        <article><span>小程序或固定表单</span><p>字段更完整，但增加注册、跳转和填写步骤。</p></article>
+      </div>
+      <p class="section-end-summary reveal"><strong>产品机会：把聊天内容整理成可确认的订单草稿。</strong></p>
+    </section>
+
+    <section id="definition" class="section product-strategy-page soft product-definition-section" aria-labelledby="definitionTitle">
+      <div class="section-index">04 / 产品定义</div>
+      <div class="architecture-heading reveal">
+        <div><p class="kicker">PRODUCT DEFINITION</p><h2 id="definitionTitle" class="section-title">产品形态选择</h2></div>
+        <p>订单需要状态、修改记录和可追溯数据，因此选择工作台，而不是一次性对话助手。</p>
+      </div>
+      <div class="definition-choice reveal" aria-label="对话式助手与经营工作台的产品形态比较">
+        <article class="definition-option is-muted"><span>OPTION A</span><h3>对话式助手</h3><div class="definition-flow"><b>输入</b><i>→</i><b>回答</b><i>→</i><b>消散</b></div><p>回答结束后，订单状态与修改记录无法继续使用。</p><strong>结果不留下结构</strong></article>
+        <div class="definition-vs" aria-hidden="true">VS</div>
+        <article class="definition-option is-selected"><span>SELECTED</span><h3>轻量经营工作台</h3><div class="definition-flow"><b>输入</b><i>→</i><b>结构化数据</b><i>→</i><b>执行</b></div><p>AI 理解输入；订单和状态保存在可检查的系统中。</p><strong>错误可定位，状态可查询</strong></article>
+      </div>
+
+    </section>
+
+    <section id="ai" class="section">
+      <div class="section-index">05 / AI 边界</div>
+      <div class="section-heading reveal"><div><p class="kicker">责任划分</p><h2 class="section-title">SOUS 的 AI 系统边界</h2></div><p>AI 负责理解聊天与截图并生成订单草稿；程序负责确定性校验，经营者负责最终确认。</p></div>
+      <div class="ai-fit-matrix reveal" role="table" aria-label="SOUS AI 介入判断">
+        <div class="ai-fit-title"><span>AI 介入判断</span><b>先判断任务是否需要概率理解，再决定模型角色。</b></div>
+        <div class="ai-fit-head" role="row"><span>业务环节</span><span>介入方式</span><span>判断依据</span></div>
+        <article role="row"><b>聊天录单</b><span class="ai-fit-mode">AI 理解 + 人工确认</span><p>自然语言与截图需要模型理解。</p></article>
+        <article role="row"><b>订单计算</b><span class="ai-fit-mode is-rule">程序规则</span><p>金额、状态和重复检查必须确定。</p></article>
+        <article role="row"><b>备货建议</b><span class="ai-fit-mode is-hybrid">规则计算 + AI 表达</span><p>配方负责计算，模型整理建议。</p></article>
+        <article role="row"><b>内容生成</b><span class="ai-fit-mode">AI 草稿 + 人工编辑</span><p>表达可生成，商品事实来自目录。</p></article>
+      </div>
+      <div id="boundaryScreens" class="boundary-screen-strip reveal" aria-label="AI、程序与用户对应的真实产品界面"></div>
+      <div class="context-strip reveal" aria-label="AI 使用的经营上下文"><span>模型上下文</span><b>商品目录</b><b>当前聊天与截图</b><b>顾客上次订单</b></div>    </section>
+
+    <section id="scope" class="section soft mvp-scope">
+      <div class="section-index">06 / MVP 范围</div>
+      <div class="scope-head reveal"><div><p class="kicker">范围取舍</p><h2 class="section-title">MVP 范围与取舍</h2></div><p>只保留验证“聊天能否稳定转为订单”的必要能力。</p></div>
+      <div class="scope-framework reveal">
+        <article class="scope-included">
+          <span class="pill included">已纳入</span>
+          <div class="scope-included-stages">
+            <section><b>输入</b><p>文字与最多 5 张聊天截图<br>分组建议与重复检查</p></section>
+            <section><b>草稿与确认</b><p>可编辑草稿与缺失字段提示<br>人工确认入库</p></section>
+            <section><b>正式经营</b><p>订单与状态、商品资料<br>备货计算</p></section>
+            <section><b>数据</b><p>复用商品资料的内容草稿<br>本机存储与 JSON 导出</p></section>
+          </div>
+        </article>
+        <article class="scope-excluded">
+          <span class="pill excluded">暂不纳入</span>
+          <div class="scope-excluded-reasons">
+            <section><span>01</span><h3>用户还不需要</h3><b>账号权限、多人协作</b><p>一到两人经营，没有复杂协作关系。</p></section>
+            <section><span>02</span><h3>不影响验证核心假设</h3><b>云数据库、跨设备同步</b><p>本机存储已能跑通核心业务。</p></section>
+            <section><span>03</span><h3>与产品原则冲突</h3><b>自动回复、自动定价、库存与状态自动决策</b><p>这些功能会替经营者作出业务决定。</p></section>
+            <section><span>04</span><h3>会变成另一个产品</h3><b>支付、财务、物流</b><p>纳入后会变成 ERP。</p></section>
+          </div>
+        </article>
+      </div>
+      <div class="section-result reveal"><span>结果</span><p>第一版覆盖“消息输入 → 草稿确认 → 正式订单 → 备货”的可运行闭环。</p></div>
+
+    </section>
+
+
+
+    <section id="architecture" class="section product-architecture-section" aria-labelledby="architectureTitle">
+      <div class="section-index">07 / 产品架构</div>
+      <div class="product-architecture-heading reveal">
+        <div><p class="kicker">PRODUCT ARCHITECTURE</p><h2 id="architectureTitle" class="section-title">产品架构</h2></div>
+        <p>商品、价格、材料和卖点只维护一次，供录单、备货与内容生成复用。</p>
+      </div>
+      <div class="product-architecture-board reveal" aria-label="SOUS 商品与订单资料连接智能录单、订单运营、备货建议和内容生成">
+        <article class="architecture-source">
+          <div class="architecture-source-title"><img src="/sous-mark-v1.png" alt=""><div><span>SHARED SOURCE</span><h3>商品与订单资料</h3><p>商品事实与订单状态只维护一次。</p></div></div>
+          <dl class="architecture-source-fields">
+            <div><dt>产品</dt><dd>在售商品与别名</dd></div>
+            <div><dt>售价</dt><dd>对外价格</dd></div>
+            <div><dt>配方</dt><dd>材料与单位用量</dd></div>
+            <div><dt>成本</dt><dd>商品成本</dd></div>
+            <div><dt>品牌声音</dt><dd>卖点与表达风格</dd></div>
+          </dl>
+        </article>
+        <div class="architecture-source-bus" aria-hidden="true"></div>
+        <div class="architecture-module-grid">
+          <article class="architecture-module is-multimodal-in">
+            <header><span>01</span><h3>智能录单</h3></header>
+            <p class="architecture-tech">多模态模型 + 人工确认</p>
+            <ul><li>截图识别（多模态）</li><li>订单字段提取</li><li>顾客分组</li><li>人工确认</li></ul>
+          </article>
+          <article class="architecture-module">
+            <header><span>02</span><h3>订单运营</h3></header>
+            <p class="architecture-tech">规则引擎（自动计算）+ 人工操作</p>
+            <ul><li>日期与状态管理</li><li>营收、成本与毛利</li></ul>
+          </article>
+          <article class="architecture-module">
+            <header><span>03</span><h3>备货建议</h3></header>
+            <p class="architecture-tech">规则引擎（算）+ LLM（说）</p>
+            <ul><li>材料精确计算</li><li>库存提醒与备货摘要</li></ul>
+          </article>
+          <article class="architecture-module is-content">
+            <header><span>04</span><h3>内容生成</h3></header>
+            <p class="architecture-tech">LLM（文案）+ 图像模型（海报）</p>
+            <div class="architecture-content-cards"><section><b>社媒文案</b><p>基于正式商品资料生成可编辑文案。</p></section><section><b>每周菜单（海报）</b><p>生成本周菜单文案与海报图像。</p></section></div>
+          </article>
+        </div>
+        <aside class="architecture-multimodal" aria-label="多模态能力说明"><b>多模态：识别与生成</b><span>入口读图：聊天截图 → 订单</span><span>出口出图：商品资料 → 海报</span></aside>
+        <div class="architecture-data-bus" aria-hidden="true"></div>
+        <article class="architecture-memory">
+          <div><p class="kicker">数据沉淀</p><h3>人工确认留下可复用记录。</h3></div>
+          <section><b>顾客记忆</b><p>保存顾客与上次订单，识别“老样子”。</p></section>
+          <section><b>修正记录</b><p>记录人工修改，调整识别规则。</p></section>
+        </article>
+      </div>
+
+    </section>
+
+    <section id="journey" class="section dark interaction-stories journey-section">
+      <div class="section-index">08 / 核心流程</div>
+      <div class="section-heading reveal"><p class="kicker">真实交互</p><h2 class="section-title">核心用户流程</h2></div>
+      <div id="primaryInteraction"></div>
+      <div class="recovery-heading compact reveal"><p class="kicker">失败恢复</p><h3>重复输入与解析失败都停留在可恢复状态。</h3></div>
+      <div id="recoveryStories" class="recovery-grid"></div>
+      <div class="section-result reveal"><span>结果</span><p>AI 不可用时，产品退化为一个可用的手动工具，业务不中断。</p></div>
+
+    </section>
+
+    <section id="gallery" class="product-gallery section product-subsection">
+      <div class="section-index">09 / 最终产品</div>
+      <div class="product-showcase-intro reveal"><p class="kicker">最终产品</p><h2 class="section-title">真实产品界面</h2><p>六个真实页面覆盖输入、经营与本地数据；点击可放大。</p></div>
+      <div class="product-gallery-grid" id="productGallery"></div>
+
+    </section>
+
+    <section id="decisions" class="section decisions-section">
+      <div class="section-index">10 / 关键决策</div>
+      <div class="section-heading reveal"><p class="kicker">产品取舍</p><h2 class="section-title">关键产品决策</h2></div>      <div class="decision-matrix reveal" role="table" aria-label="SOUS 关键产品决策">
+        <div class="decision-header" role="row"><span>决策</span><span>最初方案</span><span>最终选择</span><span>代价、收益与结果</span></div>
+        <article role="row" class="decision-catalog"><h3><span>01</span>取消行业配置，改用商品目录</h3><p>先选择行业，再切换“原料、花材、食材”等界面术语。</p><p>商品资料已经包含行业信息，因此删除行业配置。</p><p><b>代价：</b>术语不完全贴合行业。<br><b>收益：</b>删除映射与切换逻辑。</p></article>
+        <article role="row"><h3><span>02</span>多张截图先分组</h3><p>自动合并全部截图。</p><p>AI 建议分组，用户确认顾客归属。</p><p>多一次检查，避免跨顾客串单。</p></article>
+        <article role="row"><h3><span>03</span>按使用频率组织导航</h3><p>把最重要的商品资料放在一级导航。</p><p>录单、订单和备货保留高频入口。</p><p><b>取舍：</b>低频页面多一步。<br><b>收益：</b>接单路径更短。</p></article>
+      </div>
+
+    </section>
+
+    <section id="evidence" class="section iteration-section evidence-section soft">
+      <div class="section-index">11 / 证据与迭代</div>
+      <div class="iteration-heading reveal"><div><p class="kicker">CURRENT EVIDENCE</p><h2 class="section-title">验证证据与迭代</h2></div><p>已完成内部验收，并出现过一次真实字段边界问题；录单成本仍需任务对照。</p></div>
+      <div class="evidence-status-grid reveal" aria-label="当前已经完成的内部验收">
+        <article><span>已验收</span><h3>多顾客分组</h3><p>内部 2+1 场景生成两份独立草稿。</p></article>
+        <article><span>已验收</span><h3>重复拦截</h3><p>相同截图命中后不再调用 AI。</p></article>
+        <article><span>已验收</span><h3>移动端流程</h3><p>393×852 与 320×568 尺寸完成内部回归。</p></article>
+      </div>
+      <div class="iteration-product-case reveal">
+        <div class="iteration-context">
+          <span>一次真实字段修正</span>
+          <blockquote>“我要三个巴斯克，一个提拉米苏，巴斯克有一个能不能分装一下。”</blockquote>
+          <div><b>发现</b><p>“分装”进入商品名后，系统会把它当成一个新商品，备货配方无法匹配。</p></div>
+          <div><b>修正</b><p>商品只保留目录中的正式名称；分装要求进入订单备注。</p></div>
+        </div>
+        <figure class="iteration-real-screen">
+          <button type="button" class="screen-zoom" data-gallery-src="/case-assets/draft-special-requirement.png" data-gallery-title="特殊要求进入备注" data-gallery-alt="SOUS 订单草稿将分装要求放入备注" aria-label="放大查看修正后的真实订单草稿"><span class="phone-mockup iteration-phone" aria-hidden="true"><span class="phone-speaker"></span><span class="phone-screen"><img src="/case-assets/draft-special-requirement.png" alt="SOUS 订单草稿将分装要求放入备注" loading="eager"></span></span></button>
+          <figcaption>真实产品界面 · 修正后的订单草稿</figcaption>
+        </figure>
+        <div class="iteration-field-result">
+          <article><span>商品</span><h3>巴斯克蛋糕 ×3<br>提拉米苏 ×1</h3><p>继续匹配商品目录和备货配方。</p></article>
+          <article><span>备注</span><h3>巴斯克 ×1 需分装</h3><p>保留交付要求，不污染商品名称。</p></article>
+        </div>
+      </div>
+      <div class="validation-plan reveal">
+        <div><p class="kicker">下一步验证</p><h3>用同一批真实订单比较两条录单路径。</h3></div>
+        <p>人工标注 30–50 条匿名化历史订单，对比手工录单与 AI 草稿路径的整单可确认率、修改字段数、建单时间和回看次数。</p>
+      </div>
+
+    </section>
+
+    <section id="design-system" class="section design-system design-system-pro" aria-labelledby="designSystemTitle">
+      <div class="section-index">12 / 界面设计</div>
+      <div class="design-system-heading reveal">
+        <div><p class="kicker">SOUS DESIGN SYSTEM</p><h2 id="designSystemTitle" class="section-title">交互与状态规范</h2></div>
+        <p>蓝色表示主要操作；黄色表示待确认；绿色表示完成；红色表示失败与重试。</p>
+      </div>
+      <div class="design-system-board is-professional">
+        <article class="design-panel design-brand reveal">
+          <header><span>01 / BRAND &amp; COLOR</span><h3>品牌与颜色</h3></header>
+          <div class="design-brand-lockup"><img src="/sous-mark-v1.png" alt="SOUS 标志"><div><b>SOUS.</b><span>AI ORDER ASSISTANT</span></div></div>
+          <div class="design-swatches" aria-label="SOUS 核心色板">
+            <div><i class="swatch-action"></i><b>Action</b><code>#0F62FE</code></div><div><i class="swatch-deep"></i><b>Deep</b><code>#0043CE</code></div><div><i class="swatch-soft"></i><b>Soft</b><code>#EAF2FF</code></div><div><i class="swatch-ink"></i><b>Ink</b><code>#111827</code></div><div><i class="swatch-canvas"></i><b>Canvas</b><code>#F7F9FD</code></div><div><i class="swatch-line"></i><b>Line</b><code>#DFE6F0</code></div>
+          </div>
+          <div class="compact-state-palette"><span class="state-processing">进行中</span><span class="state-warning">需确认</span><span class="state-success">已完成</span><span class="state-error">失败</span></div>
+        </article>
+        <article class="design-panel design-typography reveal">
+          <header><span>02 / TYPOGRAPHY</span><h3>信息层级</h3></header>
+          <div class="design-type-family"><strong>Aa</strong><div><b>Hanken Grotesk</b><span>中文使用系统无衬线字体</span></div></div>
+          <dl class="design-type-scale"><div><dt>页面标题</dt><dd><b>44 / 48</b><span>Semibold</span></dd></div><div><dt>分区标题</dt><dd><b>28 / 34</b><span>Semibold</span></dd></div><div><dt>正文</dt><dd><b>16 / 26</b><span>Regular</span></dd></div><div><dt>说明文字</dt><dd><b>12 / 18</b><span>Medium</span></dd></div></dl>
+        </article>
+        <article class="design-panel design-components reveal">
+          <header><span>03 / CORE COMPONENTS</span><h3>核心组件</h3></header>
+          <div class="component-spec-grid">
+            <section><small>操作按钮</small><span class="component-button primary-sample">确认创建订单</span><span class="component-button secondary-sample">返回修改</span><span class="component-button disabled-sample">信息未完整</span></section>
+            <section><small>输入字段</small><label class="component-field"><span>交付时间</span><b>2026 / 08 / 02 · 16:00</b><em>已修正</em></label><label class="component-field is-warning"><span>顾客</span><b>需要补充</b><em>必填字段</em></label></section>
+            <section><small>订单卡片</small><div class="component-order-card"><div><b>陈小姐</b><span>抹茶巴斯克 × 1</span></div><i>待确认</i><small>8 月 1 日 · 自取</small></div></section>
+            <section><small>状态反馈</small><div class="component-states"><span class="state-processing">正在理解消息</span><span class="state-warning">缺少交付时间</span><span class="state-success">订单已创建</span><span class="state-error">解析失败，可重试</span></div></section>
+          </div>
+        </article>
+      </div>
+
+    </section>
+
+    <section id="reflection" class="section dark reflection">
+      <div class="section-index">13 / 反思</div>
+      <div class="reflection-grid reflection-v2 reveal">
+        <div class="reflection-title"><p class="kicker">反思与收获</p><h2 class="section-title">反思与下一步</h2><p>AI 边界由错误成本决定；真实任务验证应早于功能扩展；单一场景不能替代外部证据。</p></div>
+        <div class="reflection-essay reflection-lessons">
+          <article><span>01 / AI 边界</span><h3>先判断错误会造成什么后果，再决定 AI 可以自动到哪一步。</h3><p>价格、数量和交付信息出错会直接影响交付，因此 AI 只生成草稿，规则校验，用户确认。</p></article>
+          <article><span>02 / 验证顺序</span><h3>原型做得太快，真实验证跟得太慢。</h3><p>聊天录单尚未完成真实任务验证时，我就扩展了商品、备货和内容功能。重做时应先建立人工基线和历史订单测试集，再决定扩展范围。</p></article>
+          <article><span>03 / 证据边界</span><h3>单一真实场景不足以证明普适性。</h3><p>K&amp;K Bakery 证明问题真实存在，但只代表一个场景。跨行业与多人协作仍需访谈和任务测试。</p></article>
+        </div>
+      </div>
+    </section>
+
+    </main>
+  <dialog class="gallery-dialog" id="galleryDialog"><div class="dialog-bar"><b id="galleryDialogTitle">产品界面</b><button type="button" id="galleryDialogClose">关闭</button></div><img id="galleryDialogImage" src="/case-assets/home.png" alt="放大的 SOUS 产品界面"></dialog>
+  <footer class="closing closing-compact"><img src="/sous-mark-v1.png" alt="SOUS 标志"><p class="kicker">SOUS — AI ORDER ASSISTANT</p><a class="button primary" href="/" target="_blank" rel="noopener">查看产品演示 ↗</a></footer>
+  <script src="/case-study.js" defer></script>
+</body>
+</html>

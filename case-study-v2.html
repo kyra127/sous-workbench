@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SOUS AI Product Case Study：以设计问题为主线，呈现从私域聊天到可确认订单的产品判断、AI 边界与验证方法。">
+  <title>SOUS · AI Product Case Study · Design Questions</title>
+  <link rel="stylesheet" href="/case-study-v2.css">
+  <script src="/case-study-v2.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#p01">跳到正文</a>
+  <header class="story-nav" aria-label="案例导航">
+    <a class="brand" href="#p01" aria-label="返回 SOUS v2 首页"><img src="/sous-mark-v1.png" alt="" width="34" height="34"><span>SOUS</span></a>
+    <nav class="chapter-links" aria-label="章节">
+      <a href="#p03">问题</a><a href="#p05">定义</a><a href="#p08">AI 边界</a><a href="#p12">交互</a><a href="#p15">闭环</a><a href="#p20">反思</a>
+    </nav>
+    <div class="nav-actions"><a href="/projects/sous">查看原版</a><a class="demo-link" href="/" target="_blank" rel="noopener">打开产品 ↗</a></div>
+  </header>
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+  <aside class="page-rail" aria-label="页面进度"><span id="pageCounter">01 / 21</span><div aria-hidden="true"><i id="railProgress"></i></div></aside>
+
+  <main id="story">
+    <section id="p01" class="story-page cover-page" data-page="01" data-title="Cover">
+      <div class="story-canvas cover-canvas">
+        <div class="cover-copy reveal">
+          <p class="chapter-tag">AI PRODUCT CASE STUDY · V2</p>
+          <h1>SOUS<span>.</span></h1>
+          <p class="cover-positioning">AI-enhanced Business Workspace</p>
+          <p class="cover-summary">为通过私信接单的小微经营者，建立从消息理解、人工确认到订单执行的轻量工作台。</p>
+          <ul class="role-strip" aria-label="项目职责"><li>Product Strategy</li><li>AI Interaction</li><li>System Design</li><li>Prototype</li></ul>
+        </div>
+        <div class="cover-screens reveal" aria-label="SOUS 三个真实产品界面">
+          <figure class="phone-shot phone-shot-left"><span class="phone-shell"><span class="phone-speaker"></span><span class="phone-viewport"><img src="/case-assets/home.png" alt="SOUS 经营首页" width="786" height="1702"></span></span></figure>
+          <figure class="phone-shot phone-shot-center"><span class="phone-shell"><span class="phone-speaker"></span><span class="phone-viewport"><img src="/case-assets/intake.png" alt="SOUS 聊天录单输入页" width="786" height="1702"></span></span></figure>
+          <figure class="phone-shot phone-shot-right"><span class="phone-shell"><span class="phone-speaker"></span><span class="phone-viewport"><img src="/case-assets/draft-ready.png" alt="SOUS 可确认订单草稿" width="786" height="1702"></span></span></figure>
+        </div>
+        <p class="cover-footnote"><i>sous</i> — from sous-chef. AI assists. The owner decides.</p>
+      </div>
+    </section>
+
+    <section id="p02" class="story-page overview-page" data-page="02" data-title="Overview">
+      <div class="story-canvas">
+        <header class="page-heading centered reveal"><div><span>P02 / OVERVIEW</span><b>PROJECT OVERVIEW</b></div><h2>把散落在聊天里的需求，<br>变成可执行的经营流程。</h2></header>
+        <div class="operating-loop reveal" aria-label="SOUS 经营闭环">
+          <div class="loop-core"><img src="/sous-mark-v1.png" alt="" width="58" height="58"><strong>SOUS</strong><span>持续经营闭环</span></div>
+          <ol>
+            <li class="node-1" data-owner="human"><b>01</b><strong>客户消息</strong><span>Human</span></li>
+            <li class="node-2" data-owner="ai"><b>02</b><strong>理解需求</strong><span>AI</span></li>
+            <li class="node-3" data-owner="human"><b>03</b><strong>确认草稿</strong><span>Human</span></li>
+            <li class="node-4" data-owner="program"><b>04</b><strong>正式订单</strong><span>Program</span></li>
+            <li class="node-5" data-owner="program"><b>05</b><strong>规则计算</strong><span>Program</span></li>
+            <li class="node-6" data-owner="human"><b>06</b><strong>今日执行</strong><span>Human</span></li>
+            <li class="node-7" data-owner="program"><b>07</b><strong>经营复盘</strong><span>Program</span></li>
+          </ol>
+        </div>
+        <div class="owner-legend reveal" aria-label="职责图例"><span data-owner="ai">AI · 理解</span><span data-owner="program">Program · 计算</span><span data-owner="human">Human · 决定</span></div>
+        <p class="design-principle reveal">AI Understands · Program Calculates · Human Decides</p>
+      </div>
+    </section>
+
+    <section id="p03" class="story-page ink-page" data-page="03" data-title="订单是怎么丢的">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P03 / DESIGN QUESTION</span><h2>订单是怎么丢的？</h2></div><b>CHAPTER 01 · 问题的本质</b></header>
+        <div class="problem-evidence-grid">
+          <figure class="real-evidence reveal"><img src="/case-assets/real-chat-confirmation.jpg" alt="K&K Bakery 与顾客多轮确认订单的真实聊天记录" loading="lazy" width="1280" height="2781"><figcaption>真实经营材料 · 多轮聊天确认</figcaption></figure>
+          <div class="fracture-visual reveal">
+            <div class="fracture-copy"><p>市面上不缺订单管理工具，缺的是把对话变成订单的那一段。</p><strong>问题发生在<br>人工转译。</strong></div>
+            <ol class="fracture-flow" aria-label="订单流程断裂点">
+              <li><span>01</span><b>客户消息</b></li><li class="fracture"><span>02</span><b>人工转译</b><em>信息缺失 · 时间记错 · 备注遗漏</em></li><li><span>03</span><b>订单记录</b></li><li><span>04</span><b>备货与交付</b></li>
+            </ol>
+          </div>
+        </div>
+        <div class="decision-line reveal"><span>DECISION</span><p>产品入口从订单列表前移到消息解析，先承接没有系统负责的转译环节。</p></div>
+        <p class="design-principle reveal">找到流程中没有系统承接的那一段。</p>
+      </div>
+    </section>
+
+    <section id="p04" class="story-page" data-page="04" data-title="行业差异还是共同结构">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P04 / DESIGN QUESTION</span><h2>这是烘焙的问题，还是所有小微经营的问题？</h2></div><b>CHAPTER 01 · 问题的本质</b></header>
+        <div class="abstraction-layout reveal">
+          <div class="industry-row" aria-label="不同经营类型">
+            <article><span>BAKERY</span><strong>巴斯克蛋糕</strong><small>烘焙</small></article><article><span>FLORISTRY</span><strong>韩式花束</strong><small>花艺</small></article><article><span>PRIVATE KITCHEN</span><strong>每日便当</strong><small>私厨</small></article><article><span>HANDMADE</span><strong>手工蜡烛</strong><small>手作</small></article>
+          </div>
+          <div class="converge-label"><span>名称不同</span><b>结构相同</b></div>
+          <div class="entity-row" aria-label="共同经营实体"><span>客户</span><span>订单</span><span>商品</span><span>资源</span><span>交付</span></div>
+        </div>
+        <div class="logic-triplet reveal">
+          <article><span>INSIGHT</span><p>差异发生在商品怎么称呼，订单仍由客户、商品、数量、交付时间与备注组成。</p></article>
+          <article><span>DECISION</span><p>用通用经营结构承接不同场景，行业差异由经营者自己的商品目录表达。</p></article>
+          <article><span>STATUS</span><p>K&amp;K Bakery 是首个真实场景；跨行业适用性仍需要后续验证。</p></article>
+        </div>
+        <p class="design-principle reveal">在差异之下寻找不变的结构。</p>
+      </div>
+    </section>
+
+    <section id="p05" class="story-page soft-page" data-page="05" data-title="AI 助手还是经营系统">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P05 / DESIGN QUESTION</span><h2>这应该是一个 AI 助手，还是一个经营系统？</h2></div><b>CHAPTER 02 · 产品定义</b></header>
+        <div class="shape-comparison reveal">
+          <article class="rejected"><header><span>OPTION A</span><b>对话式助手</b></header><div class="chat-path"><i>输入</i><i>回答</i><i>消散</i></div><p>能给答案，但订单状态、修改记录和计算依据难以持续查询。</p><strong>结果不留下结构</strong></article>
+          <div class="choice-marker">VS</div>
+          <article class="selected"><header><span>SELECTED</span><b>经营工作台</b></header><div class="workspace-path"><i>输入</i><i>结构化数据</i><i>查询 · 追溯 · 计算</i></div><p>AI 只负责理解入口，订单、状态与经营结果留在可检查的系统中。</p><strong>AI 是能力，不是全部</strong></article>
+        </div>
+        <div class="decision-line reveal"><span>IMPACT</span><p>错误可以定位，状态可以查询，经营数据不会随着一次对话结束而消失。</p></div>
+        <p class="design-principle reveal">AI 是能力，不是产品形态。</p>
+      </div>
+    </section>
+
+    <section id="p06" class="story-page" data-page="06" data-title="一个人的经营系统">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P06 / DESIGN QUESTION</span><h2>一个人的经营系统，需要哪些模块？</h2></div><b>CHAPTER 02 · 产品定义</b></header>
+        <div class="system-orbit reveal" aria-label="SOUS 系统关系">
+          <article class="orbit-card orbit-intake"><span>01</span><b>智能录单</b><p>读取在售品类与别名</p></article>
+          <article class="orbit-card orbit-orders"><span>02</span><b>订单与营收</b><p>读取售价与成本</p></article>
+          <article class="orbit-card orbit-prep"><span>03</span><b>备货执行</b><p>读取配方与单份用量</p></article>
+          <article class="orbit-card orbit-content"><span>04</span><b>内容生成</b><p>读取商品名称、价格与卖点</p></article>
+          <div class="orbit-core"><span>SINGLE SOURCE</span><strong>商品与资源</strong><p>名称 · 售价 · 成本 · 配方 · 卖点</p></div>
+        </div>
+        <div class="decision-line reveal"><span>IMPACT</span><p>经营者只维护一处商品数据；同一事实继续服务录单、备货、内容与经营统计。</p></div>
+        <p class="design-principle reveal">单一数据源，是一人经营系统的前提。</p>
+      </div>
+    </section>
+
+    <section id="p07" class="story-page soft-page" data-page="07" data-title="取消行业配置">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P07 / DESIGN QUESTION</span><h2>为什么最终取消了行业配置？</h2></div><b>CHAPTER 02 · 产品定义</b></header>
+        <div class="decision-compare reveal">
+          <article class="rejected-stack"><header><span>REMOVED</span><strong>行业配置系统</strong></header><ol><li>行业选择</li><li>术语映射</li><li>行业存储</li><li>上下文切换</li></ol><p>“原料 / 花材 / 食材”改变了界面用词，却没有增加订单理解所需的事实。</p></article>
+          <div class="decision-insight"><span>INSIGHT</span><strong>商品目录<br>即行业上下文</strong><p>添加“韩式花束”和“玫瑰”时，行业信息已经存在。</p></div>
+          <article class="selected-stack"><header><span>SELECTED</span><strong>快速启动模板</strong></header><ol><li>预填示例商品</li><li>用户确认后入目录</li><li>界面术语保持通用</li></ol><p>模板只降低空白感，不锁定行业，也不成为正式经营事实。</p></article>
+        </div>
+        <div class="impact-pair reveal"><span><b>代价</b>界面术语不会完全贴合每个行业</span><span><b>收益</b>减少四层复杂度，不限制适用场景</span></div>
+        <p class="design-principle reveal">识别过度设计，比增加功能更难。</p>
+      </div>
+    </section>
+
+    <section id="p08" class="story-page ink-page" data-page="08" data-title="AI 不能替经营者决定">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P08 / DESIGN QUESTION</span><h2>为什么 AI 不能替经营者做决定？</h2></div><b>CHAPTER 03 · AI 的边界与信任</b></header>
+        <div class="responsibility-matrix reveal" role="table" aria-label="AI、程序和经营者职责矩阵">
+          <div role="row" class="matrix-head"><b role="columnheader">经营环节</b><b role="columnheader">AI</b><b role="columnheader">Program</b><b role="columnheader">Human</b></div>
+          <div role="row"><span role="rowheader">消息理解</span><i class="full">理解与提取</i><i></i><i class="partial">检查</i></div>
+          <div role="row"><span role="rowheader">订单入库</span><i></i><i class="partial">校验</i><i class="full">确认</i></div>
+          <div role="row"><span role="rowheader">金额与备货</span><i></i><i class="full">计算</i><i class="partial">核对</i></div>
+          <div role="row"><span role="rowheader">内容生成</span><i class="full">起草</i><i class="partial">引用事实</i><i class="full">发布决定</i></div>
+          <div role="row"><span role="rowheader">价格与状态</span><i></i><i class="partial">保存</i><i class="full">设定</i></div>
+        </div>
+        <div class="boundary-statement reveal"><span>理解是模糊的</span><span>计算是确定的</span><span>决定是有代价的</span></div>
+        <p class="design-principle reveal">AI 提出建议，程序保证正确，人做出决定。</p>
+      </div>
+    </section>
+
+    <section id="p09" class="story-page" data-page="09" data-title="AI 参与经营闭环">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P09 / DESIGN QUESTION</span><h2>AI 如何参与经营闭环？</h2></div><b>CHAPTER 03 · AI 的边界与信任</b></header>
+        <div class="handoff-flow reveal">
+          <article><span class="mini-phone"><img src="/case-assets/intake.png" alt="聊天与截图输入页面" loading="lazy" width="786" height="1702"></span><b>输入</b><small>Human</small><p>原始聊天与截图</p></article>
+          <article><span class="mini-phone"><img src="/case-assets/ai-processing.png" alt="AI 正在理解订单内容" loading="lazy" width="786" height="1702"></span><b>提取</b><small>AI</small><p>结构化订单草稿</p></article>
+          <article><span class="mini-phone"><img src="/case-assets/draft-missing.png" alt="缺失字段被标记的订单草稿" loading="lazy" width="786" height="1702"></span><b>标注</b><small>Program</small><p>可检查的不确定性</p></article>
+          <article><span class="mini-phone"><img src="/case-assets/draft-ready.png" alt="字段完整、等待人工确认的订单草稿" loading="lazy" width="786" height="1702"></span><b>确认</b><small>Human</small><p>已核准订单</p></article>
+          <article><span class="mini-phone"><img src="/case-assets/order-created.png" alt="正式订单已经进入订单管理" loading="lazy" width="786" height="1702"></span><b>入库</b><small>Program</small><p>正式经营数据</p></article>
+        </div>
+        <div class="decision-line reveal"><span>IMPACT</span><p>每一步都交付下一步能处理的形态，经营者始终知道当前控制权属于谁。</p></div>
+        <p class="design-principle reveal">人机协作的关键，是交接点的设计。</p>
+      </div>
+    </section>
+
+    <section id="p10" class="story-page soft-page" data-page="10" data-title="不能假设 AI 正确">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P10 / DESIGN QUESTION</span><h2>为什么经营系统不能假设 AI 一定正确？</h2></div><b>CHAPTER 03 · AI 的边界与信任</b></header>
+        <div class="recovery-ladder reveal" aria-label="四层容错机制">
+          <article><span>01 · 输出时</span><div><img src="/case-assets/draft-ready.png" alt="订单草稿中的字段状态" loading="lazy" width="786" height="1702"></div><strong>标记字段状态</strong><p>需要注意的字段进入核验范围。</p></article>
+          <article><span>02 · 缺失时</span><div><img src="/case-assets/draft-missing.png" alt="订单草稿中的缺失字段提示" loading="lazy" width="786" height="1702"></div><strong>不擅自补全</strong><p>创建按钮保持禁用，原始输入仍可回看。</p></article>
+          <article><span>03 · 重复时</span><div><img src="/case-assets/duplicate-warning.png" alt="重复订单拦截对话框" loading="lazy" width="786" height="1702"></div><strong>暂停并交给用户</strong><p>相同截图命中后先停止解析。</p></article>
+          <article><span>04 · 失败时</span><div><img src="/case-assets/error-recovery.png" alt="解析失败后保留输入和手动录入入口" loading="lazy" width="786" height="1702"></div><strong>降级为手动工具</strong><p>失败不清空输入，也不创建正式订单。</p></article>
+        </div>
+        <p class="design-principle reveal">信任来自出错时的表现，而不是正确时的表现。</p>
+      </div>
+    </section>
+
+    <section id="p11" class="story-page" data-page="11" data-title="可信上下文">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P11 / DESIGN QUESTION</span><h2>AI 如何获得可信的上下文？</h2></div><b>CHAPTER 03 · AI 的边界与信任</b></header>
+        <div class="context-architecture reveal">
+          <div class="context-sources">
+            <article><span>CURRENT</span><b>业务资料</b><p>经营类型、交付方式与业务名称</p></article><article><span>CURRENT</span><b>正式商品目录</b><p>在售商品、价格、材料与别名</p></article><article><span>CURRENT</span><b>当前输入与草稿</b><p>聊天文字、截图与用户已补充字段</p></article><article class="future"><span>NEXT TO VALIDATE</span><b>同一顾客历史</b><p>用于处理“跟上次一样”等指代</p></article>
+          </div>
+          <div class="context-pipe"><span>浏览器读取</span><b>最小上下文</b><span>随任务注入</span></div>
+          <div class="context-outcomes"><article><b>品名归一</b><p>口语称呼匹配正式商品</p></article><article><b>字段提取</b><p>输出固定订单结构</p></article><article><b>指代解析</b><p>历史能力尚待真实验证</p></article></div>
+        </div>
+        <div class="fact-note reveal"><b>当前实现</b><p>上下文由浏览器读取后随请求提供；AI 不会主动查询外部数据库，也不能写入订单。</p></div>
+        <p class="design-principle reveal">上下文只来自可追溯的经营事实。</p>
+      </div>
+    </section>
+
+    <section id="p12" class="story-page ink-page" data-page="12" data-title="订单的原生形态">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P12 / DESIGN QUESTION</span><h2>订单的原生形态是什么？</h2></div><b>CHAPTER 04 · 关键交互决策</b></header>
+        <div class="input-comparison reveal">
+          <article class="text-input-path"><header><span>BEFORE</span><b>复制文字</b></header><ol><li>打开聊天</li><li>选中消息</li><li>复制</li><li>切换应用</li><li>粘贴</li></ol><p>文字脱离原始界面后，谁说的、何时说的更难判断。</p></article>
+          <figure class="native-evidence"><img src="/case-assets/real-chat-confirmation.jpg" alt="真实聊天截图是订单的原始材料" loading="lazy" width="1280" height="2781"><figcaption>真实材料 · 聊天截图</figcaption></figure>
+          <article class="screenshot-path"><header><span>SELECTED</span><b>截图输入</b></header><ol><li>选择截图</li><li>检查并提交</li></ol><p>保留对话顺序和客户线索；多张截图可以继续按顾客分组。</p></article>
+          <figure class="product-input"><span class="phone-shell"><span class="phone-speaker"></span><span class="phone-viewport"><img src="/case-assets/intake.png" alt="SOUS 截图录单入口" loading="lazy" width="786" height="1702"></span></span></figure>
+        </div>
+        <p class="design-principle reveal">跟随用户的第一直觉，而不是最合理的路径。</p>
+      </div>
+    </section>
+
+    <section id="p13" class="story-page" data-page="13" data-title="界面如何表达不确定">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P13 / DESIGN QUESTION</span><h2>AI 不确定的时候，界面应该说什么？</h2></div><b>CHAPTER 04 · 关键交互决策</b></header>
+        <div class="uncertainty-layout reveal">
+          <div class="uncertainty-copy"><p class="large-insight">经营者不需要“全部正确”的假象，而需要知道哪几处值得检查。</p><ol><li><span>01</span><div><b>常态字段</b><p>保持安静，不抢占注意力。</p></div></li><li><span>02</span><div><b>待确认字段</b><p>显示原因与原始表达。</p></div></li><li><span>03</span><div><b>关键字段缺失</b><p>停止创建，给出可执行的补充方向。</p></div></li></ol></div>
+          <figure class="annotated-phone"><span class="phone-shell"><span class="phone-speaker"></span><span class="phone-viewport"><img src="/case-assets/draft-missing.png" alt="SOUS 将缺失交付时间标记在订单草稿中" loading="lazy" width="786" height="1702"></span></span><span class="callout callout-a">需要补充</span><span class="callout callout-b">原始输入可回看</span><span class="callout callout-c">创建动作被阻止</span></figure>
+        </div>
+        <div class="decision-line reveal"><span>IMPACT</span><p>核验注意力集中到少数字段，不必重新阅读整段对话。</p></div>
+        <p class="design-principle reveal">把不确定说出来，比假装确定更可信。</p>
+      </div>
+    </section>
+
+    <section id="p14" class="story-page soft-page" data-page="14" data-title="数据中心与高频入口">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P14 / DESIGN QUESTION</span><h2>数据中心，是否等于高频入口？</h2></div><b>CHAPTER 04 · 关键交互决策</b></header>
+        <div class="frequency-layout reveal">
+          <div class="frequency-copy"><p>商品与资源决定全系统能否正确运行，但经营者只在目录变化时维护；录单与订单管理发生在每次接单。</p><strong>重要性决定数据位置，<br>频率决定导航位置。</strong></div>
+          <div class="quadrant" aria-label="功能重要性与使用频率四象限"><span class="axis-y">重要性</span><span class="axis-x">使用频率</span><article class="q-intake"><b>录单</b><small>高频 · 高重要</small></article><article class="q-orders"><b>订单</b><small>高频 · 高重要</small></article><article class="q-prep"><b>备货</b><small>中高频 · 高重要</small></article><article class="q-catalog"><b>商品与资源</b><small>低频 · 高重要</small></article></div>
+        </div>
+        <div class="nav-structure reveal" aria-label="SOUS 移动端导航结构"><span>首页</span><span class="active">录单</span><span>订单</span><span>备货</span><span>更多 <b>商品 · 内容 · 设置</b></span></div>
+        <p class="design-principle reveal">导航按频率组织，入口按场景补充。</p>
+      </div>
+    </section>
+
+    <section id="p15" class="story-page" data-page="15" data-title="订单数据去了哪里">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P15 / DESIGN QUESTION</span><h2>一张订单完成后，数据去了哪里？</h2></div><b>CHAPTER 05 · 闭环与验证</b></header>
+        <div class="settlement-flow reveal">
+          <article><span>HUMAN</span><b>标记交付完成</b><figure><img src="/case-assets/orders.png" alt="SOUS 正式订单列表" loading="lazy" width="786" height="1702"></figure></article><i aria-hidden="true">→</i>
+          <article><span>PROGRAM</span><b>读取售价与成本</b><div class="calc-card"><strong>订单品项</strong><p>售价 × 数量</p><p>成本 × 数量</p></div></article><i aria-hidden="true">→</i>
+          <article><span>PROGRAM</span><b>计算经营结果</b><div class="calc-card emphasis"><strong>营收</strong><p>成本</p><p>毛利</p></div></article><i aria-hidden="true">→</i>
+          <article><span>SYSTEM</span><b>汇入经营概览</b><figure><img src="/case-assets/home.png" alt="SOUS 经营首页中的经营概览" loading="lazy" width="786" height="1702"></figure></article>
+        </div>
+        <div class="decision-line reveal"><span>BOUNDARY</span><p>这条链路不需要 AI：数字全部由正式订单与商品资料复算。</p></div>
+        <p class="design-principle reveal">确定性的计算，不需要智能。</p>
+      </div>
+    </section>
+
+    <section id="p16" class="story-page ink-page" data-page="16" data-title="建议如何可追溯">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P16 / DESIGN QUESTION</span><h2>AI 给出的建议，如何做到可追溯？</h2></div><b>CHAPTER 05 · 闭环与验证</b></header>
+        <div class="traceability-layout reveal">
+          <div class="trace-rule"><span>PROGRAM · FACT</span><strong>配方 × 待处理订单</strong><div class="formula"><i>80 g</i><b>×</b><i>3 份</i><b>=</b><i>240 g</i></div><p>每个数字可以回到正式订单和商品配方。</p></div>
+          <div class="trace-expression"><span>AI · EXPRESSION</span><strong>组织表达与行动顺序</strong><blockquote>先准备本周订单所需的 240 g 奶油，再处理缺少材料配置的商品。</blockquote><p>可以重写表达，但不能修改任何计算结果。</p></div>
+          <figure class="trace-screen"><span class="phone-shell"><span class="phone-speaker"></span><span class="phone-viewport"><img src="/case-assets/prep.png" alt="SOUS 确定性备货计算页面" loading="lazy" width="786" height="1702"></span></span><figcaption>真实产品页面 · 备货计算</figcaption></figure>
+        </div>
+        <p class="design-principle reveal">让 AI 负责表达，让程序负责事实。</p>
+      </div>
+    </section>
+
+    <section id="p17" class="story-page" data-page="17" data-title="真实经营中的使用">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P17 / EVIDENCE</span><h2>真实经营中的使用</h2></div><b>CHAPTER 05 · 闭环与验证</b></header>
+        <div class="evidence-status reveal">
+          <div class="evidence-intro"><span>CURRENT EVIDENCE</span><h3>原型已经跑通；产品效果仍需用真实订单比较。</h3><p>这里不填没有发生过的准确率、节省时间或业务结果。已确认的是工程流程与一次真实字段修正。</p></div>
+          <div class="evidence-cards"><article><span>已验收</span><b>多顾客分组</b><p>内部 2+1 场景可以生成两份独立草稿与订单。</p></article><article><span>已验收</span><b>重复拦截</b><p>相同截图命中重复检查时，AI 调用次数为 0。</p></article><article><span>已验收</span><b>移动端流程</b><p>指定的 393×852 与 320×568 流程完成内部回归。</p></article></div>
+        </div>
+        <div class="iteration-mini reveal"><blockquote>“我要三个巴斯克，一个提拉米苏，巴斯克有一个能不能分装一下。”</blockquote><article class="before"><span>修正前</span><b>“分装”进入商品名</b><p>商品无法匹配备货配方。</p></article><article class="after"><span>规则修正</span><b>特殊要求进入备注</b><p>商品继续匹配目录与配方。</p></article></div>
+        <div class="validation-method reveal"><b>下一步验证</b><p>用 30–50 条匿名化历史订单，对比“手工录单”与“AI 草稿 + 人工确认”的耗时、修改量和回看次数。</p></div>
+        <p class="design-principle reveal">只把已经发生的结果写成结果。</p>
+      </div>
+    </section>
+
+    <section id="p18" class="story-page soft-page" data-page="18" data-title="明确不做什么">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P18 / DESIGN QUESTION</span><h2>什么是 SOUS 明确不做的？</h2></div><b>CHAPTER 05 · 闭环与验证</b></header>
+        <div class="boundary-map reveal">
+          <div class="boundary-core"><img src="/sous-mark-v1.png" alt="" width="48" height="48"><strong>SOUS</strong><span>一人经营工作台</span></div>
+          <article class="boundary-a"><span>EXCLUDED</span><b>多成员权限与审批</b><p>会变成协作工具</p></article><article class="boundary-b"><span>EXCLUDED</span><b>在线收款与财务对账</b><p>会变成财务系统</p></article><article class="boundary-c"><span>EXCLUDED</span><b>供应商采购与物流</b><p>会变成 ERP</p></article><article class="boundary-d"><span>EXCLUDED</span><b>多门店与多仓库</b><p>会变成连锁系统</p></article>
+        </div>
+        <div class="decision-line reveal"><span>IMPACT</span><p>产品复杂度继续围绕一到两人经营，不为尚未出现的组织关系增加负担。</p></div>
+        <p class="design-principle reveal">控制产品边界，和设计功能一样重要。</p>
+      </div>
+    </section>
+
+    <section id="p19" class="story-page" data-page="19" data-title="Roadmap">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P19 / ROADMAP</span><h2>路线图由验证门槛推进，<br>不是由功能数量推进。</h2></div><b>CHAPTER 06 · 收尾</b></header>
+        <div class="roadmap reveal">
+          <article class="done"><span>V1 · 已完成原型</span><h3>可恢复的经营闭环</h3><p>聊天录单、草稿确认、正式订单、商品资料、备货与本机数据。</p><b>已确认：关键流程可运行</b></article>
+          <article><span>V1.5 · NEXT</span><h3>真实任务验证</h3><p>历史订单测试集、人工基线、字段错误分类与任务时间对照。</p><b>门槛：修正成本和整单可确认性优于手工基线</b></article>
+          <article><span>V2 · HYPOTHESIS</span><h3>谨慎扩大接入范围</h3><p>只有真实任务证明价值后，才评估云端同步、多渠道接入或协作。</p><b>门槛：新增能力不破坏轻量与人工控制</b></article>
+        </div>
+        <p class="roadmap-note reveal">团队协作与订阅方案不是当前承诺，而是需要重新验证目标用户后再决定的方向。</p>
+        <p class="design-principle reveal">下一阶段由证据触发，而不是由想象触发。</p>
+      </div>
+    </section>
+
+    <section id="p20" class="story-page ink-page" data-page="20" data-title="Reflection">
+      <div class="story-canvas">
+        <header class="question-header reveal"><div><span>P20 / REFLECTION</span><h2>从做出功能，<br>到建立验证顺序。</h2></div><b>CHAPTER 06 · 收尾</b></header>
+        <div class="reflection-layout reveal">
+          <article><span>01 · 认知转变</span><h3>AI 产品的难点不在生成更多，而在把不确定性放在正确的位置。</h3><p>草稿、规则校验和人工确认不是对能力的限制，而是把错误成本控制在经营者可以接受的范围内。</p></article>
+          <article><span>02 · 如果重做</span><h3>先建立真实任务基线，再决定哪些字段交给 AI。</h3><p>原型实现一度走在证据前面。更好的顺序是先标注历史订单与严重错误，再让范围跟着修正成本推进。</p></article>
+          <article><span>03 · 优势与盲区</span><h3>亲自经营让我看见细节，也让我容易把个人习惯当成普遍规律。</h3><p>K&amp;K Bakery 证明了问题真实存在，但只验证了一个经营场景。跨行业与多人场景仍需要外部证据。</p></article>
+        </div>
+        <blockquote class="reflection-quote reveal">这次项目沉淀的，不只是一个可运行原型，而是一套从业务风险定义 AI 边界、再用验证门槛控制范围的方法。</blockquote>
+        <p class="design-principle reveal">承认未验证的部分，是产品判断的一部分。</p>
+      </div>
+    </section>
+
+    <section id="p21" class="story-page gallery-page" data-page="21" data-title="Interface Gallery">
+      <div class="story-canvas">
+        <header class="page-heading centered reveal"><div><span>P21 / INTERFACE GALLERY</span><b>REAL PRODUCT</b></div><h2>从消息输入到经营复盘。</h2><p>全部为当前可运行原型的真实界面。点击查看完整高清截图。</p></header>
+        <div class="screen-gallery reveal">
+          <button type="button" data-lightbox="/case-assets/intake.png" data-title="聊天录单"><span class="gallery-phone"><img src="/case-assets/intake.png" alt="SOUS 聊天录单页面" loading="lazy" width="786" height="1702"></span><b>聊天录单</b><small>输入</small></button>
+          <button type="button" data-lightbox="/case-assets/draft-missing.png" data-title="缺失字段草稿"><span class="gallery-phone"><img src="/case-assets/draft-missing.png" alt="SOUS 缺失字段订单草稿" loading="lazy" width="786" height="1702"></span><b>订单草稿</b><small>核验</small></button>
+          <button type="button" data-lightbox="/case-assets/orders.png" data-title="订单管理"><span class="gallery-phone"><img src="/case-assets/orders.png" alt="SOUS 订单管理页面" loading="lazy" width="786" height="1702"></span><b>订单管理</b><small>状态</small></button>
+          <button type="button" data-lightbox="/case-assets/products.png" data-title="商品管理"><span class="gallery-phone"><img src="/case-assets/products.png" alt="SOUS 商品管理页面" loading="lazy" width="786" height="1702"></span><b>商品管理</b><small>事实</small></button>
+          <button type="button" data-lightbox="/case-assets/prep.png" data-title="备货计算"><span class="gallery-phone"><img src="/case-assets/prep.png" alt="SOUS 备货计算页面" loading="lazy" width="786" height="1702"></span><b>备货计算</b><small>执行</small></button>
+          <button type="button" data-lightbox="/case-assets/content.png" data-title="AI 内容助手"><span class="gallery-phone"><img src="/case-assets/content.png" alt="SOUS AI 内容助手页面" loading="lazy" width="786" height="1702"></span><b>内容助手</b><small>经营辅助</small></button>
+          <button type="button" data-lightbox="/case-assets/home.png" data-title="经营首页"><span class="gallery-phone"><img src="/case-assets/home.png" alt="SOUS 经营首页" loading="lazy" width="786" height="1702"></span><b>经营首页</b><small>概览</small></button>
+        </div>
+        <div class="closing-actions reveal"><a class="primary-action" href="/" target="_blank" rel="noopener">查看本地产品演示 ↗</a><a href="/projects/sous">返回原版 Case Study</a></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="screenDialog" class="screen-dialog" aria-labelledby="dialogTitle">
+    <div class="dialog-toolbar"><strong id="dialogTitle">产品界面</strong><button type="button" data-close-dialog aria-label="关闭大图">关闭</button></div>
+    <img id="dialogImage" alt="">
+  </dialog>
+</body>
+</html>

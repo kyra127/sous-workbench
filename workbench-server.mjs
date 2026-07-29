@@ -1,4 +1,4 @@
-﻿import http from "node:http";
+import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
@@ -137,11 +137,54 @@ function sendIndex(req, res) {
   res.end(bytes);
 }
 
+function sendCaseStudy(req, res) {
+  const source = fs.readFileSync(path.join(projectDir, "case-study.html"));
+  const { bytes, encoding } = encodedBody(req, source, "text/html");
+  res.writeHead(200, { ...securityHeaders, "Content-Type": "text/html; charset=utf-8", "Content-Length": bytes.length, "Cache-Control": "no-cache", "Vary": "Accept-Encoding", ...(encoding ? { "Content-Encoding": encoding } : {}) });
+  res.end(bytes);
+}
+
+function sendCaseStudyV2(req, res) {
+  const source = fs.readFileSync(path.join(projectDir, "case-study-v2.html"));
+  const { bytes, encoding } = encodedBody(req, source, "text/html");
+  res.writeHead(200, { ...securityHeaders, "Content-Type": "text/html; charset=utf-8", "Content-Length": bytes.length, "Cache-Control": "no-cache", "Vary": "Accept-Encoding", ...(encoding ? { "Content-Encoding": encoding } : {}) });
+  res.end(bytes);
+}
+
 const assetRoutes = new Map([
   ["/sous-ui.css", ["sous-ui.css", "text/css; charset=utf-8"]],
   ["/sous-runtime.js", ["sous-runtime.js", "text/javascript; charset=utf-8"]],
   ["/sous-mark-v1.png", ["sous-mark-v1.png", "image/png"]],
   ["/sous-loader-v1.png", ["sous-loader-v1.png", "image/png"]],
+  ["/case-study.css", ["case-study.css", "text/css; charset=utf-8"]],
+  ["/case-study.js", ["case-study.js", "text/javascript; charset=utf-8"]],
+  ["/case-study-v2.css", ["case-study-v2.css", "text/css; charset=utf-8"]],
+  ["/case-study-v2.js", ["case-study-v2.js", "text/javascript; charset=utf-8"]],
+  ["/case-assets/desktop.png", ["case-assets/desktop.png", "image/png"]],
+  ["/case-assets/onboarding.png", ["case-assets/onboarding.png", "image/png"]],
+  ["/case-assets/home.png", ["case-assets/home.png", "image/png"]],
+  ["/case-assets/intake.png", ["case-assets/intake.png", "image/png"]],
+  ["/case-assets/ai-processing.png", ["case-assets/ai-processing.png", "image/png"]],
+  ["/case-assets/draft-missing.png", ["case-assets/draft-missing.png", "image/png"]],
+  ["/case-assets/draft-ready.png", ["case-assets/draft-ready.png", "image/png"]],
+  ["/case-assets/draft-special-requirement.png", ["case-assets/draft-special-requirement.png", "image/png"]],
+  ["/case-assets/order-created.png", ["case-assets/order-created.png", "image/png"]],
+  ["/case-assets/orders.png", ["case-assets/orders.png", "image/png"]],
+  ["/case-assets/prep.png", ["case-assets/prep.png", "image/png"]],
+  ["/case-assets/products.png", ["case-assets/products.png", "image/png"]],
+  ["/case-assets/more.png", ["case-assets/more.png", "image/png"]],
+  ["/case-assets/content.png", ["case-assets/content.png", "image/png"]],
+  ["/case-assets/settings.png", ["case-assets/settings.png", "image/png"]],
+  ["/case-assets/error-recovery.png", ["case-assets/error-recovery.png", "image/png"]],
+  ["/case-assets/duplicate-warning.png", ["case-assets/duplicate-warning.png", "image/png"]],
+  ["/case-assets/registration-wide.png", ["case-assets/registration-wide.png", "image/png"]],
+  ["/case-assets/problem-flow-background-v1.png", ["case-assets/problem-flow-background-v1.png", "image/png"]],
+  ["/case-assets/real-chat-confirmation.jpg", ["case-assets/real-chat-confirmation.jpg", "image/jpeg"]],
+  ["/case-assets/real-order-notes.jpg", ["case-assets/real-order-notes.jpg", "image/jpeg"]],
+  ["/case-assets/real-excel-cost-sheet.jpg", ["case-assets/real-excel-cost-sheet.jpg", "image/jpeg"]],
+  ["/case-assets/persona-solo-owner.jpg", ["case-assets/persona-solo-owner.jpg", "image/jpeg"]],
+  ["/case-assets/persona-two-person-team.jpg", ["case-assets/persona-two-person-team.jpg", "image/jpeg"]],
+  ["/case-assets/persona-custom-studio.jpg", ["case-assets/persona-custom-studio.jpg", "image/jpeg"]],
 ]);
 
 const workbench = http.createServer((req, res) => {
@@ -159,6 +202,12 @@ const workbench = http.createServer((req, res) => {
   }
   if (req.method === "GET" && (pathname === "/" || pathname === "/index.html")) {
     return sendIndex(req, res);
+  }
+  if (req.method === "GET" && (pathname === "/projects/sous" || pathname === "/projects/sous/")) {
+    return sendCaseStudy(req, res);
+  }
+  if (req.method === "GET" && (pathname === "/projects/sous-v2" || pathname === "/projects/sous-v2/")) {
+    return sendCaseStudyV2(req, res);
   }
   if (req.method === "POST" && pathname.startsWith("/api/")) {
     if (!sameOrigin(req)) return json(res, 403, { error: "Origin not allowed" });

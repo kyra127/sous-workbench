@@ -8,10 +8,12 @@
     "start": "node workbench-server.mjs",
     "build:runtime": "node scripts/build-runtime.mjs",
     "build:styles": "node scripts/build-styles.mjs",
-    "check": "npm run build:runtime && npm run build:styles && node --check server.mjs && node --check workbench-server.mjs && node scripts/check-runtime.mjs",
+    "check": "npm run build:runtime && npm run build:styles && node --check server.mjs && node --check workbench-server.mjs && node --check case-study.js && node --check case-study-v2.js && node scripts/check-runtime.mjs && node scripts/case-study-acceptance.cjs && node scripts/case-study-v2-acceptance.cjs",
     "build": "npm run check",
     "test": "npm run check",
-    "test:acceptance": "node v30-entry-acceptance.cjs && node v8-product-logic-acceptance.cjs && node v8-multigroup-acceptance.cjs && node duplicate-guard-acceptance.cjs"
+    "test:acceptance": "node v30-entry-acceptance.cjs && node v8-product-logic-acceptance.cjs && node v8-multigroup-acceptance.cjs && node duplicate-guard-acceptance.cjs",
+    "test:case-study:visual": "node scripts/case-study-visual-qa.cjs",
+    "test:case-study:v2:visual": "node scripts/case-study-v2-visual-qa.cjs"
   },
   "engines": {
     "node": ">=20"
